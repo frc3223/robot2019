@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem {
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   }
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    differentialDrive.tankDrive(leftSpeed, rightSpeed);
+    differentialDrive.tankDrive(-leftSpeed, -rightSpeed);
   }
 
   @Override
