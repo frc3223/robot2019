@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Drivetrain;
+
+
 import com.google.inject.Injector;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,9 +25,12 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  private ExampleSubsystem m_subsystem;
-  private OI m_oi;
+  private ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static OI m_oi;
   private Injector injector;
+
+  public static Drivetrain m_drivetrain = null;
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -30,6 +38,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    m_drivetrain = new Drivetrain();
     m_oi = new OI();
   }
 
