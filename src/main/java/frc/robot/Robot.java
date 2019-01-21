@@ -7,14 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.Drivetrain;
-
-
 import com.google.inject.Injector;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.subsystems.DataLogger;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -24,12 +24,15 @@ import frc.robot.subsystems.ExampleSubsystem;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
   private ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   private Injector injector;
 
   public static Drivetrain m_drivetrain = null;
+  public DataLogger logger;
+  public DriverStation driverStation;
 
 
   /**
@@ -38,8 +41,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //Initializing stuff
+    this.logger = new DataLogger("Log");
+    this.driverStation = DriverStation.getInstance();
+
+    this.logger.add("Time delta", ()-> this.getPeriod());
+    this.logger.add("Voltage", ()-> RobotController.getBatteryVoltage());
+    this.logger.add("Match No.", ()-> this.driverStation.getMatchNumber());
     m_drivetrain = new Drivetrain();
     m_oi = new OI();
+    //Initialization message
+    System.out.println("Robot online.");
   }
 
   /**
@@ -61,6 +73,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    //De-initialization message
+    System.out.println("Robot is now offline.");
   }
 
   @Override
@@ -81,6 +95,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    //Initialization message
+    System.out.println("Initiating autonomous!");
   }
 
   /**
@@ -93,6 +109,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    //Initialization message
+    System.out.println("Initiating teleop!");
   }
 
   /**
@@ -101,6 +119,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    this.logger.log();
   }
 
   /**
