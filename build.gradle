@@ -53,9 +53,9 @@ dependencies {
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
-    testCompile 'org.powermock:powermock-core:1.7.4'
-    testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.7.4'
-    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.7.4'
+    testCompile 'org.powermock:powermock-core:2.0.0'
+    testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.0'
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.0'
 
 
 

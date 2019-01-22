@@ -228,22 +228,22 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.bytebuddy:byte-buddy-agent:1.6.14">
+    <library name="Gradle: net.bytebuddy:byte-buddy-agent:1.9.3">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.6.14/ba1e5ba3a84fb2fbf2f4de9138df19665eec4d59/byte-buddy-agent-1.6.14.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.9.3/f5b78c16cf4060664d80b6ca32d80dca4bd3d264/byte-buddy-agent-1.9.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.6.14/75649a0d922bc4efb65bd60a734ee38b64d54231/byte-buddy-agent-1.6.14-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.9.3/331129f3735b57bdb899a4e73731cf5f3322cff4/byte-buddy-agent-1.9.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.bytebuddy:byte-buddy:1.6.14">
+    <library name="Gradle: net.bytebuddy:byte-buddy:1.9.3">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.6.14/871c3e49dc6183d0d361601c2f1d11abb1a6b48c/byte-buddy-1.6.14.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.9.3/f32e510b239620852fc9a2387fac41fd053d6a4d/byte-buddy-1.9.3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.6.14/59f185ca98044661e587f1685c59dae22a49e1cc/byte-buddy-1.6.14-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.9.3/ef8bdb760633510eed72e262193d6afbc451cc72/byte-buddy-1.9.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.hamcrest:hamcrest-core:1.3">
@@ -255,13 +255,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.javassist:javassist:3.21.0-GA">
+    <library name="Gradle: org.javassist:javassist:3.24.0-GA">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.21.0-GA/598244f595db5c5fb713731eddbb1c91a58d959b/javassist-3.21.0-GA.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.24.0-GA/d7466fc2e3af7c023e95c510f06448ad29b225b3/javassist-3.24.0-GA.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.21.0-GA/81fefbd46ba6a18fc7af83b9c60b28c0862cd492/javassist-3.21.0-GA-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.24.0-GA/88e88c8e043968bac9b2e86df5cb4a7c2b9f0023/javassist-3.24.0-GA-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.mockito:mockito-core:2.8.9">
@@ -273,22 +273,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.8.9/45f340ae3e0a0d7a97a1cb8173a081a3856c41eb/mockito-core-2.8.9-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.objenesis:objenesis:2.4">
+    <library name="Gradle: org.objenesis:objenesis:3.0.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.4/2916b6c96b50c5b3ec4452ed99401db745aabb27/objenesis-2.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/3.0.1/11cfac598df9dc48bb9ed9357ed04212694b7808/objenesis-3.0.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.4/19b316d8da7da3ae2539ee4ee2cf73a1e127fa73/objenesis-2.4-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.objenesis:objenesis:2.5">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.5/612ecb799912ccf77cba9b3ed8c813da086076e9/objenesis-2.5.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.5/e2b450699731118d1498645e36577371afced20f/objenesis-2.5-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/3.0.1/4aaa3e228e1ae7c71ded703b8742c37c058057fd/objenesis-3.0.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.powermock:powermock-api-mockito-common:1.7.4">
@@ -318,40 +309,40 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-support/1.7.4/41af0b9ee7044a1fa0b278d4d47bbe1683ceabef/powermock-api-support-1.7.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.powermock:powermock-core:1.7.4">
+    <library name="Gradle: org.powermock:powermock-core:2.0.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-core/1.7.4/2170b16d933fdd9815bc1f3871771ab30e9ad2fe/powermock-core-1.7.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-core/2.0.0/c34a6706f810172e210d218627abf0541b9d66d2/powermock-core-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-core/1.7.4/1a55f33f64b4d831c85ce48dbb5ea53d04524123/powermock-core-1.7.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-core/2.0.0/21294ee47e9ed27b6c8fc4d284b15382c1816493/powermock-core-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.powermock:powermock-module-junit4-common:1.7.4">
+    <library name="Gradle: org.powermock:powermock-module-junit4-common:2.0.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4-common/1.7.4/53a078efeb50a0a8ab80c2eb3ecf83219d64008c/powermock-module-junit4-common-1.7.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4-common/2.0.0/b04042e0669345b338fcd62fe5383de7cb761cf6/powermock-module-junit4-common-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4-common/1.7.4/2c9516e4d397d95fdb2031f8b97351563708b0ab/powermock-module-junit4-common-1.7.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4-common/2.0.0/797cbbcd435ce86fc2c91a494c0772ad7562f38d/powermock-module-junit4-common-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.powermock:powermock-module-junit4:1.7.4">
+    <library name="Gradle: org.powermock:powermock-module-junit4:2.0.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4/1.7.4/18cc40fb5e3997ad766405986bcbb64d6a4551a4/powermock-module-junit4-1.7.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4/2.0.0/6930eaf4dec9736d25423f4382d6212c169df576/powermock-module-junit4-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4/1.7.4/2cb09ea43bf798e98e0fd70a3ccfe532c5e12829/powermock-module-junit4-1.7.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-module-junit4/2.0.0/8c9ce15fdd7e9cbdfe433fa2f04eadb8800133a2/powermock-module-junit4-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.powermock:powermock-reflect:1.7.4">
+    <library name="Gradle: org.powermock:powermock-reflect:2.0.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-reflect/1.7.4/a484263077a371165c2fa96aa52935cd580a3e3c/powermock-reflect-1.7.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-reflect/2.0.0/cd452bc345ec9f88ec5efecd41139de0cb1d4265/powermock-reflect-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-reflect/1.7.4/2a85db8a2c57664522967f53fa5c9f38e5fd4533/powermock-reflect-1.7.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-reflect/2.0.0/664b88ce4b3f1ed05d6014ee44841a8e2905fa0d/powermock-reflect-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
