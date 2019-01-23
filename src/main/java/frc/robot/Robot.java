@@ -10,12 +10,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.LimeLight;
 
 
 import com.google.inject.Injector;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,17 +34,20 @@ public class Robot extends TimedRobot {
   private Injector injector;
 
   public static Drivetrain m_drivetrain = null;
+  public static LimeLight m_limelight = null;
 
-
+  NetworkTableEntry xEntry;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() { 
     m_drivetrain = new Drivetrain();
+    m_limelight = new LimeLight();
     m_oi = new OI();
   }
+
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -101,6 +108,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    
   }
 
   /**
