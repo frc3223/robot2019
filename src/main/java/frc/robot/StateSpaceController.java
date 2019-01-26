@@ -5,11 +5,9 @@ import java.util.function.Consumer;
 //Imports
 import cern.colt.function.DoubleDoubleFunction;
 import cern.colt.matrix.*;
-import cern.colt.matrix.linalg.*;
 
 public class StateSpaceController {
     //Global
-    public Algebra alg;
     public DoubleDoubleFunction add = new DoubleDoubleFunction(){
         @Override
         public double apply(double arg0, double arg1) {
@@ -55,7 +53,6 @@ public class StateSpaceController {
     public DoubleMatrix2D y_est;
 
     public void init(int n, int n_2, int p) {
-        this.alg = new Algebra();
         this.factory2D = DoubleFactory2D.dense;
 
         //Yeeeee, create everything
@@ -79,16 +76,28 @@ public class StateSpaceController {
     }
 
     public void predict() {
-        DoubleMatrix2D x_temp = alg.mult(this.B, this.u);
-        this.x_prev = alg.mult(this.A, this.x_prev);
+        //DoubleMatrix2D x_temp = alg.mult(this.B, this.u);
+        DoubleMatrix2D x_temp = factory2D.make(B.rows(), u.columns());
+        B.zMult(u, x_temp);
+        //this.x_prev = alg.mult(this.A, this.x_prev);
+        DoubleMatrix2D t = factory2D.make(A.rows(), x_prev.columns());
+        this.A.zMult(this.x_prev, t);
+        this.x_prev.assign(t);
         this.x_prev.assign(x_temp, add);
     }
 
     public void update() {
-        this.y_est = alg.mult(this.C, this.x_prev);
-        DoubleMatrix2D m = alg.mult(this.A_inv, this.L);
-        DoubleMatrix2D x_temp1 = alg.mult(m, this.y_obs);
-        DoubleMatrix2D x_temp2 = alg.mult(m, this.y_est);
+        //this.y_est = alg.mult(this.C, this.x_prev);
+        this.C.zMult(this.x_prev, this.y_est);
+        //DoubleMatrix2D m = alg.mult(this.A_inv, this.L);
+        DoubleMatrix2D m = factory2D.make(A_inv.rows(), L.columns());
+        A_inv.zMult(L, m);
+        //DoubleMatrix2D x_temp1 = alg.mult(m, this.y_obs);
+        DoubleMatrix2D x_temp1 = factory2D.make(m.rows(), y_obs.columns());
+        m.zMult(y_obs, x_temp1);
+        //DoubleMatrix2D x_temp2 = alg.mult(m, this.y_est);
+        DoubleMatrix2D x_temp2 = factory2D.make(m.rows(), y_est.columns());
+        m.zMult(y_est, x_temp2);
         this.x_prev.assign(x_temp1, add);
         this.x_prev.assign(x_temp2, sub);
     }
@@ -99,12 +108,16 @@ public class StateSpaceController {
         DoubleMatrix2D temp = factory2D.make(r.rows(), r.columns());
         temp.assign(r);
         temp.assign(x_prev, sub);
-        this.u = alg.mult(this.K, temp);
+        //this.u = alg.mult(this.K, temp);
+        this.K.zMult(temp, this.u);
 
-        DoubleMatrix2D temp2 = alg.mult(this.A, this.r);
+        //DoubleMatrix2D temp2 = alg.mult(this.A, this.r);
+        DoubleMatrix2D temp2 = factory2D.make(A.rows(), r.columns());
+        A.zMult(r, temp2);
         temp.assign(r_next);
         temp.assign(temp2, sub);
-        this.uff = alg.mult(this.Kff, temp);
+        //this.uff = alg.mult(this.Kff, temp);
+        this.Kff.zMult(temp, this.uff);
         
         this.r.assign(this.r_next);
         this.u.assign(this.uff, add);
