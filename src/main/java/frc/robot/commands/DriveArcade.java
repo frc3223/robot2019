@@ -11,9 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-
-public class DriveTank extends Command {
-  public DriveTank() {
+public class DriveArcade extends Command {
+  public DriveArcade() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_drivetrain);
@@ -27,10 +26,9 @@ public class DriveTank extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_LEFT_AXIS);
-    double rightSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_AXIS);
-
-    Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
+    double moveSpeed = -Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_MOVE_AXIS);
+    double rotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_ROTATE_AXIS);
+    Robot.m_drivetrain.arcadeDrive(moveSpeed, rotateSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +40,7 @@ public class DriveTank extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_drivetrain.tankDrive(0, 0);
+    Robot.m_drivetrain.arcadeDrive(0,0);
   }
 
   // Called when another command which requires one or more of the same

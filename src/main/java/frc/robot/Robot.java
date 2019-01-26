@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
@@ -17,16 +15,16 @@ import frc.robot.subsystems.LimeLight;
 
 import com.google.inject.Injector;
 
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.DataLogger;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -66,8 +64,15 @@ public class Robot extends TimedRobot {
     m_drivetrain = new Drivetrain();
     m_limelight = new LimeLight();
     m_oi = new OI();
+
+    new Thread(() -> {
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+      camera.setResolution(640, 480);
+    }).start();
+
     //Initialization message
     System.out.println("Robot online.");
+
   }
 
 
