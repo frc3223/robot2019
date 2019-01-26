@@ -40,8 +40,10 @@ public class Drivetrain extends Subsystem {
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   }
+
   public void arcadeDrive(double moveSpeed, double rotateSpeed) {
     differentialDrive.arcadeDrive(moveSpeed, rotateSpeed);
+
   }
 
   @Override
