@@ -33,6 +33,13 @@ public class RobotMap {
   public static final int OI_DRIVER_CONTROLLER = 0;
   public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1;
   public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
+  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_DRIVE_MOTOR = 8;
  
 }
 
