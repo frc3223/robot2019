@@ -3,15 +3,23 @@ package frc.robot;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import edu.wpi.first.hal.HAL;
-import edu.wpi.first.hal.sim.DriverStationSim;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.DataLogger;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({DataLogger.class, RobotBase.class})
 public class StateSpaceControllerTest {
 
     public StateSpaceController stateController;
     public DataLogger logger;
+    public Timer mockTimer = PowerMockito.mock(Timer.class);
 
     @Test
     public void testSetInput() {
@@ -71,13 +79,10 @@ public class StateSpaceControllerTest {
         assertEquals(0.881, stateController.x_prev.get(1, 0), 0.001);
     }
     @Test
-    public void testPeriodic() {
-        //HAL.initialize(500, 0);
-        DriverStationSim dsSim = new DriverStationSim();
-        dsSim.setDsAttached(true);
-        dsSim.setAutonomous(false);
-        dsSim.setEnabled(true);
-        dsSim.setTest(false);
+    public void testPeriodic() throws Exception {
+        PowerMockito.whenNew(Timer.class).withAnyArguments().thenReturn(this.mockTimer);
+        PowerMockito.mockStatic(RobotBase.class);
+        Mockito.when(RobotBase.isSimulation()).thenReturn(true);
         logger = new DataLogger("testPeriodic");
         logger.add("Position", () -> stateController.x_prev.get(0, 0));
         logger.add("Velocity", () -> stateController.x_prev.get(1, 0));
