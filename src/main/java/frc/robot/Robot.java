@@ -13,6 +13,9 @@ import frc.robot.subsystems.Drivetrain;
 
 
 import com.google.inject.Injector;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -40,6 +43,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_drivetrain = new Drivetrain();
     m_oi = new OI();
+    new Thread(() -> {
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+      camera.setResolution(640, 480);
+    }).start();
   }
 
   /**
