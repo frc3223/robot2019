@@ -24,15 +24,22 @@ public class Elevator extends Subsystem {
       BOTTOM, MIDDLE, TOP
   }
 
-  public StateSpaceController stateSpaceController;
+  public double ticksPerRev = 4096;
+  public double sprocketRadius = 0.0508;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
+  public StateSpaceController stateSpaceController;
   public WPI_TalonSRX[] talons;
-  public boolean isDisabled = false;
+
+  private boolean isDisabled = false;
+  private double targetPosition = 0;
+  private double targetVelocity = 0;
+
   public Elevator() {
       talons = new WPI_TalonSRX[] {
         new WPI_TalonSRX(RobotMap.DRIVETRAIN_ELEVATOR_TALON)
       };
+      initStateSpace();
       notifier = new Notifier(new Runnable(){
         @Override
         public void run() {
@@ -66,18 +73,50 @@ public class Elevator extends Subsystem {
 
   }
 
-  public void setDisabled(boolean input) {
-    this.isDisabled = input;
+  public synchronized void setDisabled(boolean isDisabled) {
+    if(!isDisabled){
+      setTargetPosition(getPosition());
+    }
+    this.isDisabled = isDisabled;
+  }
+
+  public synchronized boolean isDisabled() {
+    return this.isDisabled;
+  }
+
+  public synchronized void setTargetPosition(double pos) {
+    this.targetPosition = pos;
+  }
+
+  public synchronized double getTargetPosition() {
+      return this.targetPosition;
+  }
+
+  public synchronized void setTargetVelocity(double vel) {
+    this.targetVelocity = vel;
+  }
+
+  public synchronized double getTargetVelocity() {
+      return this.targetVelocity;
+  }
+
+  public double getPosition() {
+      double ticks = talons[0].getSelectedSensorPosition();
+      double val = (ticks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius);
+      return val;
   }
 
   public void calculate() {
-    if(!this.isDisabled){
+    if(stateSpaceController == null){
+        System.out.println("stateSpaceController is null");
+    }
+    if(!isDisabled()){
         stateSpaceController.update();
         stateSpaceController.setInput((r) -> {
             //Target position (meter)
-            r.set(0, 0, 1);
+            r.set(0, 0, getTargetPosition());
             //Target velocity (meters/second)
-            r.set(1, 0, 0);
+            r.set(1, 0, getTargetVelocity());
         });
         double voltage = stateSpaceController.u.get(0, 0);
         for(int i = 0; i < talons.length; i++){
@@ -87,7 +126,7 @@ public class Elevator extends Subsystem {
         }
         stateSpaceController.setOutput((y) -> {
             //Position in meters
-            y.set(0, 0, stateSpaceController.y_est.get(0, 0));
+            y.set(0, 0, getPosition());
         });
         stateSpaceController.predict();
     }

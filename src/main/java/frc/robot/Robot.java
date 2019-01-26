@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     //De-initialization message
     System.out.println("Robot is now offline.");
-    elevator.setDisabled(false);
+    //elevator.setDisabled(false);
   }
 
   @Override
@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     //Initialization message
     System.out.println("Initiating teleop!");
-    elevator.setDisabled(true);
+    //elevator.setDisabled(true);
   }
 
   /**

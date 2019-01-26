@@ -72,7 +72,7 @@ public class StateSpaceControllerTest {
     }
     @Test
     public void testPeriodic() {
-        HAL.initialize(500, 0);
+        //HAL.initialize(500, 0);
         DriverStationSim dsSim = new DriverStationSim();
         dsSim.setDsAttached(true);
         dsSim.setAutonomous(false);
