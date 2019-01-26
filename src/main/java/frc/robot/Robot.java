@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
 
 
@@ -44,6 +45,7 @@ public class Robot extends TimedRobot {
   public static LimeLight m_limelight = null;
   public DataLogger logger;
   public DriverStation driverStation;
+  public Elevator elevator;
 
 
   NetworkTableEntry xEntry;
@@ -90,6 +92,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     //De-initialization message
     System.out.println("Robot is now offline.");
+    elevator.setDisabled(false);
   }
 
   @Override
@@ -126,6 +129,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     //Initialization message
     System.out.println("Initiating teleop!");
+    elevator.setDisabled(true);
   }
 
   /**
