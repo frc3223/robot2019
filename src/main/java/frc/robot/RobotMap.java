@@ -24,15 +24,22 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  //Motor Controllers
   public static final int DRIVETRAIN_LEFT_FRONT_TALON = 1;
-
   public static final int DRIVETRAIN_LEFT_BACK_VICTOR = 2;
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
+  
+  
   public static final int OI_DRIVER_CONTROLLER = 0;
-  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1;
-  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
+
+  // Xbox controller buttons
+  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
+  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
+  public static final int LIME_LIGHT_ON_BUTTON = 3; //X button
+
+  //Climber things
   public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 1;
   public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2 = 1;
   public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 1;
@@ -40,7 +47,13 @@ public class RobotMap {
   public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 1;
   public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 1;
   public static final int CLIMBER_DRIVE_MOTOR = 8;
- 
+
+ //Limelight modes
+  public static final int LIME_LIGHT_LIGHT_PIPELINE = 0;
+  public static final int LIME_LIGHT_LIGHT_OFF = 1;
+  public static final int LIME_LIGHT_LIGHT_BLINK = 2;
+  public static final int LIME_LIGHT_LIGHT_ON = 3;
+
 }
 
  

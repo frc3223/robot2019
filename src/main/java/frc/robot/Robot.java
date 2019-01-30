@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.ActivateLimeLight;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -65,6 +66,8 @@ public class Robot extends TimedRobot {
     m_limelight = new LimeLight();
     m_oi = new OI();
 
+    m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
       camera.setResolution(640, 480);
@@ -72,6 +75,8 @@ public class Robot extends TimedRobot {
 
     //Initialization message
     System.out.println("Robot online.");
+
+    
 
   }
 

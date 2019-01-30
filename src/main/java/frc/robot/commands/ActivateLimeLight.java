@@ -9,8 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
+
 
 public class ActivateLimeLight extends Command {
+  double currentHeight;
+  double currentWidth;
+  boolean aligned;
   public ActivateLimeLight() {
     requires(Robot.m_limelight);
     // Use requires() here to declare subsystem dependencies
@@ -20,13 +25,35 @@ public class ActivateLimeLight extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    aligned = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   double tv = Robot.m_limelight.getValidTargets();
-   System.out.println("Valid Target? " + tv);
+    //Number tv = Robot.m_limelight.getValidTargets();
+
+    //boolean pressed = Robot.m_oi.driverController.getRawButtonPressed(RobotMap.LIME_LIGHT_ON_BUTTON);
+    //if(pressed) {
+      
+      //System.out.println("pressed");
+      //Number LEDstatus = Robot.m_limelight.getLEDStatus();
+      //System.out.println("LEDStatus: " + LEDstatus);
+      //if(LEDstatus.intValue() == 0 || LEDstatus.intValue() == 1) {
+        Robot.m_limelight.turnLEDOn();
+        
+      //}
+      //else if(LEDstatus.intValue() == 3) {
+      //  Robot.m_limelight.turnLEDOff();
+      //}
+      
+      
+    //}
+
+    
+
+
+
    
   }
 
@@ -39,7 +66,7 @@ public class ActivateLimeLight extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
+    Robot.m_limelight.turnLEDOff();
   }
 
   // Called when another command which requires one or more of the same
