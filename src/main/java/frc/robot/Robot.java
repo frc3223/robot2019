@@ -7,10 +7,24 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.LimeLight;
+
+
+
 import com.google.inject.Injector;
+
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.networktables.NetworkTableEntry;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,19 +33,48 @@ import frc.robot.subsystems.ExampleSubsystem;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
-  private ExampleSubsystem m_subsystem;
-  private OI m_oi;
+  private ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static OI m_oi;
   private Injector injector;
 
+  public static Drivetrain m_drivetrain = null;
+  public static LimeLight m_limelight = null;
+  public DataLogger logger;
+  public DriverStation driverStation;
+  public Elevator elevator;
+
+
+  NetworkTableEntry xEntry;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
+
   public void robotInit() {
+    //Initializing stuff
+    this.logger = new DataLogger("Log");
+    this.driverStation = DriverStation.getInstance();
+
+    this.logger.add("Time delta", ()-> this.getPeriod());
+    this.logger.add("Voltage", ()-> RobotController.getBatteryVoltage());
+    this.logger.add("Match No.", ()-> this.driverStation.getMatchNumber());
+    m_drivetrain = new Drivetrain();
+    m_limelight = new LimeLight();
     m_oi = new OI();
+
+    new Thread(() -> {
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+      camera.setResolution(640, 480);
+    }).start();
+
+    //Initialization message
+    System.out.println("Robot online.");
+
   }
+
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -52,6 +95,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    //De-initialization message
+    System.out.println("Robot is now offline.");
+    //elevator.setDisabled(false);
   }
 
   @Override
@@ -72,6 +118,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    //Initialization message
+    System.out.println("Initiating autonomous!");
   }
 
   /**
@@ -84,6 +132,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    //Initialization message
+    System.out.println("Initiating teleop!");
+    //elevator.setDisabled(true);
   }
 
   /**
@@ -92,6 +143,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    this.logger.log();
   }
 
   /**

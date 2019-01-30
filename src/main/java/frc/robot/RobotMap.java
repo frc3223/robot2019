@@ -29,4 +29,27 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
+
+  public static final int DRIVETRAIN_LEFT_FRONT_TALON = 1;
+
+  public static final int DRIVETRAIN_LEFT_BACK_VICTOR = 2;
+  public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
+  public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
+  public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
+  public static final int OI_DRIVER_CONTROLLER = 0;
+  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1;
+  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
+  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_DRIVE_MOTOR = 8;
+ 
 }
+
+ 
+
+
+
