@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
 
 /**
@@ -28,6 +29,8 @@ public class OI {
     }
 
   public Joystick driverController = new Joystick(RobotMap.OI_DRIVER_CONTROLLER);
+
+  public JoystickButton limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

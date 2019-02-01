@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.RobotMap;
 import frc.robot.commands.ActivateLimeLight;
 
 /**
@@ -19,29 +20,45 @@ import frc.robot.commands.ActivateLimeLight;
 public class LimeLight extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  NetworkTableInstance inst = null;
-  NetworkTable table = null;
+  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  NetworkTable table = inst.getTable("limelight");
+  
 
   public LimeLight() {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("limelight");
+
   }
 
-  public double getValidTargets() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+
+
+  public Number getValidTargets() {
+    NetworkTableEntry tv;
+    tv = table.getEntry("tv");
+    return tv.getNumber(0);
   }
 
-  public double getHorizonalOffset() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+  public Number getLEDStatus() {
+    NetworkTableEntry ledMode;
+    ledMode = table.getEntry("ledMode");
+    return ledMode.getNumber(0);
+  }
+  
+  public void turnLEDOff() {
+    NetworkTableEntry ledMode;
+    ledMode = table.getEntry("ledMode");
+    ledMode.setNumber(RobotMap.LIME_LIGHT_LIGHT_OFF);
   }
 
-  public double getVerticalOffset() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+  public void turnLEDOn() {
+    NetworkTableEntry ledMode;
+    ledMode = table.getEntry("ledMode");
+    ledMode.setNumber(RobotMap.LIME_LIGHT_LIGHT_ON);
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new ActivateLimeLight());
+    //setDefaultCommand(new ActivateLimeLight());
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
 
