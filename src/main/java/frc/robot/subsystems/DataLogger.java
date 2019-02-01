@@ -42,9 +42,7 @@ public class DataLogger {
       this.usbExists = target_file2.exists();
     }
     target_file.getParentFile().mkdirs();
-    add("Time", () -> timer.get());
-
-    
+    add("time", () -> timer.get());
   }
 
   /**

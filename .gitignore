@@ -1,4 +1,8 @@
 testPeriodic.csv
+.idea/workspace.xml
+.idea/gradle.xml
+test_profiler1.csv
+.ipynb_checkpoints/
 # Created by https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
 
 ### C++ ###
