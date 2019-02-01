@@ -1,4 +1,5 @@
 
+package  frc.robot;
 public class TrapezoidalProfiler {
     double acc;
     double maxVelocity;
@@ -12,6 +13,7 @@ public class TrapezoidalProfiler {
     double choice = 0;
     double v;
     double okerr;
+    double current_pos;
 
     public TrapezoidalProfiler(double maxVelocity, double acc, double target_pos, double tolerance, double current_target_v) {
         assert maxVelocity > 0;
@@ -20,6 +22,14 @@ public class TrapezoidalProfiler {
         this.tolerance = tolerance;
         this.current_target_v = current_target_v;
         this.acc = acc;
+        this.current_pos = 0;
+    }
+
+    public double getCurrentTargetVelocity(){
+        return current_target_v;
+    }
+    public double getCurrentPosition(){
+        return current_pos;
     }
 
     public double getMaxVelocity() {
@@ -104,6 +114,7 @@ public class TrapezoidalProfiler {
 
         print("post");
         current_target_v = v;
+        this.current_pos += current_target_v * dt;
     }
 
     public void inc(double dt) {
