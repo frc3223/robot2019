@@ -67,7 +67,7 @@ public class Elevator extends Subsystem {
   public double getBusVoltage() {
       return this.talons[0].getBusVoltage();
   }
-
+ 
   public void logMotorVoltage(DataLogger logger) {
       for(int j = 0; j < this.talons.length; j++) {
         int temp = j;
