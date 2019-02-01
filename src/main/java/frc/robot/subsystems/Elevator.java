@@ -64,9 +64,33 @@ public class Elevator extends Subsystem {
 
   }
 
-  //For when the driver wants to manually control the elevator level
-  public void moveElevator() {
+  public double getBusVoltage() {
+      return this.talons[0].getBusVoltage();
+  }
 
+  public void logMotorVoltage(DataLogger logger) {
+      for(int j = 0; j < this.talons.length; j++) {
+        int temp = j;
+        logger.add("Voltage (Motor " + (temp + 1) + ")", () -> {
+            return this.talons[temp].getMotorOutputVoltage();
+        });
+      }
+  }
+
+  public void logMotorCurrent(DataLogger logger) {
+    for(int j = 0; j < this.talons.length; j++) {
+      int temp = j;
+      logger.add("Current (Motor " + (temp + 1) + ")", () -> {
+          return this.talons[temp].getOutputCurrent();
+      });
+    }
+}
+
+  //For when the driver wants to manually control the elevator level
+  public void moveElevator(double voltPercent) {
+    for(int i = 0; i < this.talons.length; i++) {
+        this.talons[i].set(voltPercent);
+    }
   }
 
   public void maintainLevel() {
@@ -98,6 +122,11 @@ public class Elevator extends Subsystem {
 
   public synchronized double getTargetVelocity() {
       return this.targetVelocity;
+  }
+
+  public double getVelocity() {
+    double rawEncoderTicks = this.talons[0].getSelectedSensorVelocity();
+    return (rawEncoderTicks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius) * 10;
   }
 
   public double getPosition() {
@@ -176,5 +205,9 @@ public class Elevator extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void measureVoltage(double volts) {
+
   }
 }
