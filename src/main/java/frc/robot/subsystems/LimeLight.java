@@ -32,16 +32,40 @@ public class LimeLight extends Subsystem {
 
 
 
-  public Number getValidTargets() {
+  public int getValidTarget() {
     NetworkTableEntry tv;
     tv = table.getEntry("tv");
-    return tv.getNumber(0);
+    return tv.getNumber(0).intValue();
   }
 
-  public Number getLEDStatus() {
+  public int getShortBB() {
+    NetworkTableEntry tshort;
+    tshort = table.getEntry("tshort");
+    return tshort.getNumber(0).intValue();
+  }
+
+  public int getLongBB() {
+    NetworkTableEntry tlong;
+    tlong = table.getEntry("tlong");
+    return tlong.getNumber(0).intValue();
+  }
+
+  public double getHorizontalOffset() {
+    NetworkTableEntry tx;
+    tx = table.getEntry("tx");
+    return tx.getNumber(0).doubleValue();
+  }
+
+  public double getVerticalOffset() {
+    NetworkTableEntry ty;
+    ty = table.getEntry("ty");
+    return ty.getNumber(0).doubleValue();
+  }
+
+  public int getLEDStatus() {
     NetworkTableEntry ledMode;
     ledMode = table.getEntry("ledMode");
-    return ledMode.getNumber(0);
+    return ledMode.getNumber(0).intValue();
   }
   
   public void turnLEDOff() {

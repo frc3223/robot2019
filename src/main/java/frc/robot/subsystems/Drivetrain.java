@@ -46,6 +46,18 @@ public class Drivetrain extends Subsystem {
 
   }
 
+  public void moveLeft() {
+    arcadeDrive(0.5, -0.5);
+  }
+  public void moveRight() {
+    arcadeDrive(0.5, 0.5);
+  }
+
+  public void stop() {
+    arcadeDrive(0, 0);
+  }
+
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

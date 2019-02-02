@@ -13,8 +13,9 @@ import frc.robot.RobotMap;
 
 
 public class ActivateLimeLight extends Command {
-  double currentHeight;
-  double currentWidth;
+  double correctHeight = 5.75; //inches
+  double correctWidth = 15.5;  //inches
+  double correctRatio = correctWidth / correctHeight;
   boolean aligned;
   public ActivateLimeLight() {
     requires(Robot.m_limelight);
@@ -31,24 +32,34 @@ public class ActivateLimeLight extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Number tv = Robot.m_limelight.getValidTargets();
-
-    //boolean pressed = Robot.m_oi.driverController.getRawButtonPressed(RobotMap.LIME_LIGHT_ON_BUTTON);
-    //if(pressed) {
-      
-      //System.out.println("pressed");
-      //Number LEDstatus = Robot.m_limelight.getLEDStatus();
-      //System.out.println("LEDStatus: " + LEDstatus);
-      //if(LEDstatus.intValue() == 0 || LEDstatus.intValue() == 1) {
-        Robot.m_limelight.turnLEDOn();
+    Robot.m_limelight.turnLEDOn();
+    int tv = Robot.m_limelight.getValidTarget();
+    if(tv == 1) { // If the target is valid
+      double tlong = Robot.m_limelight.getLongBB();
+      double tshort = Robot.m_limelight.getShortBB();
+      double targetRatio = tlong / tshort;
+      if(targetRatio <= correctRatio + 0.3 && targetRatio >= correctRatio - 0.3) { //Correct ratio and correct target ratio
+        double tx = Robot.m_limelight.getHorizontalOffset();
         
-      //}
-      //else if(LEDstatus.intValue() == 3) {
-      //  Robot.m_limelight.turnLEDOff();
-      //}
-      
-      
-    //}
+        if(tx < -3) {
+          System.out.println("Move to the left");
+          Robot.m_drivetrain.moveLeft();
+
+        }
+        else if(tx > 3) {
+          System.out.println("Move to the right");
+          Robot.m_drivetrain.moveRight();
+        }
+        else if(tx >= -3 && tx <= 3) {
+          System.out.println("Move forward / Aligned");
+          Robot.m_limelight.turnLEDOff();
+          Robot.m_drivetrain.stop();
+          aligned = true;
+        }
+      }
+    }
+
+
 
     
 
@@ -60,6 +71,7 @@ public class ActivateLimeLight extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    
     return false;
   }
 
@@ -67,6 +79,7 @@ public class ActivateLimeLight extends Command {
   @Override
   protected void end() {
     Robot.m_limelight.turnLEDOff();
+    Robot.m_drivetrain.stop();
   }
 
   // Called when another command which requires one or more of the same
@@ -76,3 +89,4 @@ public class ActivateLimeLight extends Command {
     end();
   }
 }
+ 
