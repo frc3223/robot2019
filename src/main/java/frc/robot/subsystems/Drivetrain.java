@@ -41,7 +41,6 @@ public class Drivetrain extends Subsystem {
 
   public void arcadeDrive(double moveSpeed, double rotateSpeed) {
     differentialDrive.arcadeDrive(moveSpeed, rotateSpeed);
-
   }
 
   public void moveLeft() {
@@ -55,6 +54,9 @@ public class Drivetrain extends Subsystem {
     arcadeDrive(0, 0);
   }
 
+  public void moveForward(){
+    arcadeDrive(0.5 ,0);
+  }
 
   @Override
   public void initDefaultCommand() {

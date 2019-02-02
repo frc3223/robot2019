@@ -23,8 +23,6 @@ public class RobotMap {
     public static int joyIndex = 0;
     public static int compressorIndex = 3;
 
-
-
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
@@ -36,7 +34,6 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
-  
   
   public static final int OI_DRIVER_CONTROLLER = 0;
 
