@@ -16,6 +16,18 @@ import frc.robot.RobotMap;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+
+    Joystick stick;
+
+    public OI(){
+        stick  = new Joystick(RobotMap.joyIndex);
+    }
+
+    public Joystick getJoystck(){
+
+        return stick;
+    }
+
   public Joystick driverController = new Joystick(RobotMap.OI_DRIVER_CONTROLLER);
 
   public JoystickButton limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
@@ -25,7 +37,7 @@ public class OI {
   //// joystick.
   // You create one by telling it which joystick it's on and which button
   // number it is.
-  // Joystick stick = new Joystick(port);
+
   // Button button = new JoystickButton(stick, buttonNumber);
 
   // There are a few additional built in buttons you can use. Additionally,
