@@ -93,8 +93,11 @@ public class Elevator extends Subsystem {
     }
   }
 
-  public void maintainLevel() {
+/*  This is the method called in order to keep the elevator in a stable position.  */
 
+  public void maintainLevel() {
+    double keepElevatorInPlace = 0.1;
+    moveElevator(keepElevatorInPlace);
   }
 
   public synchronized void setDisabled(boolean isDisabled) {

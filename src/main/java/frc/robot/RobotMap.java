@@ -37,6 +37,9 @@ public class RobotMap {
   // Xbox controller buttons
   public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
   public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
+  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 5; //right joystick up-down
+/*  Dunno why we would want the elevator to rotate, but I'll put it in anyway.             */
+  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
   public static final int LIME_LIGHT_ON_BUTTON = 3; //X button
 
   //Climber things
