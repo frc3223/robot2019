@@ -44,20 +44,25 @@ public class ActivateLimeLight extends Command {
       double tlong = Robot.m_limelight.getLongBB();
       double tshort = Robot.m_limelight.getShortBB();
       double targetRatio = tlong / tshort;
+
       if(targetRatio <= correctRatio + 0.3 && targetRatio >= correctRatio - 0.3) { //Correct ratio and correct target ratio
         double tx = Robot.m_limelight.getHorizontalOffset();
+
         if(tx < -2) {
           //System.out.println("Move to the left");
           Robot.m_drivetrain.moveLeft();
           Robot.m_limelight.turnLEDOn();
+
         }else if(tx > 2) {
           //System.out.println("Move to the right");
           Robot.m_drivetrain.moveRight();
           Robot.m_limelight.turnLEDOn();
+
         }else if(tx >= -2 && tx <= 2) {
           System.out.println("Move forward / Aligned");
           //Robot.m_drivetrain.stop();
           aligned = true;
+          
           if(!moveForward){
             timeAligned = time.get();
             moveForward = true;

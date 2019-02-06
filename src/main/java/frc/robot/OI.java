@@ -18,9 +18,12 @@ import frc.robot.RobotMap;
 public class OI {
 
     Joystick stick;
+    int driverPort;
+    int manipulatorPort;
 
     public OI(){
         stick  = new Joystick(RobotMap.joyIndex);
+        getDriverPort();
     }
 
     public Joystick getJoystck(){
@@ -28,7 +31,21 @@ public class OI {
         return stick;
     }
 
-  public Joystick driverController = new Joystick(RobotMap.OI_DRIVER_CONTROLLER);
+    public void getDriverPort(){
+        Joystick controller = new Joystick(0);
+        String controllerName = controller.getName();
+        if(controllerName.contains("Pro")){
+            driverPort = 0;
+            manipulatorPort = 1;
+        }else{
+            driverPort = 1;
+            manipulatorPort = 0;
+        }
+    }
+
+
+  public Joystick driverController = new Joystick(driverPort);
+  public Joystick manipulatorController = new Joystick(manipulatorPort);
 
   public JoystickButton limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
 
