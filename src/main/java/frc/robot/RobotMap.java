@@ -24,7 +24,6 @@ public class RobotMap {
     public static int compressorIndex = 3;
 
 
-
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
@@ -36,9 +35,11 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
-  
-  
-  public static final int OI_DRIVER_CONTROLLER = 0;
+
+  //limit switch values
+  public static final int LIMIT_SWITCH_LEFT = 1;
+  public static final int LIMIT_SWITCH_RIGHT = 2;
+
 
   // Xbox controller buttons
   public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
@@ -52,7 +53,7 @@ public class RobotMap {
   public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 1;
   public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 1;
   public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 1;
-  public static final int CLIMBER_DRIVE_MOTOR = 8;
+  public static final int CLIMBER_DRIVE_MOTOR = 6;
 
  //Limelight modes
   public static final int LIME_LIGHT_LIGHT_PIPELINE = 0;

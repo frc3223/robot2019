@@ -8,8 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.RobotMap;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -18,19 +16,44 @@ import frc.robot.RobotMap;
 public class OI {
 
     Joystick stick;
+    int driverPort;
+    int manipulatorPort;
 
     public OI(){
         stick  = new Joystick(RobotMap.joyIndex);
+        getDriverPort();
     }
 
     public Joystick getJoystck(){
 
         return stick;
+
     }
 
-  public Joystick driverController = new Joystick(RobotMap.OI_DRIVER_CONTROLLER);
 
-  public JoystickButton limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
+    public void getDriverPort() {
+
+        Joystick ControllerOne = new Joystick(0);
+
+        String ControlOneName = ControllerOne.getName();
+
+        if (ControlOneName.contains("Pro")){
+            driverPort = 0;
+            manipulatorPort = 1;
+        }else{
+            driverPort = 1;
+            manipulatorPort = 0;
+
+        }
+        //return DriverPort;
+    }
+
+
+    public Joystick driverController = new Joystick(driverPort);
+    public Joystick manipulatorController = new Joystick(manipulatorPort);
+
+    public JoystickButton limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
+
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
