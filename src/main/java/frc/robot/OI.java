@@ -30,29 +30,23 @@ public class OI {
 
     }
 
-
-    public void getDriverPort() {
-
-        Joystick ControllerOne = new Joystick(0);
-
-        String ControlOneName = ControllerOne.getName();
-
-        if (ControlOneName.contains("Pro")){
+    public void getDriverPort(){
+        Joystick controller = new Joystick(0);
+        String controllerName = controller.getName();
+        if(controllerName.contains("Pro")){
             driverPort = 0;
             manipulatorPort = 1;
         }else{
             driverPort = 1;
             manipulatorPort = 0;
-
         }
-        //return DriverPort;
     }
 
 
-    public Joystick driverController = new Joystick(driverPort);
-    public Joystick manipulatorController = new Joystick(manipulatorPort);
+  public Joystick driverController = new Joystick(driverPort);
+  public Joystick manipulatorController = new Joystick(manipulatorPort);
 
-    public JoystickButton limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
+
 
 
   //// CREATING BUTTONS
