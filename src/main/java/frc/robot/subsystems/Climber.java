@@ -14,9 +14,7 @@ public class Climber extends Subsystem{
     DoubleSolenoid leftFrontSolenoid;
     DoubleSolenoid backSolenoid;
     WPI_VictorSPX driveMotor;
-
     Compressor c;
-
     DigitalInput limitSwitchR;
     DigitalInput limitSwitchL;
 
