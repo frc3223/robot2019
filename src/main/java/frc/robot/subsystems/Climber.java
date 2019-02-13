@@ -2,11 +2,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-<<<<<<< HEAD
 import edu.wpi.first.networktables.NetworkTable;
-=======
 import edu.wpi.first.wpilibj.Compressor;
->>>>>>> 2823cce0426617924742a3ca4e21de2177fb172b
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -39,13 +37,13 @@ public class Climber extends Subsystem{
         rightLimit = table.getEntry("Right Limit Switch");
         limitSwitchL = new DigitalInput(RobotMap.LIMIT_SWITCH_LEFT);
         limitSwitchR = new DigitalInput(RobotMap.LIMIT_SWITCH_RIGHT);
-        rightFrontSolenoid= new DoubleSolenoid(
+        rightFrontSolenoid = new DoubleSolenoid(
             RobotMap.CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2);
-        leftFrontSolenoid= new DoubleSolenoid(
+        leftFrontSolenoid = new DoubleSolenoid(
             RobotMap.CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2);
-        backSolenoid= new DoubleSolenoid(
+        backSolenoid = new DoubleSolenoid(
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL2);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
@@ -70,14 +68,14 @@ public class Climber extends Subsystem{
     } 
 
     public void moveForward(){
-        driveMotor.set(0.5);
+        driveMotor.set(1);
     }
 
     public void stopMotor(){
         driveMotor.set(0);
     }
 
-    public void moveBackward(){driveMotor.set(-0.5);}
+    public void moveBackward(){driveMotor.set(-1);}
 
     public void liftFront(){
         rightFrontSolenoid.set(Value.kReverse);
@@ -115,7 +113,4 @@ public class Climber extends Subsystem{
             return true;
         }else return false;
     }
-
-
-
 }

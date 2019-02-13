@@ -38,8 +38,6 @@ public class RobotMap {
   //limit switch values
   public static final int LIMIT_SWITCH_LEFT = 1;
   public static final int LIMIT_SWITCH_RIGHT = 2;
-
-
   
   public static final int OI_DRIVER_CONTROLLER = 0;
 
