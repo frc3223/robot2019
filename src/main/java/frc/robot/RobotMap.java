@@ -38,7 +38,7 @@ public class RobotMap {
   //limit switch values
   public static final int LIMIT_SWITCH_LEFT = 1;
   public static final int LIMIT_SWITCH_RIGHT = 2;
-  
+
   public static final int OI_DRIVER_CONTROLLER = 0;
 
   // Xbox controller buttons
@@ -64,6 +64,7 @@ public class RobotMap {
   //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
   public static final int LIME_LIGHT_ON_BUTTON = 1; //A button in manipulator control
+  public static final int ELEVATOR_TEST_OF_DEATH = 7;//START or BACK button
 
   //Climber things
   public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 1;
@@ -81,7 +82,7 @@ public class RobotMap {
   public static final int LIME_LIGHT_LIGHT_ON = 3;
 
 
-  //Pheumatics modes
+  //neumatics modes
   public static final int SOLENOIDS_SLIDE_FORWARD = 1;
   public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
   public static final int SOLENOIDS_GALAGA_FORWARD = 3;

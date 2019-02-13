@@ -34,6 +34,7 @@ import frc.robot.commands.ClimberFrontUp;
 import frc.robot.commands.ClimberBackUp;
 import frc.robot.commands.ClimberMoveForward;
 import frc.robot.commands.ClimberMoveBackward;
+import frc.robot.commands.ElevatorTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -89,6 +90,8 @@ public class Robot extends TimedRobot {
     m_oi.back_up_button.whenPressed(new ClimberBackUp());
     m_oi.lift_forward_button.whenPressed(new ClimberMoveForward());
     m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward());
+    m_oi.elevator_death_button.whenPressed(new ElevatorTest());
+    
 
 
     new Thread(() -> {

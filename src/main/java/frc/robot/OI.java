@@ -57,6 +57,7 @@ public class OI {
   public JoystickButton back_up_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_BACK_UP);
   public JoystickButton lift_forward_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
   public JoystickButton lift_backward_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+  public JoystickButton elevator_death_button = new JoystickButton(manipulatorController,RobotMap.ELEVATOR_TEST_OF_DEATH);
   
   
 
