@@ -12,10 +12,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.RobotMap;
 
-
-
 import com.google.inject.Injector;
-
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -35,6 +32,11 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import frc.robot.commands.ClimberDeploy;
+import frc.robot.commands.ClimberFrontUp;
+import frc.robot.commands.ClimberBackUp;
+import frc.robot.commands.ClimberMoveForward;
+import frc.robot.commands.ClimberMoveBackward;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -82,6 +84,7 @@ public class Robot extends TimedRobot {
     
 
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+<<<<<<< HEAD
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
     m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
@@ -89,6 +92,20 @@ public class Robot extends TimedRobot {
     m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
     m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
     m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
+=======
+    m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
+    m_oi.galaga_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
+    m_oi.galaga_out_button.whenPressed(new SlideIn(m_galaga, m_oi));
+    m_oi.slide_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    m_oi.slide_out_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    m_oi.all_down_button.whenPressed(new ClimberDeploy());
+    m_oi.front_up_button.whenPressed(new ClimberFrontUp());
+    m_oi.back_up_button.whenPressed(new ClimberBackUp());
+    m_oi.lift_forward_button.whenPressed(new ClimberMoveForward());
+    m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward());
+
+>>>>>>> e3f0ef154a90fed070e0603629120f8e72085361
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
