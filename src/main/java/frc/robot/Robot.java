@@ -30,6 +30,8 @@ import frc.robot.commands.SlideOut;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
+import frc.robot.subsystems.Carriage;
+import frc.robot.commands.CarriagePushPull;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
 /**
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain m_drivetrain = null;
   public static LimeLight m_limelight = null;
   public static Galaga m_galaga = null;
+  public static Carriage m_carriage = null;
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator elevator;
@@ -73,6 +76,7 @@ public class Robot extends TimedRobot {
     m_limelight = new LimeLight();
     m_oi = new OI();
     m_galaga = new Galaga();
+    m_carriage = new Carriage();
     
 
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
@@ -82,6 +86,7 @@ public class Robot extends TimedRobot {
     m_oi.galaga_out_button.whenPressed(new SlideIn(m_galaga, m_oi));
     m_oi.slide_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     m_oi.slide_out_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();

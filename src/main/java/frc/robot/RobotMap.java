@@ -34,6 +34,10 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
+  
+
+  //Manipulator
+  public static final int CARRIAGE_VICTOR = 12;
 
   //limit switch values
   public static final int LIMIT_SWITCH_LEFT = 1;
@@ -54,6 +58,8 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
   public static final int MANIPULATOR_CONTROLLER_SLIDE_OUT = 4; // Slide out with Y
   public static final int MANIPULATOR_CONTROLLER_SLIDE_IN = 1; // Slide in with A
+  public static final int MANIPULATOR_CONTROLLER_CARGO_PULLIN = 3; //cargo pull in trigger Left
+  public static final int MANIPULATOR_CONTROLLER_CARGO_PUSHOUT = 2; //cargo push out trigger Right
   public static final int MANIPULATOR_CONTROLLER_CARGO_INTAKE = 5; //cargo intake on left button
   public static final int MANIPULATOR_CONTROLLER_CARGO_DEPLOY = 2; //cargo deploy via left trigger
   public static final int MANIPULATOR_CONTROLLER_HATCH_INTAKE = 6; // grabbing hatches via right button
