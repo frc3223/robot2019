@@ -31,10 +31,11 @@ public class ElevatorJoystickTest {
         this.mockOI.driverController = this.mockJoystick;
         //PowerMockito.whenNew(ElevatorJoystick.class).withAnyArguments().thenReturn(this.elevatorJoystick);
         
-        PowerMockito.when(this.mockOI.driverController.getRawAxis(5)).thenReturn(0.09);
+        PowerMockito.when(this.mockOI.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS)).thenReturn(0.09);
         elevatorJoystick.execute();
         
         assertEquals(0, this.elevatorJoystick.rawAxisOutput, 0.0001);
+        
     }
 
     @Test
@@ -45,9 +46,10 @@ public class ElevatorJoystickTest {
         this.mockOI.driverController = this.mockJoystick;
         //PowerMockito.whenNew(ElevatorJoystick.class).withAnyArguments().thenReturn(this.elevatorJoystick);
         
-        PowerMockito.when(this.mockOI.driverController.getRawAxis(5)).thenReturn(0.25);
+        PowerMockito.when(this.mockOI.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS)).thenReturn(0.25);
         elevatorJoystick.execute();
         
         assertEquals(0.25, this.elevatorJoystick.rawAxisOutput, 0.0001);
+        
     }
 }
