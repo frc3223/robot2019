@@ -25,9 +25,12 @@ import frc.robot.commands.GalagaIn;
 import frc.robot.commands.GalagaOut;
 import frc.robot.commands.SlideIn;
 import frc.robot.commands.SlideOut;
+import frc.robot.commands.IntakeOut;
+import frc.robot.commands.IntakeIn;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import frc.robot.commands.ClimberDeploy;
 import frc.robot.commands.ClimberFrontUp;
@@ -55,6 +58,7 @@ public class Robot extends TimedRobot {
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator elevator;
+  public Intake m_intake;
   
 
 
@@ -77,14 +81,16 @@ public class Robot extends TimedRobot {
     m_limelight = new LimeLight();
     m_oi = new OI();
     m_galaga = new Galaga();
+    m_intake = new Intake();
+    
 
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
     m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
-    m_oi.galaga_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
-    m_oi.galaga_out_button.whenPressed(new SlideIn(m_galaga, m_oi));
-    m_oi.slide_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
-    m_oi.slide_out_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
+    m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
+    m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
+    m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
     m_oi.all_down_button.whenPressed(new ClimberDeploy());
     m_oi.front_up_button.whenPressed(new ClimberFrontUp());
     m_oi.back_up_button.whenPressed(new ClimberBackUp());
@@ -92,7 +98,6 @@ public class Robot extends TimedRobot {
     m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward());
     m_oi.elevator_death_button.whenPressed(new ElevatorTest());
     
-
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();

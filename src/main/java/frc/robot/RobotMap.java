@@ -34,6 +34,7 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
+  public static final int INTAKE_VICTOR = 5;
 
   //limit switch values
   public static final int LIMIT_SWITCH_LEFT = 1;
@@ -45,17 +46,16 @@ public class RobotMap {
   public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
   public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 4; //right joystick up-down
-  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 3; //right joystick up-down
+  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 3;
+  public static final int MANIPULATOR_CONTROLLER_RIGHT_MOVE_AXIS = 4; //right joystick up-down
   public static final int MANIPULATOR_CONTROLLER_ELEVATOR_UP = 5; //elevator up on right joystick
   public static final int MANIPULATOR_CONTROLLER_ELEVATOR_DOWN = 4; //elevator down on right joystick
   public static final int MANIPULATOR_CONTROLLER_GALAGA_OUT = 3; // Galaga grabs hatch with X
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
   public static final int MANIPULATOR_CONTROLLER_SLIDE_OUT = 4; // Slide out with Y
   public static final int MANIPULATOR_CONTROLLER_SLIDE_IN = 1; // Slide in with A
-  public static final int MANIPULATOR_CONTROLLER_CARGO_INTAKE = 5; //cargo intake on left button
-  public static final int MANIPULATOR_CONTROLLER_CARGO_DEPLOY = 2; //cargo deploy via left trigger
-  public static final int MANIPULATOR_CONTROLLER_HATCH_INTAKE = 6; // grabbing hatches via right button
-  public static final int MANIPULATOR_CONTROLLER_HATCH_DEPLOY = 3; //deploying hatches via right trigger
+  public static final int MANIPULATOR_CONTROLLER_INTAKE_IN = 6; // Intake in with Left Bumper
+  public static final int MANIPULATOR_CONTROLLER_INTAKE_OUT = 5; // Intake out with Right Bumper
   public static final int DRIVER_CONTROLLER_LIFT_FRONT_UP = 3; //raising the front stilts via X button
   public static final int DRIVER_CONTROLLER_LIFT_BACK_UP = 2; ////raising the back stilts via B button
   public static final int DRIVER_CONTROLLER_LIFT_ALL_DOWN = 1; //lowering the stilts via A button
@@ -87,6 +87,9 @@ public class RobotMap {
   public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
   public static final int SOLENOIDS_GALAGA_FORWARD = 3;
   public static final int SOLENOIDS_GALAGA_BACKWARDS = 4;
+
+  public static final int SOLENOIDS_INTAKE_FORWARDS = 5;
+  public static final int SOLENOIDS_INTAKE_BACKWARDS = 6;
 }
 
  
