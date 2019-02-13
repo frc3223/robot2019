@@ -2,7 +2,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+<<<<<<< HEAD
 import edu.wpi.first.networktables.NetworkTable;
+=======
+import edu.wpi.first.wpilibj.Compressor;
+>>>>>>> 2823cce0426617924742a3ca4e21de2177fb172b
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -16,6 +20,9 @@ public class Climber extends Subsystem{
     DoubleSolenoid leftFrontSolenoid;
     DoubleSolenoid backSolenoid;
     WPI_VictorSPX driveMotor;
+
+    Compressor c;
+
     DigitalInput limitSwitchR;
     DigitalInput limitSwitchL;
 
@@ -42,6 +49,9 @@ public class Climber extends Subsystem{
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL2);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
+
+        c = new Compressor(RobotMap.compressorIndex);
+        c.setClosedLoopControl(true);
     }
     // post if its okay to move forward & solenoid pressure
     // accelerometer
