@@ -23,8 +23,13 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.ActivateLimeLight;
+import frc.robot.commands.GalagaIn;
+import frc.robot.commands.GalagaOut;
+import frc.robot.commands.SlideIn;
+import frc.robot.commands.SlideOut;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Galaga;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
 /**
@@ -42,9 +47,11 @@ public class Robot extends TimedRobot {
 
   public static Drivetrain m_drivetrain = null;
   public static LimeLight m_limelight = null;
+  public static Galaga m_galaga = null;
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator elevator;
+  
 
 
   NetworkTableEntry xEntry;
@@ -65,8 +72,16 @@ public class Robot extends TimedRobot {
     m_drivetrain = new Drivetrain();
     m_limelight = new LimeLight();
     m_oi = new OI();
+    m_galaga = new Galaga();
+    
 
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+    m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
+    m_oi.galaga_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
+    m_oi.galaga_out_button.whenPressed(new SlideIn(m_galaga, m_oi));
+    m_oi.slide_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    m_oi.slide_out_button.whenPressed(new GalagaIn(m_galaga, m_oi));
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();

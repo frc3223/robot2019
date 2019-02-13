@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,6 +13,7 @@ public class Climber extends Subsystem{
     DoubleSolenoid leftFrontSolenoid;
     DoubleSolenoid backSolenoid;
     WPI_VictorSPX driveMotor;
+    Compressor c;
 
 
     public Climber() {
@@ -25,6 +27,9 @@ public class Climber extends Subsystem{
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL2);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
+
+        c = new Compressor(RobotMap.compressorIndex);
+        c.setClosedLoopControl(true);
     }
 
     @Override
