@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.RobotMap;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,6 +28,7 @@ public class OI {
     public Joystick getJoystck(){
 
         return stick;
+
     }
 
     public void getDriverPort(){
@@ -52,6 +52,7 @@ public class OI {
   public JoystickButton galaga_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_GALAGA_OUT);
   public JoystickButton slide_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_IN);
   public JoystickButton slide_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_OUT);
+
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
