@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.RobotMap;
 
 
 
@@ -81,10 +82,11 @@ public class Robot extends TimedRobot {
     
 
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+    m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
     m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
     m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
-    m_oi.slide_out_button.whenPressed(new SlideIn(m_galaga, m_oi));
+    m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
     m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
     m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
 
@@ -95,11 +97,8 @@ public class Robot extends TimedRobot {
 
     //Initialization message
     System.out.println("Robot online.");
-
     
-
   }
-
 
   /**
    * This function is called every robot packet, no matter the mode. Use

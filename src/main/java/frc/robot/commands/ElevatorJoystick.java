@@ -28,7 +28,7 @@ public class ElevatorJoystick extends Command {
     }
 
     public void execute() {
-        this.rawAxisOutput = this.oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
+        this.rawAxisOutput = this.oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_RIGHT_MOVE_AXIS);
         epsilonCheck();
         if(this.rawAxisOutput == 0) {
             this.elevator.maintainLevel();
