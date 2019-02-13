@@ -2,11 +2,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Climber extends Subsystem{
     DoubleSolenoid rightFrontSolenoid;
@@ -16,8 +19,17 @@ public class Climber extends Subsystem{
     DigitalInput limitSwitchR;
     DigitalInput limitSwitchL;
 
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("Stilts");
+
+    NetworkTableEntry leftLimit;
+    NetworkTableEntry rightLimit;
 
     public Climber() {
+        inst = NetworkTableInstance.getDefault();
+        table = inst.getTable("Stilts");
+        leftLimit = table.getEntry("Left Limit Switch");
+        rightLimit = table.getEntry("Right Limit Switch");
         limitSwitchL = new DigitalInput(RobotMap.LIMIT_SWITCH_LEFT);
         limitSwitchR = new DigitalInput(RobotMap.LIMIT_SWITCH_RIGHT);
         rightFrontSolenoid= new DoubleSolenoid(
@@ -70,14 +82,30 @@ public class Climber extends Subsystem{
 
     public boolean isLeftUp(){
         if(limitSwitchL.get()){
+            leftLimit.setBoolean(true);
             return true;
-        }else return false;
+        }else {
+            leftLimit.setBoolean(false);
+            return false;
+        }
     }
 
     public boolean isRightUp(){
         if (limitSwitchR.get()){
+            rightLimit.setBoolean(true);
+            return true;
+        }else{
+            rightLimit.setBoolean(false);
+            return false;
+        }
+    }
+
+    public boolean areBothUp(){
+        if(isLeftUp() && isRightUp()){
             return true;
         }else return false;
     }
+
+
 
 }

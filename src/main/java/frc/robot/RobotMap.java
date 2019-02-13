@@ -58,7 +58,7 @@ public class RobotMap {
   public static final int DRIVER_CONTROLLER_LIFT_ALL_DOWN = 1; //lowering the stilts via A button
   public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 3; //moving fowards on the stilts with right trigger
   public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 2; //moving backwards on the stilts with left trigger
-  /*  Dunno why we would want the elevator to rotate, but I'll put it in anyway.             */
+  //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
   public static final int LIME_LIGHT_ON_BUTTON = 1; //A button in manipulator control
 

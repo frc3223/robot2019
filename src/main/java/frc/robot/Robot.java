@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.RobotMap;
 
 
 
@@ -66,7 +67,10 @@ public class Robot extends TimedRobot {
     m_limelight = new LimeLight();
     m_oi = new OI();
 
-    m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+    //m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+
+
+
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -75,11 +79,8 @@ public class Robot extends TimedRobot {
 
     //Initialization message
     System.out.println("Robot online.");
-
     
-
   }
-
 
   /**
    * This function is called every robot packet, no matter the mode. Use
