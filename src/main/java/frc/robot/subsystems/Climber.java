@@ -2,11 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-<<<<<<< HEAD
 import edu.wpi.first.networktables.NetworkTable;
-=======
 import edu.wpi.first.wpilibj.Compressor;
->>>>>>> 2823cce0426617924742a3ca4e21de2177fb172b
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
