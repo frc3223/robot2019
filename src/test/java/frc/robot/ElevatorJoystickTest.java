@@ -35,6 +35,7 @@ public class ElevatorJoystickTest {
         elevatorJoystick.execute();
         
         assertEquals(0, this.elevatorJoystick.rawAxisOutput, 0.0001);
+        
     }
 
     @Test
@@ -49,5 +50,6 @@ public class ElevatorJoystickTest {
         elevatorJoystick.execute();
         
         assertEquals(0.25, this.elevatorJoystick.rawAxisOutput, 0.0001);
+        
     }
 }

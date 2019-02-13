@@ -52,11 +52,8 @@ public class OI {
   public JoystickButton galaga_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_GALAGA_OUT);
   public JoystickButton slide_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_IN);
   public JoystickButton slide_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_OUT);
-<<<<<<< HEAD
   public JoystickButton intake_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_IN);
   public JoystickButton intake_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_OUT);
-
-=======
   public JoystickButton all_down_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_ALL_DOWN);
   public JoystickButton front_up_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_FRONT_UP);
   public JoystickButton back_up_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_BACK_UP);
@@ -64,7 +61,7 @@ public class OI {
   public JoystickButton lift_backward_button = new JoystickButton(driverController,RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
   
   
->>>>>>> e3f0ef154a90fed070e0603629120f8e72085361
+
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
