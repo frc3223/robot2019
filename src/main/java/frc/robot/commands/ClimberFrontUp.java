@@ -14,7 +14,7 @@ import frc.robot.subsystems.Climber;
 public class ClimberFrontUp extends Command {
   Climber subsystem;
   OI oi;
-  public ClimberFrontUp() {
+  public ClimberFrontUp(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.subsystem = subsystem;
@@ -25,6 +25,7 @@ public class ClimberFrontUp extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Climber front raise initialized");
   }
 
   // Called repeatedly when this Command is scheduled to run

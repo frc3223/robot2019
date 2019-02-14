@@ -34,14 +34,10 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
-<<<<<<< HEAD
-  
 
   //Manipulator
   public static final int CARRIAGE_VICTOR = 12;
-=======
   public static final int INTAKE_VICTOR = 5;
->>>>>>> 2e55f026c333518ffa02830ac526aac37bae77b1
 
   //limit switch values
   public static final int LIMIT_SWITCH_LEFT = 1;
@@ -52,11 +48,9 @@ public class RobotMap {
   // Xbox controller buttons
   public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
   public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
-  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 4; //right joystick up-down
-  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 3;
-  public static final int MANIPULATOR_CONTROLLER_RIGHT_MOVE_AXIS = 4; //right joystick up-down
-  public static final int MANIPULATOR_CONTROLLER_ELEVATOR_UP = 5; //elevator up on right joystick
-  public static final int MANIPULATOR_CONTROLLER_ELEVATOR_DOWN = 4; //elevator down on right joystick
+  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 5; //right joystick up-down
+  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 4; //right joystick L-R
+  public static final int MANIPULATOR_CONTROLLER_ELEVATOR = 1; //left joystick up-down
   public static final int MANIPULATOR_CONTROLLER_GALAGA_OUT = 3; // Galaga grabs hatch with X
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
   public static final int MANIPULATOR_CONTROLLER_SLIDE_OUT = 4; // Slide out with Y
@@ -79,12 +73,12 @@ public class RobotMap {
   public static final int LIME_LIGHT_ON_BUTTON = 1; //A button in manipulator control
 
   //Climber things
-  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 1;
+  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 0;
   public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2 = 1;
-  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 1;
-  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 1;
-  public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 1;
-  public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 1;
+  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 2;
+  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 3;
+  public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 4;
+  public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 5;
   public static final int CLIMBER_DRIVE_MOTOR = 6;
 
  //Limelight modes
@@ -94,14 +88,16 @@ public class RobotMap {
   public static final int LIME_LIGHT_LIGHT_ON = 3;
 
 
-  //Pheumatics modes
-  public static final int SOLENOIDS_SLIDE_FORWARD = 1;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
-  public static final int SOLENOIDS_GALAGA_FORWARD = 3;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 4;
+  //Pneumatics modes
+  public static final int PNEUMATICS_MODULE_ONE = 20;
+  public static final int PNEUMATICS_MODULE_TWO = 21;
+  public static final int SOLENOIDS_SLIDE_FORWARD = 6;
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 7;
+  public static final int SOLENOIDS_GALAGA_FORWARD = 0;
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 1;
 
-  public static final int SOLENOIDS_INTAKE_FORWARDS = 5;
-  public static final int SOLENOIDS_INTAKE_BACKWARDS = 6;
+  public static final int SOLENOIDS_INTAKE_FORWARDS = 2;
+  public static final int SOLENOIDS_INTAKE_BACKWARDS = 3;
 }
 
  

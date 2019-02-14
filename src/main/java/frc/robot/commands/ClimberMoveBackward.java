@@ -14,7 +14,7 @@ import frc.robot.subsystems.Climber;
 public class ClimberMoveBackward extends Command {
   Climber subsystem;
   OI oi;
-  public ClimberMoveBackward() {
+  public ClimberMoveBackward(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     this.subsystem = subsystem;
     this.oi = oi;
@@ -24,6 +24,7 @@ public class ClimberMoveBackward extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Climber moving backward initialized");
   }
 
   // Called repeatedly when this Command is scheduled to run

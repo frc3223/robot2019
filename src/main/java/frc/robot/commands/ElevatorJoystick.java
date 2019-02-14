@@ -28,13 +28,14 @@ public class ElevatorJoystick extends Command {
     }
 
     public void execute() {
-        this.rawAxisOutput = this.oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_RIGHT_MOVE_AXIS);
+        this.rawAxisOutput = this.oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_ELEVATOR);
         epsilonCheck();
         if(this.rawAxisOutput == 0) {
             this.elevator.maintainLevel();
         }
         else {
             this.elevator.moveElevator(rawAxisOutput);
+            System.out.println("elevator movement");
         }
     }
 

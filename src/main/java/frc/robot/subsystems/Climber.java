@@ -35,18 +35,21 @@ public class Climber extends Subsystem{
         limitSwitchL = new DigitalInput(RobotMap.LIMIT_SWITCH_LEFT);
         limitSwitchR = new DigitalInput(RobotMap.LIMIT_SWITCH_RIGHT);
         rightFrontSolenoid = new DoubleSolenoid(
+            RobotMap.PNEUMATICS_MODULE_ONE,
             RobotMap.CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2);
         leftFrontSolenoid = new DoubleSolenoid(
+            RobotMap.PNEUMATICS_MODULE_ONE,
             RobotMap.CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2);
         backSolenoid = new DoubleSolenoid(
+            RobotMap.PNEUMATICS_MODULE_ONE,
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL1, 
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL2);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
 
-        c = new Compressor(RobotMap.compressorIndex);
-        c.setClosedLoopControl(true);
+        //c = new Compressor(RobotMap.compressorIndex);
+        //c.setClosedLoopControl(true);
     }
     // post if its okay to move forward & solenoid pressure
     // accelerometer

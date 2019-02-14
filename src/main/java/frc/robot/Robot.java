@@ -10,9 +10,6 @@ package frc.robot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
-import frc.robot.RobotMap;
-
-import com.google.inject.Injector;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -30,12 +27,11 @@ import frc.robot.commands.IntakeIn;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
-<<<<<<< HEAD
+
 import frc.robot.subsystems.Carriage;
-import frc.robot.commands.CarriagePushPull;
-=======
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
->>>>>>> 2e55f026c333518ffa02830ac526aac37bae77b1
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import frc.robot.commands.ClimberDeploy;
 import frc.robot.commands.ClimberFrontUp;
@@ -54,12 +50,12 @@ import frc.robot.commands.ClimberMoveBackward;
 public class Robot extends TimedRobot {
   private ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
-  private Injector injector;
 
   public static Drivetrain m_drivetrain = null;
   public static LimeLight m_limelight = null;
   public static Galaga m_galaga = null;
   public static Carriage m_carriage = null;
+  public static Climber m_climber = null;
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator elevator;
@@ -88,6 +84,7 @@ public class Robot extends TimedRobot {
     m_galaga = new Galaga();
     m_carriage = new Carriage();
     m_intake = new Intake();
+    m_climber = new Climber();
     
 
     m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
@@ -97,11 +94,11 @@ public class Robot extends TimedRobot {
     m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
     m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
     m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
-    m_oi.all_down_button.whenPressed(new ClimberDeploy());
-    m_oi.front_up_button.whenPressed(new ClimberFrontUp());
-    m_oi.back_up_button.whenPressed(new ClimberBackUp());
-    m_oi.lift_forward_button.whenPressed(new ClimberMoveForward());
-    m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward());
+    m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
+    m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
+    m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
+    m_oi.lift_forward_button.whenPressed(new ClimberMoveForward(m_climber, m_oi));
+    m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward(m_climber, m_oi));
 
 
     new Thread(() -> {

@@ -24,7 +24,7 @@ public class Intake extends Subsystem {
   WPI_VictorSPX intakeMotorController;
 
   public Intake() {
-    intakeSolenoid = new DoubleSolenoid(RobotMap.SOLENOIDS_INTAKE_FORWARDS, RobotMap.SOLENOIDS_INTAKE_BACKWARDS);
+    intakeSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE_TWO,RobotMap.SOLENOIDS_INTAKE_FORWARDS, RobotMap.SOLENOIDS_INTAKE_BACKWARDS);
     intakeMotorController = new WPI_VictorSPX(RobotMap.INTAKE_VICTOR);
   }
 

@@ -21,8 +21,8 @@ public class Galaga extends Subsystem {
   DoubleSolenoid galagaSolenoid;
 
   public Galaga() {
-    slideSolenoid = new DoubleSolenoid(RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
-    galagaSolenoid = new DoubleSolenoid(RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
+    slideSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE_ONE,RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
+    galagaSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE_TWO,RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
   }
 
   @Override

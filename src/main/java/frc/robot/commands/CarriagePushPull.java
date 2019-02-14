@@ -31,10 +31,13 @@ public class CarriagePushPull extends Command {
     double leftTrigger = Robot.m_oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_CARGO_PULLIN);
     double rightTrigger = Robot.m_oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_CARGO_PUSHOUT);
     if(leftTrigger < 0 && rightTrigger == 0){ //Left pressed
+      System.out.println("left trigger pressed");
       Robot.m_carriage.carriagePullIn();
     }else if(rightTrigger < 0 && leftTrigger == 0){ //Right pressed
+      System.out.println("right rigger pressed");
       Robot.m_carriage.carriagePushOut();
     }else if(leftTrigger < 0 && rightTrigger < 0){ //Both pressed
+      System.out.println("both triggers pressed");
       Robot.m_carriage.carriageStop();
     }else if(leftTrigger == 0 && rightTrigger == 0){ //Neither pressed
       Robot.m_carriage.carriageStop();

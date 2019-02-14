@@ -28,6 +28,7 @@ public class IntakeIn extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("intake in intitialized");
   }
 
   // Called repeatedly when this Command is scheduled to run
