@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import java.lang.Math;
 
 public class DriveArcade extends Command {
   public DriveArcade() {
@@ -30,8 +31,16 @@ public class DriveArcade extends Command {
     double rotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_ROTATE_AXIS);
     double slowMoveSpeed = -Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
     double slowRotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS);
-    Robot.m_drivetrain.arcadeDrive(moveSpeed*1, rotateSpeed*1);
-    Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.5, slowRotateSpeed*0.5);
+    if((Math.abs(moveSpeed) >= 0.1 || Math.abs(rotateSpeed) >= 0.1) && (Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1)){
+      Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.75, slowRotateSpeed*0.75);
+    }else if(Math.abs(moveSpeed) >= 0.1 || Math.abs(rotateSpeed) >= 0.1){ //Left joystick used
+      Robot.m_drivetrain.arcadeDrive(moveSpeed*1, rotateSpeed*1);
+    }else if(Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1){ //Right joystick used
+     Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.75, slowRotateSpeed*0.75);
+   }
+   //else{
+   // Robot.m_drivetrain.arcadeDrive(0, 0);
+   //}
   }
 
   // Make this return true when this Command no longer needs to run execute()
