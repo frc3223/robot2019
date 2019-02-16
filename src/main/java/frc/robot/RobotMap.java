@@ -55,8 +55,8 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
   public static final int MANIPULATOR_CONTROLLER_SLIDE_OUT = 4; // Slide out with Y
   public static final int MANIPULATOR_CONTROLLER_SLIDE_IN = 1; // Slide in with A
-  public static final int MANIPULATOR_CONTROLLER_CARGO_PULLIN = 3; //cargo pull in trigger Left
-  public static final int MANIPULATOR_CONTROLLER_CARGO_PUSHOUT = 2; //cargo push out trigger Right
+  public static final int MANIPULATOR_CONTROLLER_CARGO_PULLIN = 2; //cargo pull in trigger Left
+  public static final int MANIPULATOR_CONTROLLER_CARGO_PUSHOUT = 3; //cargo push out trigger Right
   public static final int MANIPULATOR_CONTROLLER_CARGO_INTAKE = 5; //cargo intake on left button
   public static final int MANIPULATOR_CONTROLLER_CARGO_DEPLOY = 2; //cargo deploy via left trigger
   public static final int MANIPULATOR_CONTROLLER_HATCH_INTAKE = 6; // grabbing hatches via right button
@@ -70,7 +70,7 @@ public class RobotMap {
   public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 2; //moving backwards on the stilts with left trigger
   //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
-  public static final int LIME_LIGHT_ON_BUTTON = 1; //A button in manipulator control
+  public static final int LIME_LIGHT_ON_BUTTON = 8; //A button in manipulator control
 
   //Climber things
   public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 0;

@@ -36,8 +36,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import frc.robot.commands.ClimberDeploy;
 import frc.robot.commands.ClimberFrontUp;
 import frc.robot.commands.ClimberBackUp;
-import frc.robot.commands.ClimberMoveForward;
-import frc.robot.commands.ClimberMoveBackward;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -58,10 +56,8 @@ public class Robot extends TimedRobot {
   public static Climber m_climber = null;
   public DataLogger logger;
   public DriverStation driverStation;
-  public Elevator elevator;
+  public Elevator m_elevator;
   public Intake m_intake;
-  
-
 
   NetworkTableEntry xEntry;
   /**
@@ -84,10 +80,11 @@ public class Robot extends TimedRobot {
     m_galaga = new Galaga();
     m_carriage = new Carriage();
     m_intake = new Intake();
-    m_climber = new Climber();
+    m_climber = new Climber(m_oi);
+    m_elevator = new Elevator(m_oi);
     
-
-    m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
+    
+    m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
     m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
     m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
@@ -97,9 +94,7 @@ public class Robot extends TimedRobot {
     m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
     m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
     m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
-    m_oi.lift_forward_button.whenPressed(new ClimberMoveForward(m_climber, m_oi));
-    m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward(m_climber, m_oi));
-
+    
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();

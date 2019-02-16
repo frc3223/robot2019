@@ -35,7 +35,6 @@ public class ElevatorJoystick extends Command {
         }
         else {
             this.elevator.moveElevator(rawAxisOutput);
-            System.out.println("elevator movement");
         }
     }
 

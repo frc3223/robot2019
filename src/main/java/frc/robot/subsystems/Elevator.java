@@ -11,8 +11,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 import frc.robot.StateSpaceController;
+import frc.robot.commands.ElevatorJoystick;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -34,8 +36,9 @@ public class Elevator extends Subsystem {
   private boolean isDisabled = false;
   private double targetPosition = 0;
   private double targetVelocity = 0;
-
-  public Elevator() {
+  public OI oi;
+  public Elevator(OI oi) {
+      this.oi = oi;
       talons = new WPI_TalonSRX[] {
         new WPI_TalonSRX(RobotMap.DRIVETRAIN_ELEVATOR_TALON)
       };
@@ -208,6 +211,7 @@ public class Elevator extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new ElevatorJoystick(this, this.oi ));
   }
 
   public void measureVoltage(double volts) {

@@ -10,11 +10,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Climber;
+import frc.robot.RobotMap;
 
-public class ClimberMoveBackward extends Command {
+public class ClimberMove extends Command {
   Climber subsystem;
   OI oi;
-  public ClimberMoveBackward(Climber subsystem, OI oi) {
+  public ClimberMove(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     this.subsystem = subsystem;
     this.oi = oi;
@@ -24,13 +25,14 @@ public class ClimberMoveBackward extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("Climber moving backward initialized");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.moveBackward();
+    double moveSpeed = -this.oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
+    this.subsystem.move(moveSpeed);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,6 +44,7 @@ public class ClimberMoveBackward extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    this.subsystem.stopMotor();
   }
 
   // Called when another command which requires one or more of the same

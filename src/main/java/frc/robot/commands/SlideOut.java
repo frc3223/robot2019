@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.RobotMap;
 import frc.robot.subsystems.Galaga;
 
 public class SlideOut extends Command {
@@ -28,7 +27,6 @@ public class SlideOut extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("slide out intitialized");
   }
 
   // Called repeatedly when this Command is scheduled to run

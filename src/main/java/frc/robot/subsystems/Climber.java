@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.OI;
+import frc.robot.commands.ClimberMove;
 
 public class Climber extends Subsystem{
     DoubleSolenoid rightFrontSolenoid;
@@ -23,12 +25,14 @@ public class Climber extends Subsystem{
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable table = inst.getTable("Stilts");
+    OI oi;
 
     NetworkTableEntry leftLimit;
     NetworkTableEntry rightLimit;
 
-    public Climber() {
+    public Climber(OI oi) {
         inst = NetworkTableInstance.getDefault();
+        this.oi = oi;
         table = inst.getTable("Stilts");
         leftLimit = table.getEntry("Left Limit Switch");
         rightLimit = table.getEntry("Right Limit Switch");
@@ -58,7 +62,7 @@ public class Climber extends Subsystem{
 
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new ClimberMove(this,this.oi));
     }
 
     public void liftRobot(){
@@ -67,15 +71,13 @@ public class Climber extends Subsystem{
         leftFrontSolenoid.set(Value.kForward);
     } 
 
-    public void moveForward(){
-        driveMotor.set(1);
+    public void move(double speed){
+        driveMotor.set(speed);
     }
 
     public void stopMotor(){
         driveMotor.set(0);
     }
-
-    public void moveBackward(){driveMotor.set(-1);}
 
     public void liftFront(){
         rightFrontSolenoid.set(Value.kReverse);

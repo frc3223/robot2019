@@ -8,9 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.RobotMap;
-import frc.robot.subsystems.Carriage;
 import frc.robot.Robot;
 
 public class CarriagePushPull extends Command {
@@ -30,14 +28,12 @@ public class CarriagePushPull extends Command {
   protected void execute() {
     double leftTrigger = Robot.m_oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_CARGO_PULLIN);
     double rightTrigger = Robot.m_oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_CARGO_PUSHOUT);
-    if(leftTrigger < 0 && rightTrigger == 0){ //Left pressed
-      System.out.println("left trigger pressed");
+  
+    if(leftTrigger > 0 && rightTrigger == 0){ //Left pressed
       Robot.m_carriage.carriagePullIn();
-    }else if(rightTrigger < 0 && leftTrigger == 0){ //Right pressed
-      System.out.println("right rigger pressed");
+    }else if(rightTrigger > 0 && leftTrigger == 0){ //Right pressed
       Robot.m_carriage.carriagePushOut();
-    }else if(leftTrigger < 0 && rightTrigger < 0){ //Both pressed
-      System.out.println("both triggers pressed");
+    }else if(leftTrigger > 0 && rightTrigger > 0){ //Both pressed
       Robot.m_carriage.carriageStop();
     }else if(leftTrigger == 0 && rightTrigger == 0){ //Neither pressed
       Robot.m_carriage.carriageStop();

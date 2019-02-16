@@ -7,10 +7,11 @@
 
 package frc.robot.commands;
 
+import java.util.concurrent.TimeUnit;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 public class ActivateLimeLight extends Command {
   double correctHeight = 5.75; //inches
@@ -38,6 +39,11 @@ public class ActivateLimeLight extends Command {
   protected void execute() {
   if(aligned == false){
     Robot.m_limelight.turnLEDOn();
+      try {
+        TimeUnit.MILLISECONDS.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
   }
     int tv = Robot.m_limelight.getValidTarget();
     if(tv == 1) { // If the target is valid
@@ -49,12 +55,11 @@ public class ActivateLimeLight extends Command {
         double tx = Robot.m_limelight.getHorizontalOffset();
 
         if(tx < -2) {
-          //System.out.println("Move to the left");
+        
           Robot.m_drivetrain.moveLeft();
           Robot.m_limelight.turnLEDOn();
 
         }else if(tx > 2) {
-          //System.out.println("Move to the right");
           Robot.m_drivetrain.moveRight();
           Robot.m_limelight.turnLEDOn();
 
@@ -63,7 +68,7 @@ public class ActivateLimeLight extends Command {
           //Robot.m_drivetrain.stop();
           aligned = true;
           
-          if(!moveForward){
+          /*if(!moveForward){
             timeAligned = time.get();
             moveForward = true;
           }else if(time.get() - timeAligned >= 2.5){
@@ -74,10 +79,14 @@ public class ActivateLimeLight extends Command {
             moveForward = true;
             Robot.m_limelight.turnLEDOn();
             Robot.m_drivetrain.moveForward();
-          }
+          }*/
         }
             
+      }else{
+        end();
       }
+    }else{
+      end();
     }
   }
 
