@@ -37,6 +37,10 @@ import frc.robot.commands.ClimberDeploy;
 import frc.robot.commands.ClimberFrontUp;
 import frc.robot.commands.ClimberBackUp;
 
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -58,6 +62,8 @@ public class Robot extends TimedRobot {
   public DriverStation driverStation;
   public Elevator m_elevator;
   public Intake m_intake;
+  public CANSparkMax cSP;
+  public CANEncoder cE;
 
   NetworkTableEntry xEntry;
   /**
@@ -82,6 +88,9 @@ public class Robot extends TimedRobot {
     m_intake = new Intake();
     m_climber = new Climber(m_oi);
     m_elevator = new Elevator(m_oi);
+    cSP = new CANSparkMax(30, MotorType.kBrushless);
+    cE = cSP.getEncoder();
+
     
     
     m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
@@ -116,6 +125,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    System.out.println("position "+ cE.getPosition());
   }
 
   /**
@@ -172,7 +182,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+    //Scheduler.getInstance().run();
+    cSP.set(0.1);
 
     this.logger.log();
   }
