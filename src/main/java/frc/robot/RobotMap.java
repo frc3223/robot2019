@@ -34,6 +34,7 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
   public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
+  public static final int TEST_SPARKMAX = 30;
 
   //Manipulator
   public static final int CARRIAGE_VICTOR = 12;
