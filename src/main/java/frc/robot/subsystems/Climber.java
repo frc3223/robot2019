@@ -52,8 +52,9 @@ public class Climber extends Subsystem{
             RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL2);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
 
-        //c = new Compressor(RobotMap.compressorIndex);
-        //c.setClosedLoopControl(true);
+        c = new Compressor(RobotMap.PNEUMATICS_MODULE_ONE);
+        c.setClosedLoopControl(true);
+        
     }
     // post if its okay to move forward & solenoid pressure
     // accelerometer
@@ -114,5 +115,15 @@ public class Climber extends Subsystem{
         if(isLeftUp() && isRightUp()){
             return true;
         }else return false;
+    }
+
+    @Override
+    public void periodic() {
+        boolean enabled = c.enabled();
+        boolean pressureSwitch = c.getPressureSwitchValue();
+        double current = c.getCompressorCurrent();
+        System.out.println(enabled);
+        System.out.println(pressureSwitch);
+        System.out.println(current);
     }
 }
