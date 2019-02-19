@@ -39,7 +39,7 @@ public class ElevatorJoystick extends Command {
     }
 
     public void epsilonCheck() {
-        double epsilon = 0.1;
+        double epsilon = 0;
         if(this.rawAxisOutput > -epsilon && this.rawAxisOutput < epsilon) {
             this.rawAxisOutput = 0;
         }

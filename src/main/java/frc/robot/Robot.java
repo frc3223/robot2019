@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator m_elevator;
-  public Intake m_intake;
+  //public Intake m_intake;
 
   NetworkTableEntry xEntry;
   /**
@@ -77,20 +77,20 @@ public class Robot extends TimedRobot {
     m_drivetrain = new Drivetrain();
     m_limelight = new LimeLight();
     m_oi = new OI();
-    m_galaga = new Galaga();
+    m_galaga = new Galaga(m_oi);
     m_carriage = new Carriage();
-    m_intake = new Intake();
+    //m_intake = new Intake();
     m_climber = new Climber(m_oi);
     m_elevator = new Elevator(m_oi);
     
     
     m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
-    m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
-    m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
-    m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
-    m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
-    m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
-    m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
+    //m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    //m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
+    //m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
+    //m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
+    //m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
+    //m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
     m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
     m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
     m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));

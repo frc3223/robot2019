@@ -8,15 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.subsystems.Galaga;
+import frc.robot.OI;
 import frc.robot.RobotMap;
-import java.lang.Math;
 
-public class DriveArcade extends Command {
-  public DriveArcade() {
+public class GalagaTest extends Command {
+  Galaga subsystem;
+  OI oi;
+  public GalagaTest(Galaga galaga,OI oi) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_drivetrain);
+  this.subsystem = galaga;
+  this.oi = oi;
+  this.requires(galaga);
   }
 
   // Called just before this Command runs the first time
@@ -27,20 +31,26 @@ public class DriveArcade extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double moveSpeed = -Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_MOVE_AXIS);
-    double rotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_ROTATE_AXIS);
-    double slowMoveSpeed = -Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
-    double slowRotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS);
-    if((Math.abs(moveSpeed) >= 0.1 || Math.abs(rotateSpeed) >= 0.1) && (Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1)){
-      Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.5, slowRotateSpeed*0.5);
-    }else if(Math.abs(moveSpeed) >= 0.1 || Math.abs(rotateSpeed) >= 0.1){ //Left joystick used
-      Robot.m_drivetrain.arcadeDrive(moveSpeed*1, rotateSpeed*1);
-    }else if(Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1){ //Right joystick used
-     Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.5, slowRotateSpeed*0.5);
-   }
-   //else{
-   // Robot.m_drivetrain.arcadeDrive(0, 0);
-   //}
+    boolean xPressed = this.oi.manipulatorController.getRawButton(RobotMap.MANIPULATOR_CONTROLLER_GALAGA_OUT);
+    if(xPressed){
+      this.subsystem.galagaOut();
+      System.out.println("the X button was pressed and the galaga should have opened.");
+    }
+    boolean aPressed = this.oi.manipulatorController.getRawButton(RobotMap.MANIPULATOR_CONTROLLER_SLIDE_IN);
+    if(aPressed){
+      this.subsystem.slideIn();
+      System.out.println("the A button was pressed and the slide should have slid backwards.");
+    }
+    boolean yPressed = this.oi.manipulatorController.getRawButton(RobotMap.MANIPULATOR_CONTROLLER_SLIDE_OUT);
+    if(yPressed){
+      this.subsystem.slideOut();
+      System.out.println("the Y button was pressed and the slide should have slid forwards.");
+    }
+    boolean bPressed = this.oi.manipulatorController.getRawButton(RobotMap.MANIPULATOR_CONTROLLER_GALAGA_IN);
+    if(bPressed){
+      this.subsystem.galagaIn();
+      System.out.println("the B button was pressed and the galaga should have closed.");
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -52,13 +62,11 @@ public class DriveArcade extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_drivetrain.arcadeDrive(0,0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

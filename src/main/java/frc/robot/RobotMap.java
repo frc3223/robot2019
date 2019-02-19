@@ -33,7 +33,7 @@ public class RobotMap {
   public static final int DRIVETRAIN_LEFT_BACK_VICTOR = 2;
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
-  public static final int DRIVETRAIN_ELEVATOR_TALON = 7;
+  public static final int DRIVETRAIN_ELEVATOR_VICTOR = 13;
 
   //Manipulator
   public static final int CARRIAGE_VICTOR = 12;
@@ -66,19 +66,21 @@ public class RobotMap {
   public static final int DRIVER_CONTROLLER_LIFT_FRONT_UP = 3; //raising the front stilts via X button
   public static final int DRIVER_CONTROLLER_LIFT_BACK_UP = 2; ////raising the back stilts via B button
   public static final int DRIVER_CONTROLLER_LIFT_ALL_DOWN = 1; //lowering the stilts via A button
-  public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 3; //moving fowards on the stilts with right trigger
-  public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 2; //moving backwards on the stilts with left trigger
+  public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 6; //moving fowards on the stilts with right trigger
+  public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 5; //moving backwards on the stilts with left trigger
   //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
   public static final int LIME_LIGHT_ON_BUTTON = 8; //A button in manipulator control
 
   //Climber things
-  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 0;
-  public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2 = 1;
-  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 2;
-  public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 3;
-  public static final int CLIMBER_BACK_CYLINDER_CHANNEL1 = 4;
-  public static final int CLIMBER_BACK_CYLINDER_CHANNEL2 = 5;
+  //public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 0;
+  //public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2 = 1;
+  //public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1 = 2;
+  //public static final int CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2 = 3;
+  public static final int CLIMBER_SIDES_FRONT_CYLINDER_UP = 4;
+  public static final int CLIMBER_SIDES_FRONT_CYLINDER_DOWN = 5;
+  public static final int CLIMBER_BACK_CYLINDER_UP = 6;
+  public static final int CLIMBER_BACK_CYLINDER_DOWN = 7;
   public static final int CLIMBER_DRIVE_MOTOR = 6;
 
  //Limelight modes
@@ -89,15 +91,14 @@ public class RobotMap {
 
 
   //Pneumatics modes
-  public static final int PNEUMATICS_MODULE_ONE = 20;
-  public static final int PNEUMATICS_MODULE_TWO = 21;
-  public static final int SOLENOIDS_SLIDE_FORWARD = 6;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 7;
+  public static final int PNEUMATICS_MODULE = 21;
+  public static final int SOLENOIDS_SLIDE_FORWARD = 1;
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
   public static final int SOLENOIDS_GALAGA_FORWARD = 0;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 1;
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 3;
 
-  public static final int SOLENOIDS_INTAKE_FORWARDS = 2;
-  public static final int SOLENOIDS_INTAKE_BACKWARDS = 3;
+  public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
+  public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;
 }
 
  

@@ -15,8 +15,7 @@ import frc.robot.OI;
 import frc.robot.commands.ClimberMove;
 
 public class Climber extends Subsystem{
-    DoubleSolenoid rightFrontSolenoid;
-    DoubleSolenoid leftFrontSolenoid;
+    DoubleSolenoid frontSolenoid;
     DoubleSolenoid backSolenoid;
     WPI_VictorSPX driveMotor;
     Compressor c;
@@ -38,21 +37,17 @@ public class Climber extends Subsystem{
         rightLimit = table.getEntry("Right Limit Switch");
         limitSwitchL = new DigitalInput(RobotMap.LIMIT_SWITCH_LEFT);
         limitSwitchR = new DigitalInput(RobotMap.LIMIT_SWITCH_RIGHT);
-        rightFrontSolenoid = new DoubleSolenoid(
-            RobotMap.PNEUMATICS_MODULE_ONE,
-            RobotMap.CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1, 
-            RobotMap.CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL2);
-        leftFrontSolenoid = new DoubleSolenoid(
-            RobotMap.PNEUMATICS_MODULE_ONE,
-            RobotMap.CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL1, 
-            RobotMap.CLIMBER_LEFT_FRONT_CYLINDER_CHANNEL2);
+        frontSolenoid = new DoubleSolenoid(
+            RobotMap.PNEUMATICS_MODULE,
+            RobotMap.CLIMBER_SIDES_FRONT_CYLINDER_UP, 
+            RobotMap.CLIMBER_SIDES_FRONT_CYLINDER_DOWN);
         backSolenoid = new DoubleSolenoid(
-            RobotMap.PNEUMATICS_MODULE_ONE,
-            RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL1, 
-            RobotMap.CLIMBER_BACK_CYLINDER_CHANNEL2);
+            RobotMap.PNEUMATICS_MODULE,
+            RobotMap.CLIMBER_BACK_CYLINDER_UP, 
+            RobotMap.CLIMBER_BACK_CYLINDER_DOWN);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
 
-        c = new Compressor(RobotMap.PNEUMATICS_MODULE_ONE);
+        c = new Compressor(RobotMap.PNEUMATICS_MODULE);
         c.setClosedLoopControl(true);
         
     }
@@ -68,8 +63,7 @@ public class Climber extends Subsystem{
 
     public void liftRobot(){
         backSolenoid.set(Value.kForward);
-        rightFrontSolenoid.set(Value.kForward);
-        leftFrontSolenoid.set(Value.kForward);
+        frontSolenoid.set(Value.kForward);
     } 
 
     public void move(double speed){
@@ -81,8 +75,7 @@ public class Climber extends Subsystem{
     }
 
     public void liftFront(){
-        rightFrontSolenoid.set(Value.kReverse);
-        leftFrontSolenoid.set(Value.kReverse);
+        frontSolenoid.set(Value.kReverse);
         //if isleft && isright up, then post to networktables
     }
     
@@ -117,13 +110,4 @@ public class Climber extends Subsystem{
         }else return false;
     }
 
-    @Override
-    public void periodic() {
-        boolean enabled = c.enabled();
-        boolean pressureSwitch = c.getPressureSwitchValue();
-        double current = c.getCompressorCurrent();
-        System.out.println(enabled);
-        System.out.println(pressureSwitch);
-        System.out.println(current);
-    }
 }

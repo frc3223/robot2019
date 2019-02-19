@@ -8,8 +8,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.OI;
 import frc.robot.RobotMap;
@@ -31,16 +33,18 @@ public class Elevator extends Subsystem {
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
   public StateSpaceController stateSpaceController;
-  public WPI_TalonSRX[] talons;
+  public WPI_VictorSPX[] victor;
 
   private boolean isDisabled = false;
   private double targetPosition = 0;
   private double targetVelocity = 0;
   public OI oi;
+  PowerDistributionPanel pdp;
   public Elevator(OI oi) {
+      pdp = new PowerDistributionPanel(0);
       this.oi = oi;
-      talons = new WPI_TalonSRX[] {
-        new WPI_TalonSRX(RobotMap.DRIVETRAIN_ELEVATOR_TALON)
+      victor = new WPI_VictorSPX[] {
+        new WPI_VictorSPX(RobotMap.DRIVETRAIN_ELEVATOR_VICTOR)
       };
       initStateSpace();
       notifier = new Notifier(new Runnable(){
@@ -68,31 +72,31 @@ public class Elevator extends Subsystem {
   }
 
   public double getBusVoltage() {
-      return this.talons[0].getBusVoltage();
+      return this.victor[0].getBusVoltage();
   }
  
   public void logMotorVoltage(DataLogger logger) {
-      for(int j = 0; j < this.talons.length; j++) {
+      for(int j = 0; j < this.victor.length; j++) {
         int temp = j;
         logger.add("Voltage (Motor " + (temp + 1) + ")", () -> {
-            return this.talons[temp].getMotorOutputVoltage();
+            return this.victor[temp].getMotorOutputVoltage();
         });
       }
   }
 
   public void logMotorCurrent(DataLogger logger) {
-    for(int j = 0; j < this.talons.length; j++) {
+    for(int j = 0; j < this.victor.length; j++) {
       int temp = j;
       logger.add("Current (Motor " + (temp + 1) + ")", () -> {
-          return this.talons[temp].getOutputCurrent();
+          return 0; //this.victor[temp].getOutputCurrent();
       });
     }
 }
 
   //For when the driver wants to manually control the elevator level
   public void moveElevator(double voltPercent) {
-    for(int i = 0; i < this.talons.length; i++) {
-        this.talons[i].set(voltPercent);
+    for(int i = 0; i < this.victor.length; i++) {
+        this.victor[i].set(voltPercent);
     }
   }
 
@@ -131,12 +135,12 @@ public class Elevator extends Subsystem {
   }
 
   public double getVelocity() {
-    double rawEncoderTicks = this.talons[0].getSelectedSensorVelocity();
+    double rawEncoderTicks = this.victor[0].getSelectedSensorVelocity();
     return (rawEncoderTicks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius) * 10;
   }
 
   public double getPosition() {
-      double ticks = talons[0].getSelectedSensorPosition();
+      double ticks = victor[0].getSelectedSensorPosition();
       double val = (ticks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius);
       return val;
   }
@@ -154,10 +158,10 @@ public class Elevator extends Subsystem {
             r.set(1, 0, getTargetVelocity());
         });
         double voltage = stateSpaceController.u.get(0, 0);
-        for(int i = 0; i < talons.length; i++){
-            double availableVolt = talons[i].getBusVoltage();
+        for(int i = 0; i < victor.length; i++){
+            double availableVolt = victor[i].getBusVoltage();
             double percentVolt = voltage / availableVolt;
-            talons[i].set(percentVolt);
+            victor[i].set(percentVolt);
         }
         stateSpaceController.setOutput((y) -> {
             //Position in meters
@@ -217,4 +221,5 @@ public class Elevator extends Subsystem {
   public void measureVoltage(double volts) {
 
   }
+
 }

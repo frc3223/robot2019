@@ -30,8 +30,15 @@ public class ClimberMove extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double moveSpeed = -this.oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
-    this.subsystem.move(moveSpeed);
+    boolean forward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
+    boolean backward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+    if(forward){
+      this.subsystem.move(1);
+    }else if(backward){
+      this.subsystem.move(-1);
+    }else{
+      this.subsystem.stopMotor();
+    }
     
   }
 
