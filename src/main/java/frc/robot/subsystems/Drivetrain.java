@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -20,21 +22,21 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  WPI_TalonSRX leftFrontTalon = null;
-  WPI_VictorSPX leftBackVictor = null;
-  WPI_TalonSRX rightFrontTalon = null;
-  WPI_VictorSPX rightBackVictor = null;
+  CANSparkMax leftFrontNeo = null;
+  CANSparkMax leftBackNeo = null;
+  CANSparkMax rightFrontNeo = null;
+  CANSparkMax rightBackNeo = null;
 
   DifferentialDrive differentialDrive = null;
 
   public Drivetrain() {
-    leftFrontTalon = new WPI_TalonSRX(RobotMap.DRIVETRAIN_LEFT_FRONT_TALON);
-    leftBackVictor = new WPI_VictorSPX(RobotMap.DRIVETRAIN_LEFT_BACK_VICTOR);
-    rightFrontTalon = new WPI_TalonSRX(RobotMap.DRIVETRAIN_RIGHT_FRONT_TALON);
-    rightBackVictor = new WPI_VictorSPX(RobotMap.DRIVETRAIN_RIGHT_BACK_VICTOR);
+    leftFrontNeo = new CANSparkMax(RobotMap.DRIVETRAIN_LEFT_FRONT_TALON, CANSparkMaxLowLevel.MotorType.kBrushless);
+    leftBackNeo = new CANSparkMax(RobotMap.DRIVETRAIN_LEFT_BACK_VICTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
+    rightFrontNeo = new CANSparkMax(RobotMap.DRIVETRAIN_RIGHT_FRONT_TALON, CANSparkMaxLowLevel.MotorType.kBrushless);
+    rightBackNeo = new CANSparkMax(RobotMap.DRIVETRAIN_RIGHT_BACK_VICTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontTalon, leftBackVictor);
-    SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontTalon, rightBackVictor);
+    SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontNeo, leftBackNeo);
+    SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontNeo, rightBackNeo);
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   }
