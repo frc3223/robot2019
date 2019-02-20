@@ -96,9 +96,9 @@ public class RobotMap {
   //Pneumatics modes
   public static final int PNEUMATICS_MODULE = 21;
   public static final int SOLENOIDS_SLIDE_FORWARD = 1;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 3;
   public static final int SOLENOIDS_GALAGA_FORWARD = 0;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 3;
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 2;
 
   public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
   public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;
