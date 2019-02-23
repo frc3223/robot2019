@@ -13,9 +13,7 @@
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="1.8">
       <module name="Robot2019.main" target="11" />
-      <module name="robot2019.main" target="11" />
       <module name="Robot2019.test" target="11" />
-      <module name="robot2019.test" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
@@ -71,9 +69,9 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/robot2019.iml" filepath="$PROJECT_DIR$/robot2019.iml" />
-      <module fileurl="file://$PROJECT_DIR$/robot2019.main.iml" filepath="$PROJECT_DIR$/robot2019.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/robot2019.test.iml" filepath="$PROJECT_DIR$/robot2019.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Robot2019.iml" filepath="$PROJECT_DIR$/Robot2019.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Robot2019.main.iml" filepath="$PROJECT_DIR$/Robot2019.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Robot2019.test.iml" filepath="$PROJECT_DIR$/Robot2019.test.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
@@ -138,6 +136,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.inject/guice/4.0/961359f8352b791c6443a207c847e25d6d3ca7cd/guice-4.0-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: com.revrobotics.frc:SparkMax-java:1.1.8">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.revrobotics.frc/SparkMax-java/1.1.8/45a49448bed601609aa14b14d286a611b9598862/SparkMax-java-1.1.8.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.revrobotics.frc/SparkMax-java/1.1.8/b4d2b9c25a2552f92acb4551852527a571b4c248/SparkMax-java-1.1.8-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: concurrent:concurrent:1.3.4">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/concurrent/concurrent/1.3.4/1cf394c2a388199db550cda311174a4c6a7d117c/concurrent-1.3.4.jar!/" />
@@ -149,65 +156,65 @@
     </library>
     <library name="Gradle: edu.wpi.first.cameraserver:cameraserver-java:2019.1.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cameraserver/cameraserver-java/2019.1.1/bbb8d8cccfe7611d8bd0b2d0cf176b9384ce4a7d/cameraserver-java-2019.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/cameraserver/cameraserver-java/2019.1.1/cameraserver-java-2019.1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cameraserver/cameraserver-java/2019.1.1/f1624bdf278c3799cd2f44d9521a3c3e444025b5/cameraserver-java-2019.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/cameraserver/cameraserver-java/2019.1.1/cameraserver-java-2019.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.cscore:cscore-java:2019.1.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cscore/cscore-java/2019.1.1/cd13486e32f85bcaaf7af3d17a0b3c4e05b28f5a/cscore-java-2019.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/cscore/cscore-java/2019.1.1/cscore-java-2019.1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.cscore/cscore-java/2019.1.1/9187b9252be5041f1254a22fcaefb8eaea8acfc8/cscore-java-2019.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/cscore/cscore-java/2019.1.1/cscore-java-2019.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.hal:hal-java:2019.1.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.hal/hal-java/2019.1.1/25f1d9902c887a79facaa2633b08dcfb0e391b/hal-java-2019.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/hal/hal-java/2019.1.1/hal-java-2019.1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.hal/hal-java/2019.1.1/e2be849d137482913a4bdd0f9eef839804cd5761/hal-java-2019.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/hal/hal-java/2019.1.1/hal-java-2019.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.ntcore:ntcore-java:2019.1.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.ntcore/ntcore-java/2019.1.1/9fb5185868a9a7025b51377b60dd3e56b54007b2/ntcore-java-2019.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/ntcore/ntcore-java/2019.1.1/ntcore-java-2019.1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.ntcore/ntcore-java/2019.1.1/9beb99ce78dc5da9f43532140dd80fa671018ab7/ntcore-java-2019.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/ntcore/ntcore-java/2019.1.1/ntcore-java-2019.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.thirdparty.frc2019.opencv:opencv-java:3.4.4-4">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.thirdparty.frc2019.opencv/opencv-java/3.4.4-4/5c546c223045ef680e643d97726623031831b1c5/opencv-java-3.4.4-4.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.thirdparty.frc2019.opencv/opencv-java/3.4.4-4/d433924d21ac1a7c0375495d982f61eb047484cb/opencv-java-3.4.4-4-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/thirdparty/frc2019/opencv/opencv-java/3.4.4-4/opencv-java-3.4.4-4-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.wpilibj:wpilibj-java:2019.1.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpilibj/wpilibj-java/2019.1.1/5b473f4cba856d65f2567b631e63d43e9eac71b1/wpilibj-java-2019.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/wpilibj/wpilibj-java/2019.1.1/wpilibj-java-2019.1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpilibj/wpilibj-java/2019.1.1/db163458e3b3460c8b0aa2949e66f6fe87a66d4c/wpilibj-java-2019.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/wpilibj/wpilibj-java/2019.1.1/wpilibj-java-2019.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: edu.wpi.first.wpiutil:wpiutil-java:2019.1.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpiutil/wpiutil-java/2019.1.1/bc11cf2e970c111c9eb5fa9080b28d8326496b9e/wpiutil-java-2019.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/wpiutil/wpiutil-java/2019.1.1/wpiutil-java-2019.1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpiutil/wpiutil-java/2019.1.1/d197e1c91a131589ae5915d74a637eff85f8bf62/wpiutil-java-2019.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Users/Public/frc2019/maven/edu/wpi/first/wpiutil/wpiutil-java/2019.1.1/wpiutil-java-2019.1.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: javax.inject:javax.inject:1">
@@ -264,13 +271,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.24.0-GA/88e88c8e043968bac9b2e86df5cb4a7c2b9f0023/javassist-3.24.0-GA-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.mockito:mockito-core:2.8.9">
+    <library name="Gradle: org.mockito:mockito-core:2.23.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.8.9/1afb35b2d77d40567756c379e54c18da3574a96e/mockito-core-2.8.9.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.23.0/497ddb32fd5d01f9dbe99a2ec790aeb931dff1b1/mockito-core-2.23.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.8.9/45f340ae3e0a0d7a97a1cb8173a081a3856c41eb/mockito-core-2.8.9-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.23.0/cdd452f898001f5dc35448c623e16bde4f4817c6/mockito-core-2.23.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.objenesis:objenesis:3.0.1">
@@ -282,31 +289,22 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/3.0.1/4aaa3e228e1ae7c71ded703b8742c37c058057fd/objenesis-3.0.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.powermock:powermock-api-mockito-common:1.7.4">
+    <library name="Gradle: org.powermock:powermock-api-mockito2:2.0.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-mockito-common/1.7.4/7db8344c2c34baab81ac3f6e9ad1cf45e1d08d37/powermock-api-mockito-common-1.7.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-mockito2/2.0.0/12d4d2de4152d75421bf0d1da2114370abfa29a5/powermock-api-mockito2-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-mockito-common/1.7.4/34b9b04d9d3a6ef8c541f78cfbea91b639a0f652/powermock-api-mockito-common-1.7.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-mockito2/2.0.0/24e21e956c1531d9c76d6832e546fb8b174b7516/powermock-api-mockito2-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.powermock:powermock-api-mockito2:1.7.4">
+    <library name="Gradle: org.powermock:powermock-api-support:2.0.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-mockito2/1.7.4/8ac438f60fceacba48113b13d1546eb9b8443be9/powermock-api-mockito2-1.7.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-support/2.0.0/baf2d5520bb281b166cef0e9edc7b1ac0b85f813/powermock-api-support-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-mockito2/1.7.4/4f74c9043aeb06e75b663228335299e2979344d3/powermock-api-mockito2-1.7.4-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.powermock:powermock-api-support:1.7.4">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-support/1.7.4/688c8cb384a31060fc04130eec1c6e68546d0e3e/powermock-api-support-1.7.4.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-support/1.7.4/41af0b9ee7044a1fa0b278d4d47bbe1683ceabef/powermock-api-support-1.7.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.powermock/powermock-api-support/2.0.0/ce4cd843f81ddca96c6d20a6c3486c3d2a833e2b/powermock-api-support-2.0.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.powermock:powermock-core:2.0.0">

@@ -7,9 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -32,8 +32,9 @@ public class Elevator extends Subsystem {
       BOTTOM, MIDDLE, TOP
   }
 
-  public double ticksPerRev = 42 * 5;
-  public double sprocketRadius = 0.5625;
+  public double ticksPerRev = 4096;
+  public double sprocketRadius = 0.0142875;//meters aka 1.428 centimeters aka about half an inch
+  public int Ng = 5;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
   public StateSpaceController stateSpaceController;
@@ -48,7 +49,7 @@ public class Elevator extends Subsystem {
       pdp = new PowerDistributionPanel(0);
       this.oi = oi;
       motors = new CANSparkMax[] {
-        new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_VICTOR, MotorType.kBrushless)
+        new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless)
       };
       initStateSpace();
       notifier = new Notifier(new Runnable(){
