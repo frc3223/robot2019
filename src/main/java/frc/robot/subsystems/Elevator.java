@@ -179,30 +179,33 @@ public class Elevator extends Subsystem {
     stateSpaceController = new StateSpaceController();
     stateSpaceController.init(2, 1, 1);
     double[][] a = new double[][] {
-        { 1, 1.25e-3 },
-        { 0, 1.15e-7 }
+        { 1.0, 0.00011200086719228326 },
+        { 0.0, 2.8055267532365116e-78 }
     };
     double[][] a_inv = new double[][] {
-        { 1, -1.09e+4 },
-        { 0, 8.70e+6 }
+        { 1.0, -3.992151101859101e+73 },
+        { 0.0, 3.564393028319477e+77 }
     };
     double[][] b = new double[][] {
-        { 0.024 },
-        { 1.27 }
+        { 0.005629853396465432 },
+        { 0.2830779184406887 }
     };
     double[][] c = new double[][] {
         { 1, 0 }
     };
     double[][] k = new double[][] {
-        { 5.08, 0.006 }
+        { 31.665448806218844, 0.0035465577263293613 }
     };
     double[][] kff = new double[][] {
-        { 0.69, 0.77 }
+        { 6.620339312648308, 3.328811143061263 }
     };
     double[][] L = new double[][] {
-        { 1 },
-        { 6.61e-15 }
+        { 0.9999995555561982 },
+        { 1.9528654827747843e-94 }
     };
+    // Ks is 0.3527161191692306
+    // Kv is 3.5325962742287254
+    // Ka is 0.00039565384615384614
 
     StateSpaceController.assign(stateSpaceController.A, a);
     StateSpaceController.assign(stateSpaceController.A_inv, a_inv);
