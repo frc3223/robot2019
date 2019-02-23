@@ -82,7 +82,8 @@ public class Robot extends TimedRobot {
     //m_intake = new Intake();
     m_climber = new Climber(m_oi);
     m_elevator = new Elevator(m_oi);
-    
+
+    m_elevator.logEverything();
     
     m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
     //m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));

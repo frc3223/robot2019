@@ -39,6 +39,7 @@ public class Elevator extends Subsystem {
   public Notifier notifier;
   public StateSpaceController stateSpaceController;
   public CANSparkMax[] motors;
+  public DataLogger logger;
 
   private boolean isDisabled = false;
   private double targetPosition = 0;
@@ -60,8 +61,15 @@ public class Elevator extends Subsystem {
             calculate();
         }
       });
+      this.logger = new DataLogger("Log");
       notifier.startPeriodic(0.02);
   }
+/*  This method will call all internal logging methods.               */
+    public void logEverything() {
+        logMotorVoltage(this.logger);
+        logMotorCurrent(this.logger);
+        logMotorTemperature(this.logger);
+    }
 
 /*  The move functions will move the elevator to the level specified  */
 /*  in the function name. As an example, moveBottom() will move the   */
@@ -91,6 +99,15 @@ public class Elevator extends Subsystem {
       }
   }
 
+  public void logMotorTemperature(DataLogger logger) {
+      for(int i = 0; i < this.motors.length; i++) {
+          int temp = i;
+          logger.add("Temperature (Motor " + (temp + 1) + ")", () -> {
+              return this.motors[temp].getMotorTemperature();
+          });
+      }
+  }
+
   public void logMotorCurrent(DataLogger logger) {
     for(int j = 0; j < this.motors.length; j++) {
       int temp = j;
@@ -98,7 +115,7 @@ public class Elevator extends Subsystem {
           return this.motors[temp].getOutputCurrent();
       });
     }
-}
+  }
 
   //For when the driver wants to manually control the elevator level
   public void moveElevator(double voltPercent) {
