@@ -14,12 +14,14 @@ import frc.robot.subsystems.Climber;
 public class ClimberDeploy extends Command {
   Climber subsystem;
   OI oi;
+  int increment;
 
   public ClimberDeploy(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     this.subsystem = subsystem;
     this.oi = oi;
     requires(subsystem);
+    increment = 3;
   }
 
   // Called just before this Command runs the first time
@@ -30,7 +32,46 @@ public class ClimberDeploy extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.liftRobot();
+    boolean RBdone = false;
+    boolean LBdone = false;
+    boolean RFdone = false;
+    boolean LFdone = false;
+    double stallVoltage = 0.1;
+    double liftingVoltage = 1;
+    if(subsystem.rightBackPosition() < increment){
+      subsystem.moveRightBack(liftingVoltage);
+    }
+    if(subsystem.rightBackPosition() >= increment){
+      subsystem.moveRightBack(stallVoltage);
+      RBdone = true;
+    }
+    if(subsystem.leftBackPosition() < increment){
+      subsystem.moveLeftBack(liftingVoltage);
+    }
+    if(subsystem.leftBackPosition() >= increment){
+      subsystem.moveLeftBack(stallVoltage);
+      LBdone = true;
+    }
+    if(subsystem.rightFrontPosition() < increment){
+      subsystem.moveRightFront(liftingVoltage);
+    }
+    if(subsystem.rightFrontPosition() >= increment){
+      subsystem.moveRightFront(stallVoltage);
+      RFdone = true;
+    }
+    if(subsystem.leftFrontPosition() < increment){
+      subsystem.moveLeftFront(liftingVoltage);
+    }
+    if(subsystem.leftFrontPosition() >= increment){
+      subsystem.moveLeftFront(stallVoltage);
+      LFdone = true;
+    }
+    if(RBdone && LBdone && RFdone && LFdone){
+      increment += increment;
+      if (increment > 21){
+        end();
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

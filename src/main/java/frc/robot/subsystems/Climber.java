@@ -13,6 +13,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.OI;
 import frc.robot.commands.ClimberMove;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Climber extends Subsystem{
     DoubleSolenoid frontSolenoid;
@@ -26,27 +28,27 @@ public class Climber extends Subsystem{
     NetworkTable table = inst.getTable("Stilts");
     OI oi;
 
+    CANSparkMax rightFrontMotor;
+    CANSparkMax leftFrontMotor;
+    CANSparkMax rightBackMotor;
+    CANSparkMax leftBackMotor;
+
     NetworkTableEntry leftLimit;
     NetworkTableEntry rightLimit;
+    int Ng;
+    double winchRadius = 1; // inch
+    int ticksPerRev = 42;
 
     public Climber(OI oi) {
         inst = NetworkTableInstance.getDefault();
         this.oi = oi;
         table = inst.getTable("Stilts");
-        leftLimit = table.getEntry("Left Limit Switch");
-        rightLimit = table.getEntry("Right Limit Switch");
-        limitSwitchL = new DigitalInput(RobotMap.LIMIT_SWITCH_LEFT);
-        limitSwitchR = new DigitalInput(RobotMap.LIMIT_SWITCH_RIGHT);
-        frontSolenoid = new DoubleSolenoid(
-            RobotMap.PNEUMATICS_MODULE,
-            RobotMap.CLIMBER_SIDES_FRONT_CYLINDER_UP, 
-            RobotMap.CLIMBER_SIDES_FRONT_CYLINDER_DOWN);
-        backSolenoid = new DoubleSolenoid(
-            RobotMap.PNEUMATICS_MODULE,
-            RobotMap.CLIMBER_BACK_CYLINDER_UP, 
-            RobotMap.CLIMBER_BACK_CYLINDER_DOWN);
+        this.rightFrontMotor = new CANSparkMax(RobotMap.STILTS_RIGHT_FRONT_CAN,MotorType.kBrushless);
+        this.leftFrontMotor = new CANSparkMax(RobotMap.STILTS_LEFT_FRONT_CAN,MotorType.kBrushless);
+        this.rightBackMotor = new CANSparkMax(RobotMap.STILTS_RIGHT_BACK_CAN,MotorType.kBrushless);
+        this.leftBackMotor = new CANSparkMax(RobotMap.STILTS_LEFT_BACK_CAN,MotorType.kBrushless);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
-
+        Ng = 10;
         c = new Compressor(RobotMap.PNEUMATICS_MODULE);
         c.setClosedLoopControl(true);
         
@@ -65,6 +67,47 @@ public class Climber extends Subsystem{
         backSolenoid.set(Value.kForward);
         frontSolenoid.set(Value.kForward);
     } 
+
+    public void moveDown(int distance){
+        rightBackMotor.set(1);
+        rightFrontMotor.set(1);
+        leftFrontMotor.set(1);
+        leftBackMotor.set(1);
+    }
+    public void moveUp(){
+        rightBackMotor.set(-1);
+        rightFrontMotor.set(-1);
+        leftFrontMotor.set(-1);
+        leftBackMotor.set(-1);
+    }
+    public void moveRightBack(double speed){
+        rightBackMotor.set(speed);
+    }
+    public void moveLeftBack(double speed){
+        leftBackMotor.set(speed);
+    }
+    public void moveRightFront(double speed){
+        rightFrontMotor.set(speed);
+    }
+    public void moveLeftFront(double speed){
+        leftFrontMotor.set(speed);
+    }
+
+    public double convert(double ticks){
+        return (ticks/ticksPerRev)*(Ng)*(2*Math.PI*winchRadius);
+    }
+    public double rightBackPosition(){
+        return convert(this.rightBackMotor.getEncoder().getPosition());
+    }
+    public double rightFrontPosition(){
+        return convert(this.rightFrontMotor.getEncoder().getPosition());
+    }
+    public double leftBackPosition(){
+        return convert(this.leftBackMotor.getEncoder().getPosition());
+    }
+    public double leftFrontPosition(){
+        return convert(this.leftFrontMotor.getEncoder().getPosition());
+    }
 
     public void move(double speed){
         driveMotor.set(speed);

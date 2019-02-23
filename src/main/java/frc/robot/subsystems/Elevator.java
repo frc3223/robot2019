@@ -7,9 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -29,7 +29,8 @@ public class Elevator extends Subsystem {
   }
 
   public double ticksPerRev = 4096;
-  public double sprocketRadius = 0.0508;
+  public double sprocketRadius = 0.0142875;//meters aka 1.428 centimeters aka about half an inch
+  public int Ng = 5;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
   public StateSpaceController stateSpaceController;
@@ -44,7 +45,7 @@ public class Elevator extends Subsystem {
       pdp = new PowerDistributionPanel(0);
       this.oi = oi;
       victor = new WPI_VictorSPX[] {
-        new WPI_VictorSPX(RobotMap.DRIVETRAIN_ELEVATOR_VICTOR)
+        new WPI_VictorSPX(RobotMap.DRIVETRAIN_ELEVATOR_CAN)
       };
       initStateSpace();
       notifier = new Notifier(new Runnable(){
@@ -136,12 +137,12 @@ public class Elevator extends Subsystem {
 
   public double getVelocity() {
     double rawEncoderTicks = this.victor[0].getSelectedSensorVelocity();
-    return (rawEncoderTicks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius) * 10;
+    return (rawEncoderTicks / this.ticksPerRev) *Ng * (2 * Math.PI * this.sprocketRadius) * 10;
   }
 
   public double getPosition() {
       double ticks = victor[0].getSelectedSensorPosition();
-      double val = (ticks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius);
+      double val = (ticks / this.ticksPerRev) *Ng* (2 * Math.PI * this.sprocketRadius);
       return val;
   }
 

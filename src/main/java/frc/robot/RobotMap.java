@@ -29,17 +29,25 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   //Motor Controllers
+    //drivetrain
   public static final int DRIVETRAIN_LEFT_FRONT_TALON = 1;
   public static final int DRIVETRAIN_LEFT_BACK_VICTOR = 2;
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
+    //stilts
+  public static final int STILTS_RIGHT_FRONT_CAN = 14;
+  public static final int STILTS_RIGHT_BACK_CAN = 13;
+  public static final int STILTS_LEFT_FRONT_CAN = 3;
+  public static final int STILTS_LEFT_BACK_CAN = 4;
+  public static final int CLIMBER_DRIVE_MOTOR = 5;
+//lime light is on #8 pdp slot
+  public static final int PNEUMATICS_MODULE = 21;
 
-  public static final int DRIVETRAIN_ELEVATOR_VICTOR = 13;
+  public static final int DRIVETRAIN_ELEVATOR_CAN = 12;
   public static final int TEST_SPARKMAX = 30;
 
-
   //Manipulator
-  public static final int CARRIAGE_VICTOR = 12;
+  public static final int CARRIAGE_VICTOR = 11;
   public static final int INTAKE_VICTOR = 5;
 
   //limit switch values
@@ -84,7 +92,7 @@ public class RobotMap {
   public static final int CLIMBER_SIDES_FRONT_CYLINDER_DOWN = 5;
   public static final int CLIMBER_BACK_CYLINDER_UP = 6;
   public static final int CLIMBER_BACK_CYLINDER_DOWN = 7;
-  public static final int CLIMBER_DRIVE_MOTOR = 6;
+  
 
  //Limelight modes
   public static final int LIME_LIGHT_LIGHT_PIPELINE = 0;
@@ -94,7 +102,6 @@ public class RobotMap {
 
 
   //Pneumatics modes
-  public static final int PNEUMATICS_MODULE = 21;
   public static final int SOLENOIDS_SLIDE_FORWARD = 1;
   public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
   public static final int SOLENOIDS_GALAGA_FORWARD = 0;
