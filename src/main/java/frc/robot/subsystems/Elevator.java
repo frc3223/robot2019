@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.OI;
 import frc.robot.RobotMap;
@@ -61,7 +62,8 @@ public class Elevator extends Subsystem {
             calculate();
         }
       });
-      this.logger = new DataLogger("Log");
+      this.reset();
+      this.logger = new DataLogger("Elevator");
       notifier.startPeriodic(0.02);
   }
 /*  This method will call all internal logging methods.               */
@@ -69,6 +71,7 @@ public class Elevator extends Subsystem {
         logMotorVoltage(this.logger);
         logMotorCurrent(this.logger);
         logMotorTemperature(this.logger);
+        logMotorPosition(this.logger);
     }
 
 /*  The move functions will move the elevator to the level specified  */
@@ -117,6 +120,12 @@ public class Elevator extends Subsystem {
     }
   }
 
+  public void logMotorPosition(DataLogger logger) {
+      logger.add("Position", () -> {
+          return this.getPosition();
+      });
+  }
+
   //For when the driver wants to manually control the elevator level
   public void moveElevator(double voltPercent) {
     for(int i = 0; i < this.motors.length; i++) {
@@ -136,6 +145,12 @@ public class Elevator extends Subsystem {
       setTargetPosition(getPosition());
     }
     this.isDisabled = isDisabled;
+  }
+
+  public void reset() {
+      for(int j = 0; j < this.motors.length; j++) {
+          this.motors[j].getEncoder().setPosition(0);
+      }
   }
 
   public synchronized boolean isDisabled() {
@@ -246,6 +261,13 @@ public class Elevator extends Subsystem {
 
   public void measureVoltage(double volts) {
 
+  }
+
+  @Override
+    public void periodic() {
+      if(RobotState.isEnabled()) {
+          this.logger.log();
+      }
   }
 
 }

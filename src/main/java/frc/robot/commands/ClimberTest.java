@@ -50,7 +50,7 @@ public class ClimberTest extends Command {
     }
     System.out.println("Position: " + subsystem.rightBackPosition());
     System.out.println("Ticks   : " + subsystem.rightBackTicks());
-    System.out.println(" CC     : " + subsystem.conv());
+    System.out.println(" CC     : " + subsystem.conversionFactor());
   }
 
   // Make this return true when this Command no longer needs to run execute()
