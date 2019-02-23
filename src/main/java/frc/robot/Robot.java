@@ -91,9 +91,9 @@ public class Robot extends TimedRobot {
     //m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
     //m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
     //m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
-    m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
-    m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
-    m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
+    //m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
+    //m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
+    //m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
     
 
     new Thread(() -> {

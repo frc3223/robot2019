@@ -32,7 +32,7 @@ public class Elevator extends Subsystem {
       BOTTOM, MIDDLE, TOP
   }
 
-  public double ticksPerRev = 4096;
+  public double ticksPerRev = 42;
   public double sprocketRadius = 0.0142875;//meters aka 1.428 centimeters aka about half an inch
   public int Ng = 5;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
@@ -51,6 +51,8 @@ public class Elevator extends Subsystem {
       motors = new CANSparkMax[] {
         new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless)
       };
+      motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI / Ng);
+      motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI / Ng);
       initStateSpace();
       notifier = new Notifier(new Runnable(){
         @Override
@@ -141,13 +143,12 @@ public class Elevator extends Subsystem {
 
   public double getVelocity() {
     double rawEncoderTicks = this.motors[0].getEncoder().getVelocity();
-    return (rawEncoderTicks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius) * 10;
+    return rawEncoderTicks;
   }
 
   public double getPosition() {
       double ticks = motors[0].getEncoder().getPosition();
-      double val = (ticks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius);
-      return val;
+      return ticks;
   }
 
   public void calculate() {
