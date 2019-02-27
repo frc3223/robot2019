@@ -37,7 +37,7 @@ public class ClimberDeploy extends Command {
     boolean RFdone = false;
     boolean LFdone = false;
     double stallVoltage = 0.1;
-    double liftingVoltage = 1;
+    double liftingVoltage = 0.5;
     if(subsystem.rightBackPosition() < increment){
       subsystem.moveRightBack(liftingVoltage);
     }

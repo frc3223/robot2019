@@ -35,9 +35,9 @@ public class ClimberTest extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean pressed = this.oi.driverController.getRawButton(6);
-    double liftingVoltage = 0.1;
-    if(pressed){
+    double pressed = this.oi.driverController.getRawAxis(5);
+    double liftingVoltage = pressed*0.5;
+    if(Math.abs(pressed) > 0.1){
       subsystem.moveLeftBack(liftingVoltage);
       subsystem.moveRightFront(liftingVoltage);
       subsystem.moveLeftFront(liftingVoltage);
@@ -48,9 +48,6 @@ public class ClimberTest extends Command {
       subsystem.moveLeftFront(0);
       subsystem.moveRightBack(0);
     }
-    System.out.println("Position: " + subsystem.rightBackPosition());
-    System.out.println("Ticks   : " + subsystem.rightBackTicks());
-    System.out.println(" CC     : " + subsystem.conversionFactor());
   }
 
   // Make this return true when this Command no longer needs to run execute()

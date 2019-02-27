@@ -21,15 +21,11 @@ public class LimeLight extends Subsystem {
   // here. Call these from Commands.
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("limelight");
-  
 
   public LimeLight() {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("limelight");
-
   }
-
-
 
   public int getValidTarget() {
     NetworkTableEntry tv;
