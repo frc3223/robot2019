@@ -110,11 +110,12 @@ public class DataLogger {
           file_out2.write('\n');
         } catch (IOException e) {
           e.printStackTrace();
+          this.usbExists = false;
         }
         
       }
     }
-    if(this.usbExists){
+    if(this.usbExists && file_out2 != null){
       try {
         System.out.println("Writing to usb");
         file_out2.write(String.join(",", value_suppliers.values().stream()
@@ -122,6 +123,14 @@ public class DataLogger {
         file_out2.write('\n');
       } catch (IOException e) {
         e.printStackTrace();
+      }
+    } else {
+      if(!this.usbExists) {
+        //System.out.println("this.usbExists is false");
+      } else if(this.usbExists && file_out2 == null) {
+        System.out.println("file_out2 is null");
+      } else if(this.usbExists) {
+        System.out.println("Something's seriously broken right now!");
       }
     }
   }
