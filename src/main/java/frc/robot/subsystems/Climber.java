@@ -30,8 +30,7 @@ public class Climber extends Subsystem{
 
     CANSparkMax rightFrontMotor;
     CANSparkMax leftFrontMotor;
-    CANSparkMax rightBackMotor;
-    CANSparkMax leftBackMotor;
+    CANSparkMax backMotor;
 
     NetworkTableEntry leftLimit;
     NetworkTableEntry rightLimit;
@@ -45,8 +44,7 @@ public class Climber extends Subsystem{
         table = inst.getTable("Stilts");
         this.rightFrontMotor = new CANSparkMax(RobotMap.STILTS_RIGHT_FRONT_CAN,MotorType.kBrushless);
         this.leftFrontMotor = new CANSparkMax(RobotMap.STILTS_LEFT_FRONT_CAN,MotorType.kBrushless);
-        this.rightBackMotor = new CANSparkMax(RobotMap.STILTS_RIGHT_BACK_CAN,MotorType.kBrushless);
-        this.leftBackMotor = new CANSparkMax(RobotMap.STILTS_LEFT_BACK_CAN,MotorType.kBrushless);
+        this.backMotor = new CANSparkMax(RobotMap.STILTS_BACK_CAN,MotorType.kBrushless);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
         Ng = 10;
         c = new Compressor(RobotMap.PNEUMATICS_MODULE);
@@ -67,43 +65,49 @@ public class Climber extends Subsystem{
         backSolenoid.set(Value.kForward);
         frontSolenoid.set(Value.kForward);
     } 
-
+    public void maintainStiltLevel() {
+        double stiltStall= 0.1;
+        this.leftFrontMotor.set(stiltStall);
+        this.rightFrontMotor.set(stiltStall);
+        this.backMotor.set(stiltStall);
+      }
     public void moveDown(int distance){
-        rightBackMotor.set(1);
-        rightFrontMotor.set(1);
-        leftFrontMotor.set(1);
-        leftBackMotor.set(1);
+        this.backMotor.set(0.5);
+        this.rightFrontMotor.set(0.5);
+        this.leftFrontMotor.set(0.5);
+
     }
     public void moveUp(){
-        rightBackMotor.set(-1);
-        rightFrontMotor.set(-1);
-        leftFrontMotor.set(-1);
-        leftBackMotor.set(-1);
+        this.backMotor.set(-0.5);
+        this.rightFrontMotor.set(-0.5);
+        this.leftFrontMotor.set(-0.5);
     }
-    public void moveRightBack(double speed){
-        rightBackMotor.set(speed);
+    public void liftFront(){
+        this.rightFrontMotor.set(-0.5);
+        this.leftFrontMotor.set(-0.5);
     }
-    public void moveLeftBack(double speed){
-        leftBackMotor.set(speed);
+    public void liftBack(){
+        this.backMotor.set(-0.5);
     }
-    public void moveRightFront(double speed){
-        rightFrontMotor.set(speed);
+
+    public void moveBack(double speed){
+        backMotor.set(speed);
     }
-    public void moveLeftFront(double speed){
-        leftFrontMotor.set(speed);
+    public void moveRightFront(double voltage){
+        this.rightFrontMotor.set(voltage);
+    }
+    public void moveLeftFront(double voltage){
+        this.leftFrontMotor.set(voltage);
     }
 
     public double convert(double ticks){
         return (ticks/ticksPerRev)*(Ng)*(2*Math.PI*winchRadius);
     }
-    public double rightBackPosition(){
-        return convert(this.rightBackMotor.getEncoder().getPosition());
+    public double backPosition(){
+        return convert(this.backMotor.getEncoder().getPosition());
     }
     public double rightFrontPosition(){
         return convert(this.rightFrontMotor.getEncoder().getPosition());
-    }
-    public double leftBackPosition(){
-        return convert(this.leftBackMotor.getEncoder().getPosition());
     }
     public double leftFrontPosition(){
         return convert(this.leftFrontMotor.getEncoder().getPosition());
@@ -116,17 +120,6 @@ public class Climber extends Subsystem{
     public void stopMotor(){
         driveMotor.set(0);
     }
-
-    public void liftFront(){
-        frontSolenoid.set(Value.kReverse);
-        //if isleft && isright up, then post to networktables
-    }
-    
-    public void liftBack(){
-        backSolenoid.set(Value.kReverse);
-
-    }
-
     public boolean isLeftUp(){
         if(limitSwitchL.get()){
             leftLimit.setBoolean(true);

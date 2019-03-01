@@ -32,25 +32,17 @@ public class ClimberDeploy extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean RBdone = false;
-    boolean LBdone = false;
+    boolean Bdone = false;
     boolean RFdone = false;
     boolean LFdone = false;
     double stallVoltage = 0.1;
     double liftingVoltage = 1;
-    if(subsystem.rightBackPosition() < increment){
-      subsystem.moveRightBack(liftingVoltage);
+    if(subsystem.backPosition() < increment){
+      subsystem.moveBack(liftingVoltage);
     }
-    if(subsystem.rightBackPosition() >= increment){
-      subsystem.moveRightBack(stallVoltage);
-      RBdone = true;
-    }
-    if(subsystem.leftBackPosition() < increment){
-      subsystem.moveLeftBack(liftingVoltage);
-    }
-    if(subsystem.leftBackPosition() >= increment){
-      subsystem.moveLeftBack(stallVoltage);
-      LBdone = true;
+    if(subsystem.backPosition() >= increment){
+      subsystem.moveBack(stallVoltage);
+      Bdone = true;
     }
     if(subsystem.rightFrontPosition() < increment){
       subsystem.moveRightFront(liftingVoltage);
@@ -66,7 +58,7 @@ public class ClimberDeploy extends Command {
       subsystem.moveLeftFront(stallVoltage);
       LFdone = true;
     }
-    if(RBdone && LBdone && RFdone && LFdone){
+    if(Bdone && RFdone && LFdone){
       increment += increment;
       if (increment > 21){
         end();

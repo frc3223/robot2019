@@ -36,10 +36,9 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
     //stilts
   public static final int STILTS_RIGHT_FRONT_CAN = 14;
-  public static final int STILTS_RIGHT_BACK_CAN = 13;
+  public static final int STILTS_BACK_CAN = 13;
   public static final int STILTS_LEFT_FRONT_CAN = 3;
-  public static final int STILTS_LEFT_BACK_CAN = 4;
-  public static final int CLIMBER_DRIVE_MOTOR = 5;
+  public static final int CLIMBER_DRIVE_MOTOR = 4;
 //lime light is on #8 pdp slot
   public static final int PNEUMATICS_MODULE = 21;
 
