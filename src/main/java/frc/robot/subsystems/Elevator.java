@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.OI;
 import frc.robot.RobotMap;
@@ -32,13 +33,14 @@ public class Elevator extends Subsystem {
       BOTTOM, MIDDLE, TOP
   }
 
-  public double ticksPerRev = 4096;
+  public double ticksPerRev = 42;
   public double sprocketRadius = 0.0142875;//meters aka 1.428 centimeters aka about half an inch
   public int Ng = 5;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
   public StateSpaceController stateSpaceController;
   public CANSparkMax[] motors;
+  public DataLogger logger;
 
   private boolean isDisabled = false;
   private double targetPosition = 0;
@@ -51,6 +53,8 @@ public class Elevator extends Subsystem {
       motors = new CANSparkMax[] {
         new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless)
       };
+      motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI / Ng);
+      motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI / Ng);
       initStateSpace();
       notifier = new Notifier(new Runnable(){
         @Override
@@ -58,8 +62,17 @@ public class Elevator extends Subsystem {
             calculate();
         }
       });
+      this.reset();
+      this.logger = new DataLogger("Elevator");
       notifier.startPeriodic(0.02);
   }
+/*  This method will call all internal logging methods.               */
+    public void logEverything() {
+        logMotorVoltage(this.logger);
+        logMotorCurrent(this.logger);
+        logMotorTemperature(this.logger);
+        logMotorPosition(this.logger);
+    }
 
 /*  The move functions will move the elevator to the level specified  */
 /*  in the function name. As an example, moveBottom() will move the   */
@@ -89,6 +102,15 @@ public class Elevator extends Subsystem {
       }
   }
 
+  public void logMotorTemperature(DataLogger logger) {
+      for(int i = 0; i < this.motors.length; i++) {
+          int temp = i;
+          logger.add("Temperature (Motor " + (temp + 1) + ")", () -> {
+              return this.motors[temp].getMotorTemperature();
+          });
+      }
+  }
+
   public void logMotorCurrent(DataLogger logger) {
     for(int j = 0; j < this.motors.length; j++) {
       int temp = j;
@@ -96,7 +118,13 @@ public class Elevator extends Subsystem {
           return this.motors[temp].getOutputCurrent();
       });
     }
-}
+  }
+
+  public void logMotorPosition(DataLogger logger) {
+      logger.add("Position", () -> {
+          return this.getPosition();
+      });
+  }
 
   //For when the driver wants to manually control the elevator level
   public void moveElevator(double voltPercent) {
@@ -117,6 +145,12 @@ public class Elevator extends Subsystem {
       setTargetPosition(getPosition());
     }
     this.isDisabled = isDisabled;
+  }
+
+  public void reset() {
+      for(int j = 0; j < this.motors.length; j++) {
+          this.motors[j].getEncoder().setPosition(0);
+      }
   }
 
   public synchronized boolean isDisabled() {
@@ -141,13 +175,12 @@ public class Elevator extends Subsystem {
 
   public double getVelocity() {
     double rawEncoderTicks = this.motors[0].getEncoder().getVelocity();
-    return (rawEncoderTicks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius) * 10;
+    return rawEncoderTicks;
   }
 
   public double getPosition() {
       double ticks = motors[0].getEncoder().getPosition();
-      double val = (ticks / this.ticksPerRev) * (2 * Math.PI * this.sprocketRadius);
-      return val;
+      return ticks;
   }
 
   public void calculate() {
@@ -228,6 +261,13 @@ public class Elevator extends Subsystem {
 
   public void measureVoltage(double volts) {
 
+  }
+
+  @Override
+    public void periodic() {
+      if(RobotState.isEnabled()) {
+          this.logger.log();
+      }
   }
 
 }

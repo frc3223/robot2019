@@ -39,7 +39,7 @@ public class DataLogger {
       target_file = new File("/home/lvuser/" + context_name +".csv");
       //Log to usb as well
       target_file2 = new File("/media/sda1/" + context_name +".csv");
-      this.usbExists = target_file2.exists();
+      this.usbExists = target_file2.getParentFile().exists();
     }
     target_file.getParentFile().mkdirs();
     add("time", () -> timer.get());
@@ -78,7 +78,7 @@ public class DataLogger {
       timer.start();
       start_time = (long) timer.get();
       try {
-        //System.out.println("Writing to roboRio");
+        System.out.println("Writing to roboRio");
         file_out = new FileOutputStream(target_file);
         file_out.write(String.join(",", value_suppliers.keySet()).getBytes());
         file_out.write('\n');
@@ -87,7 +87,7 @@ public class DataLogger {
       }
     }
     try {
-      //System.out.println("Writing to roboRio");
+      System.out.println("Writing to roboRio");
       file_out.write(String.join(",", value_suppliers.values().stream()
           .map(num -> num.get().toString()).collect(Collectors.toList())).getBytes());
       file_out.write('\n');
@@ -104,17 +104,18 @@ public class DataLogger {
       //start_time = System.currentTimeMillis();
       if(this.usbExists){
         try {
-          //System.out.println("Writing to usb");
+          System.out.println("Writing to usb");
           file_out2 = new FileOutputStream(target_file2);
           file_out2.write(String.join(",", value_suppliers.keySet()).getBytes());
           file_out2.write('\n');
         } catch (IOException e) {
           e.printStackTrace();
+          this.usbExists = false;
         }
         
       }
     }
-    if(this.usbExists){
+    if(this.usbExists && file_out2 != null){
       try {
         System.out.println("Writing to usb");
         file_out2.write(String.join(",", value_suppliers.values().stream()
@@ -122,6 +123,14 @@ public class DataLogger {
         file_out2.write('\n');
       } catch (IOException e) {
         e.printStackTrace();
+      }
+    } else {
+      if(!this.usbExists) {
+        //System.out.println("this.usbExists is false");
+      } else if(this.usbExists && file_out2 == null) {
+        System.out.println("file_out2 is null");
+      } else if(this.usbExists) {
+        System.out.println("Something's seriously broken right now!");
       }
     }
   }

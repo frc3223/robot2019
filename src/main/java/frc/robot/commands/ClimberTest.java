@@ -11,58 +11,40 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Climber;
 
-public class ClimberDeploy extends Command {
+public class ClimberTest extends Command {
   Climber subsystem;
   OI oi;
   int increment;
 
-  public ClimberDeploy(Climber subsystem, OI oi) {
+  public ClimberTest(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     this.subsystem = subsystem;
     this.oi = oi;
     requires(subsystem);
     increment = 3;
+    subsystem.reset();
+    System.out.println("tacos");
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean Bdone = false;
-    boolean RFdone = false;
-    boolean LFdone = false;
-    double stallVoltage = 0.1;
-    double liftingVoltage = 0.5;
-    if(subsystem.backPosition() < increment){
-      subsystem.moveBack(liftingVoltage);
-    }
-    if(subsystem.backPosition() >= increment){
-      subsystem.moveBack(stallVoltage);
-      Bdone = true;
-    }
-    if(subsystem.rightFrontPosition() < increment){
+    double pressed = this.oi.driverController.getRawAxis(5);
+    double liftingVoltage = pressed*0.5;
+    if(Math.abs(pressed) > 0.1){
       subsystem.moveRightFront(liftingVoltage);
-    }
-    if(subsystem.rightFrontPosition() >= increment){
-      subsystem.moveRightFront(stallVoltage);
-      RFdone = true;
-    }
-    if(subsystem.leftFrontPosition() < increment){
       subsystem.moveLeftFront(liftingVoltage);
-    }
-    if(subsystem.leftFrontPosition() >= increment){
-      subsystem.moveLeftFront(stallVoltage);
-      LFdone = true;
-    }
-    if(Bdone && RFdone && LFdone){
-      increment += increment;
-      if (increment > 21){
-        end();
-      }
+      subsystem.moveBack(liftingVoltage);
+    }else{
+      subsystem.moveRightFront(0);
+      subsystem.moveLeftFront(0);
+      subsystem.moveBack(0);
     }
   }
 

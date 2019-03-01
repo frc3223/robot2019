@@ -13,19 +13,13 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.OI;
 import frc.robot.commands.ClimberMove;
+import frc.robot.commands.ClimberTest;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Climber extends Subsystem{
-    DoubleSolenoid frontSolenoid;
-    DoubleSolenoid backSolenoid;
     WPI_VictorSPX driveMotor;
-    Compressor c;
-    DigitalInput limitSwitchR;
-    DigitalInput limitSwitchL;
 
-    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("Stilts");
     OI oi;
 
     CANSparkMax rightFrontMotor;
@@ -35,35 +29,35 @@ public class Climber extends Subsystem{
     NetworkTableEntry leftLimit;
     NetworkTableEntry rightLimit;
     int Ng;
-    double winchRadius = 1; // inch
+    double winchRadius = 0.5625; // inch
     int ticksPerRev = 42;
 
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("Climber");
+
     public Climber(OI oi) {
+        Ng = 10;
         inst = NetworkTableInstance.getDefault();
         this.oi = oi;
-        table = inst.getTable("Stilts");
         this.rightFrontMotor = new CANSparkMax(RobotMap.STILTS_RIGHT_FRONT_CAN,MotorType.kBrushless);
         this.leftFrontMotor = new CANSparkMax(RobotMap.STILTS_LEFT_FRONT_CAN,MotorType.kBrushless);
         this.backMotor = new CANSparkMax(RobotMap.STILTS_BACK_CAN,MotorType.kBrushless);
         driveMotor= new WPI_VictorSPX(RobotMap.CLIMBER_DRIVE_MOTOR);
-        Ng = 10;
-        c = new Compressor(RobotMap.PNEUMATICS_MODULE);
-        c.setClosedLoopControl(true);
+
+        inst = NetworkTableInstance.getDefault();
+        table = inst.getTable("Climber");
+        this.leftFrontMotor.setInverted(false);
+        this.rightFrontMotor.setInverted(false);
+        this.backMotor.setInverted(false);
         
     }
-    // post if its okay to move forward & solenoid pressure
-    // accelerometer
-    // controls
-    // ask about encoders??
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new ClimberMove(this,this.oi));
+        setDefaultCommand(new ClimberTest(this,this.oi));
     }
 
     public void liftRobot(){
-        backSolenoid.set(Value.kForward);
-        frontSolenoid.set(Value.kForward);
     } 
     public void maintainStiltLevel() {
         double stiltStall= 0.1;
@@ -101,10 +95,25 @@ public class Climber extends Subsystem{
     }
 
     public double convert(double ticks){
-        return (ticks/ticksPerRev)*(Ng)*(2*Math.PI*winchRadius);
+        return ticks;
     }
+
+    public void reset() {
+        backMotor.getEncoder().setPosition(0);
+        rightFrontMotor.getEncoder().setPosition(0);
+        leftFrontMotor.getEncoder().setPosition(0);
+    }
+
+    public double conversionFactor() {
+        return backMotor.getEncoder().getPositionConversionFactor();
+    }
+    
     public double backPosition(){
         return convert(this.backMotor.getEncoder().getPosition());
+    }
+    public double backTicks() {
+        return this.backMotor.getEncoder().getPosition();
+
     }
     public double rightFrontPosition(){
         return convert(this.rightFrontMotor.getEncoder().getPosition());
@@ -120,30 +129,44 @@ public class Climber extends Subsystem{
     public void stopMotor(){
         driveMotor.set(0);
     }
-    public boolean isLeftUp(){
-        if(limitSwitchL.get()){
-            leftLimit.setBoolean(true);
-            return true;
-        }else {
-            leftLimit.setBoolean(false);
-            return false;
-        }
-    }
 
-    public boolean isRightUp(){
-        if (limitSwitchR.get()){
-            rightLimit.setBoolean(true);
-            return true;
-        }else{
-            rightLimit.setBoolean(false);
-            return false;
-        }
-    }
+    @Override
+    public void periodic(){
+        NetworkTableEntry backMotor;
+        backMotor = table.getEntry("Back_Position");
+        backMotor.setNumber(backPosition());
 
-    public boolean areBothUp(){
-        if(isLeftUp() && isRightUp()){
-            return true;
-        }else return false;
-    }
+        NetworkTableEntry rightFrontMotor;
+        rightFrontMotor = table.getEntry("RightFront_Position");
+        rightFrontMotor.setNumber(rightFrontPosition());
 
+        NetworkTableEntry leftFrontMotor;
+        leftFrontMotor = table.getEntry("LeftFront_Position");
+        leftFrontMotor.setNumber(leftFrontPosition());
+
+        NetworkTableEntry backCurrent;
+        backCurrent = table.getEntry("Back_Current");
+        backCurrent.setNumber(this.backMotor.getOutputCurrent());
+
+        NetworkTableEntry rightFrontCurrent;
+        rightFrontCurrent = table.getEntry("RightFront_Current");
+        rightFrontCurrent.setNumber(this.rightFrontMotor.getOutputCurrent());
+
+        NetworkTableEntry leftFrontCurrent;
+        leftFrontCurrent = table.getEntry("LeftFront_Current");
+        leftFrontCurrent.setNumber(this.leftFrontMotor.getOutputCurrent());
+
+        NetworkTableEntry backVoltage;
+        backVoltage = table.getEntry("Back_Voltage");
+        backVoltage.setNumber(this.backMotor.get()*this.backMotor.getBusVoltage());
+
+        NetworkTableEntry rightFrontVoltage;
+        rightFrontVoltage = table.getEntry("RightFront_Voltage");
+        rightFrontVoltage.setNumber(this.rightFrontMotor.get()*this.rightFrontMotor.getBusVoltage());
+
+
+        NetworkTableEntry leftFrontVoltage;
+        leftFrontVoltage = table.getEntry("LeftFront_Voltage");
+        leftFrontVoltage.setNumber(this.leftFrontMotor.get()*this.leftFrontMotor.getBusVoltage());
+    }
 }
