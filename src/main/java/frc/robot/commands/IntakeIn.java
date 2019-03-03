@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.RobotMap;
-import frc.robot.subsystems.Galaga;
+import frc.robot.subsystems.Intake;
 
-public class GalagaJoystick extends Command {
-  Galaga subsystem;
+public class IntakeIn extends Command {
+  Intake subsystem;
   OI oi;
 
-  public GalagaJoystick(Galaga subsystem, OI oi) {
+  public IntakeIn(Intake subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     this.subsystem = subsystem;
@@ -33,21 +33,14 @@ public class GalagaJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean xbuttonpressed = oi.manipulatorController.getRawButton(RobotMap.MANIPULATOR_CONTROLLER_GALAGA_OUT);
-    if(xbuttonpressed) {
-      this.subsystem.galagaOut();
-    }
-
-    boolean bbuttonpressed = oi.manipulatorController.getRawButton(RobotMap.MANIPULATOR_CONTROLLER_GALAGA_IN);
-    if(bbuttonpressed) {
-      this.subsystem.galagaIn();
-    }
+    this.subsystem.intakeIn();
+    this.subsystem.intakeMotorOff();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -59,5 +52,6 @@ public class GalagaJoystick extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
