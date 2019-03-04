@@ -78,7 +78,6 @@ public class DataLogger {
       timer.start();
       start_time = (long) timer.get();
       try {
-        System.out.println("Writing to roboRio");
         file_out = new FileOutputStream(target_file);
         file_out.write(String.join(",", value_suppliers.keySet()).getBytes());
         file_out.write('\n');
@@ -87,7 +86,6 @@ public class DataLogger {
       }
     }
     try {
-      System.out.println("Writing to roboRio");
       file_out.write(String.join(",", value_suppliers.values().stream()
           .map(num -> num.get().toString()).collect(Collectors.toList())).getBytes());
       file_out.write('\n');
@@ -101,10 +99,8 @@ public class DataLogger {
     if (!started2) {
       // First Run
       started2 = true;
-      //start_time = System.currentTimeMillis();
       if(this.usbExists){
         try {
-          System.out.println("Writing to usb");
           file_out2 = new FileOutputStream(target_file2);
           file_out2.write(String.join(",", value_suppliers.keySet()).getBytes());
           file_out2.write('\n');
@@ -117,7 +113,6 @@ public class DataLogger {
     }
     if(this.usbExists && file_out2 != null){
       try {
-        System.out.println("Writing to usb");
         file_out2.write(String.join(",", value_suppliers.values().stream()
             .map(num -> num.get().toString()).collect(Collectors.toList())).getBytes());
         file_out2.write('\n');
@@ -126,7 +121,6 @@ public class DataLogger {
       }
     } else {
       if(!this.usbExists) {
-        //System.out.println("this.usbExists is false");
       } else if(this.usbExists && file_out2 == null) {
         System.out.println("file_out2 is null");
       } else if(this.usbExists) {

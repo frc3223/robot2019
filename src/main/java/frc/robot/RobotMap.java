@@ -56,10 +56,10 @@ public class RobotMap {
   public static final int OI_DRIVER_CONTROLLER = 0;
 
   // Xbox controller buttons
-  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
-  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
-  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 5; //right joystick up-down
-  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 4; //right joystick L-R
+  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 0; //left joystick up down
+  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 1; //left joystick left right
+  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 4; //right joystick up-down
+  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 5; //right joystick L-R
   public static final int MANIPULATOR_CONTROLLER_ELEVATOR = 1; //left joystick up-down
   public static final int MANIPULATOR_CONTROLLER_GALAGA_OUT = 3; // Galaga grabs hatch with X
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
@@ -101,10 +101,10 @@ public class RobotMap {
 
 
   //Pneumatics modes
-  public static final int SOLENOIDS_SLIDE_FORWARD = 1;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 3;
-  public static final int SOLENOIDS_GALAGA_FORWARD = 0;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 2;
+  public static final int SOLENOIDS_SLIDE_FORWARD = 4;
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
+  public static final int SOLENOIDS_GALAGA_FORWARD = 1;
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 3;
 
   public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
   public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;

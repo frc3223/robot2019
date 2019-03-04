@@ -57,6 +57,6 @@ def dump_java(toPrint):
 	dump_java3(toPrint, "Kv", 1)
 	dump_java3(toPrint, "Ka", 2)
 if __name__ == "__main__":
-	x = pickle.load(open("cascading_elevator.pickle", "rb"))
+	x = pickle.load(open("stilts.pickle", "rb"))
 	print(x)
 	dump_java(x)

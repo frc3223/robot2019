@@ -18,24 +18,14 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.ActivateLimeLight;
-import frc.robot.commands.GalagaIn;
-import frc.robot.commands.GalagaOut;
-import frc.robot.commands.SlideIn;
-import frc.robot.commands.SlideOut;
-import frc.robot.commands.IntakeOut;
-import frc.robot.commands.IntakeIn;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
 
 import frc.robot.subsystems.Carriage;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import frc.robot.commands.ClimberDeploy;
-import frc.robot.commands.ClimberFrontUp;
-import frc.robot.commands.ClimberBackUp;
 
 /**
  * The VM is configured to automatically run this class, and to call the

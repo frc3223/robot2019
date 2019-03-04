@@ -5,46 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
+import frc.robot.TrapezoidalProfiler;
 import frc.robot.subsystems.Climber;
 
-public class ClimberBackUp extends Command {
+public class SSClimberTest2 extends Command {
   Climber subsystem;
   OI oi;
-  public ClimberBackUp(Climber subsystem, OI oi) {
-    // Use requires() here to declare subsystem dependencies
+  TrapezoidalProfiler profiler;
+  int increment;
+
+  public SSClimberTest2(Climber subsystem, OI oi) {
     this.subsystem = subsystem;
     this.oi = oi;
     requires(subsystem);
+    increment = 3;
+    subsystem.reset();
+    profiler = new TrapezoidalProfiler(6, 36, -3, 0.1, 0);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //this.subsystem.liftBack();
+      profiler.calculate_new_velocity(profiler.getCurrentPosition(), 0.02);
+      this.subsystem.setTargetPosition(profiler.getCurrentPosition());
+      this.subsystem.calculateSSC();
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
   }

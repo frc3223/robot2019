@@ -65,13 +65,9 @@ public class OI {
     public void getDriverPort() {
         Joystick controller = new Joystick(0);
         String controllerName = controller.getName();
-        if (controllerName.contains("Pro")) {
-            driverPort = 1;
-            manipulatorPort = 0;
-        } else {
-            driverPort = 0;
-            manipulatorPort = 1;
-        }
+
+        driverPort = 0;
+        manipulatorPort = 1;
     }
 
     //// CREATING BUTTONS

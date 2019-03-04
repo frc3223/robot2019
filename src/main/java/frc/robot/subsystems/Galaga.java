@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,11 +23,14 @@ public class Galaga extends Subsystem {
   // here. Call these from Commands.
   DoubleSolenoid slideSolenoid;
   DoubleSolenoid galagaSolenoid;
+  Compressor compressor;
   OI oi;
 
   public Galaga(OI oi) {
-    slideSolenoid = null; //new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
-    galagaSolenoid = null; // new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
+    slideSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
+    galagaSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
+    compressor = new Compressor();
+    compressor.setClosedLoopControl(true);
     this.oi = oi;
   }
 
