@@ -12,6 +12,9 @@ import frc.robot.OI;
 import frc.robot.StiltStateSpaceController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.commands.climb.SSClimbCommand;
+
+import java.util.function.Consumer;
 
 public class Climber extends Subsystem{
     WPI_VictorSPX driveMotor;
@@ -26,7 +29,9 @@ public class Climber extends Subsystem{
     StiltStateSpaceController rightFrontSSC;
     StiltStateSpaceController leftFrontSSC;
 
-    double targetPositionInches = 0;
+    double rightFrontTargetPositionInches = 0;
+    double leftFrontTargetPositionInches = 0;
+    double backTargetPositionInches = 0;
 
     int Ng;
     double winchRadius = 0.5625; // inch
@@ -56,34 +61,35 @@ public class Climber extends Subsystem{
         this.backMotor.getEncoder().setPositionConversionFactor(2 * Math.PI * winchRadius / Ng);
 
         this.logger = new DataLogger("Climb");
-        this.initLogger();
+        this.initLogger(this.logger);
 
 
-        this.backSSC = new StiltStateSpaceController(.8, 0);
-        this.leftFrontSSC = new StiltStateSpaceController(.5, 0);
-        this.rightFrontSSC = new StiltStateSpaceController(.5, 0);
+        this.backSSC = new StiltStateSpaceController(0.8, 0);
+        this.leftFrontSSC = new StiltStateSpaceController(0, 0);
+        this.rightFrontSSC = new StiltStateSpaceController(0, 0);
     }
 
-    private void initLogger() {
-        this.logger.add("LF_current", () -> this.leftFrontMotor.getOutputCurrent());
-        this.logger.add("RF_current", () -> this.rightFrontMotor.getOutputCurrent());
-        this.logger.add("B_current", () -> this.backMotor.getOutputCurrent());
-        this.logger.add("LF_position", () -> this.leftFrontPosition());
-        this.logger.add("RF_position", () -> this.rightFrontPosition());
-        this.logger.add("B_position", () -> this.backPosition());
-        this.logger.add("LF_voltage", () -> this.leftFrontMotorVoltage());
-        this.logger.add("RF_voltage", () -> this.rightFrontMotorVoltage());
-        this.logger.add("B_voltage", () -> this.backMotorVoltage());
-        this.logger.add("targetPos", () -> this.targetPositionInches);
-        this.logger.add("LF_x0", () -> this.leftFrontSSC.getEstimatedPosition());
-        this.logger.add("RF_x0", () -> this.rightFrontSSC.getEstimatedPosition());
-        this.logger.add("B_x0", () -> this.backSSC.getEstimatedPosition());
-
+    public void initLogger(DataLogger logger) {
+        logger.add("LF_current", () -> this.leftFrontMotor.getOutputCurrent());
+        logger.add("RF_current", () -> this.rightFrontMotor.getOutputCurrent());
+        logger.add("B_current", () -> this.backMotor.getOutputCurrent());
+        logger.add("LF_position", () -> this.leftFrontPosition());
+        logger.add("RF_position", () -> this.rightFrontPosition());
+        logger.add("B_position", () -> this.backPosition());
+        logger.add("LF_voltage", () -> this.leftFrontMotorVoltage());
+        logger.add("RF_voltage", () -> this.rightFrontMotorVoltage());
+        logger.add("B_voltage", () -> this.backMotorVoltage());
+        logger.add("LF_targetPos", () -> this.leftFrontTargetPositionInches);
+        logger.add("RF_targetPos", () -> this.rightFrontTargetPositionInches);
+        logger.add("B_targetPos", () -> this.backTargetPositionInches);
+        logger.add("LF_estPos", () -> metersToInches(this.leftFrontSSC.getEstimatedPosition()));
+        logger.add("RF_estPos", () -> metersToInches(this.rightFrontSSC.getEstimatedPosition()));
+        logger.add("B_estPos", () -> metersToInches(this.backSSC.getEstimatedPosition()));
     }
 
     @Override
     protected void initDefaultCommand() {
-        //setDefaultCommand(new ClimberTest(this,this.oi));
+        setDefaultCommand(new SSClimbCommand(this,this.oi));
     }
 
     public void liftRobot(){
@@ -160,23 +166,125 @@ public class Climber extends Subsystem{
         {
             posInches = -20;
         }
-        this.targetPositionInches = posInches;
+        this.leftFrontTargetPositionInches = -posInches;
+        this.rightFrontTargetPositionInches = posInches;
+        if(posInches < -0.1) {
+            posInches -= 0.5; // back stilt is 1/2 inch higher off the ground
+        }
+        this.backTargetPositionInches = posInches;
+    }
+
+    /**
+     * as in raise robot
+     */
+    public void raiseTargetPosition() {
+        double pos = this.rightFrontTargetPositionInches;
+        double inchPerSec = 7;
+        pos -= inchPerSec * 0.02;
+        setTargetPosition(pos);
+    }
+
+    /**
+     * as in lower robot
+     */
+    public void lowerTargetPosition() {
+        double pos = this.rightFrontTargetPositionInches;
+        double inchPerSec = 7;
+        pos += inchPerSec * 0.02;
+        setTargetPosition(pos);
+    }
+
+    public void setFrontTargetPosition(double posInches) {
+        if(posInches > 0) {
+            posInches = 0;
+        }
+        if(posInches < -20)
+        {
+            posInches = -20;
+        }
+        this.leftFrontTargetPositionInches = -posInches;
+        this.rightFrontTargetPositionInches = posInches;
+    }
+
+    /**
+     * as in raise robot
+     */
+    public void raiseFrontTargetPosition() {
+        double pos = this.rightFrontTargetPositionInches;
+        double inchPerSec = 7;
+        pos -= inchPerSec * 0.02;
+        setFrontTargetPosition(pos);
+    }
+
+    /**
+     * as in lower robot
+     */
+    public void lowerFrontTargetPosition() {
+        double pos = this.rightFrontTargetPositionInches;
+        double inchPerSec = 7;
+        pos += inchPerSec * 0.02;
+        setFrontTargetPosition(pos);
+    }
+
+    public void setBackTargetPosition(double posInches) {
+        if(posInches > 0) {
+            posInches = 0;
+        }
+        if(posInches < -20)
+        {
+            posInches = -20;
+        }
+        if(posInches < -0.1) {
+            posInches -= 0.5; // back stilt is 1/2 inch higher off the ground
+        }
+        this.backTargetPositionInches = posInches;
+    }
+
+    /**
+     * as in raise robot
+     */
+    public void raiseBackTargetPosition() {
+        double pos = this.backTargetPositionInches;
+        double inchPerSec = 7;
+        pos -= inchPerSec * 0.02;
+        setBackTargetPosition(pos);
+    }
+
+    /**
+     * as in lower robot
+     */
+    public void lowerBackTargetPosition() {
+        double pos = this.backTargetPositionInches;
+        double inchPerSec = 7;
+        pos += inchPerSec * 0.02;
+        setBackTargetPosition(pos);
+    }
+
+    private double inchesToMeters(double posInches) {
+        return posInches * 0.0254;
+    }
+
+    private double metersToInches(double posMeters) {
+        return posMeters / 0.0254;
     }
 
     public void calculateSSC() {
         this.backSSC.calculate(
-            this.targetPositionInches, 0,
-            this.backPosition(), () -> this.backMotor.getBusVoltage(),
+            inchesToMeters(this.backTargetPositionInches),
+            0,
+            inchesToMeters(this.backPosition()), () -> this.backMotor.getBusVoltage(),
             vp -> this.backMotor.set(vp)
         );
         this.rightFrontSSC.calculate(
-            this.targetPositionInches, 0,
-            this.backPosition(), () -> this.rightFrontMotor.getBusVoltage(),
+            inchesToMeters(this.rightFrontTargetPositionInches),
+            0,
+            inchesToMeters(this.rightFrontPosition()), () -> this.rightFrontMotor.getBusVoltage(),
             vp -> this.rightFrontMotor.set(vp)
         );
         this.leftFrontSSC.calculate(
-            -this.targetPositionInches, 0,
-            this.backPosition(), () -> this.leftFrontMotor.getBusVoltage(),
+            inchesToMeters(this.leftFrontTargetPositionInches),
+            0,
+            inchesToMeters(this.leftFrontPosition()), () -> this.leftFrontMotor.getBusVoltage(),
             vp -> this.leftFrontMotor.set(vp)
         );
 

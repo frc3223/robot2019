@@ -30,9 +30,6 @@ public class OI {
     public JoystickButton slide_out_button;
     public JoystickButton intake_in_button;
     public JoystickButton intake_out_button;
-    public JoystickButton all_down_button;
-    public JoystickButton front_up_button;
-    public JoystickButton back_up_button;
     public JoystickButton lift_forward_button;
     public JoystickButton lift_backward_button;
 
@@ -48,9 +45,6 @@ public class OI {
         slide_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_OUT);
         intake_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_IN);
         intake_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_OUT);
-        all_down_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_ALL_DOWN);
-        front_up_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_FRONT_UP);
-        back_up_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_BACK_UP);
         lift_forward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
         lift_backward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
 

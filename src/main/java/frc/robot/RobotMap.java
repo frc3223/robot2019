@@ -56,10 +56,10 @@ public class RobotMap {
   public static final int OI_DRIVER_CONTROLLER = 0;
 
   // Xbox controller buttons
-  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 0; //left joystick up down
-  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 1; //left joystick left right
-  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 4; //right joystick up-down
-  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 5; //right joystick L-R
+  public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
+  public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
+  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 5; //right joystick up-down
+  public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 4; //right joystick L-R
   public static final int MANIPULATOR_CONTROLLER_ELEVATOR = 1; //left joystick up-down
   public static final int MANIPULATOR_CONTROLLER_GALAGA_OUT = 3; // Galaga grabs hatch with X
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
@@ -73,9 +73,8 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_HATCH_DEPLOY = 3; //deploying hatches via right trigger
   public static final int MANIPULATOR_CONTROLLER_INTAKE_IN = 6; // Intake in with Left Bumper
   public static final int MANIPULATOR_CONTROLLER_INTAKE_OUT = 5; // Intake out with Right Bumper
-  public static final int DRIVER_CONTROLLER_LIFT_FRONT_UP = 3; //raising the front stilts via X button
-  public static final int DRIVER_CONTROLLER_LIFT_BACK_UP = 2; ////raising the back stilts via B button
-  public static final int DRIVER_CONTROLLER_LIFT_ALL_DOWN = 1; //lowering the stilts via A button
+  public static final int DRIVER_CONTROLLER_LIFT_FRONT = 1; //raising the front stilts via A button
+  public static final int DRIVER_CONTROLLER_LIFT_BACK = 2; ////raising the back stilts via B button
   public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 6; //moving fowards on the stilts with right trigger
   public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 5; //moving backwards on the stilts with left trigger
   //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.

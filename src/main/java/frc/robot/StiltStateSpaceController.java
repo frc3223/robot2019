@@ -67,9 +67,9 @@ public class StiltStateSpaceController extends StateSpaceController {
             Consumer<Double> setMotorOutput) {
         this.update();
         this.setInput((r) -> {
-            //Target position (inches)
+            //Target position (meters)
             r.set(0, 0, targetPosition);
-            //Target velocity (inches/second)
+            //Target velocity (meters/second)
             r.set(1, 0, targetVelocity);
         });
         double voltage = this.u.get(0, 0);
@@ -77,7 +77,7 @@ public class StiltStateSpaceController extends StateSpaceController {
         double percentVolt = voltage / availableVolt;
         setMotorOutput.accept(percentVolt);
         this.setOutput((y) -> {
-            //Position in inches
+            //Position in meters
             y.set(0, 0, currentPosition);
         });
         this.predict();
