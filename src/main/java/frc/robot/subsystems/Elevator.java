@@ -212,34 +212,34 @@ public class Elevator extends Subsystem {
   public void initStateSpace() {
     stateSpaceController = new StateSpaceController();
     stateSpaceController.init(2, 1, 1);
-    double[][] a = new double[][] {
-        { 1.0, 0.00011200086719228326 },
-        { 0.0, 2.8055267532365116e-78 }
-    };
-    double[][] a_inv = new double[][] {
-        { 1.0, -3.992151101859101e+73 },
-        { 0.0, 3.564393028319477e+77 }
-    };
-    double[][] b = new double[][] {
-        { 0.005629853396465432 },
-        { 0.2830779184406887 }
-    };
-    double[][] c = new double[][] {
-        { 1, 0 }
-    };
-    double[][] k = new double[][] {
-        { 31.665448806218844, 0.0035465577263293613 }
-    };
-    double[][] kff = new double[][] {
-        { 6.620339312648308, 3.328811143061263 }
-    };
-    double[][] L = new double[][] {
-        { 0.9999995555561982 },
-        { 1.9528654827747843e-94 }
-    };
-    // Ks is 0.3527161191692306
-    // Kv is 3.5325962742287254
-    // Ka is 0.00039565384615384614
+      double[][] a = new double[][] {
+              { 1.0, 2.8000216798070815e-05 },
+              { 0.0, 6.1952331876713e-311 }
+      };
+      double[][] a_inv = new double[][] {
+              { 1.0, 0.0 },
+              { 0.0, 1.0 }
+      };
+      double[][] b = new double[][] {
+              { 0.002826816062863344 },
+              { 0.14153895922034437 }
+      };
+      double[][] c = new double[][] {
+              { 1, 0 }
+      };
+      double[][] k = new double[][] {
+              { 61.58698057020303, 0.0017244488079042597 }
+      };
+      double[][] kff = new double[][] {
+              { 12.525506544650831, 6.271533487190302 }
+      };
+      double[][] L = new double[][] {
+              { 0.999999555555966 },
+              { 0.0 }
+      };
+    // Ks is -0.029043735507692382
+    // Kv is 7.065192548457451
+    // Ka is 0.00019782692307692307
 
     StateSpaceController.assign(stateSpaceController.A, a);
     StateSpaceController.assign(stateSpaceController.A_inv, a_inv);
