@@ -2,20 +2,18 @@ package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.RobotMap;
-import frc.robot.TrapezoidalProfiler;
 import frc.robot.subsystems.Climber;
 
 public class SSClimbCommand extends Command {
-    enum State {
-        Raising,
-        FrontRetracting,
-        BackRetracting
+    enum StiltControlState {
+        All,
+        Front,
+        Back
     }
 
     Climber subsystem;
     OI oi;
-    State state;
+    StiltControlState state;
 
     public SSClimbCommand(Climber subsystem, OI oi) {
         this.subsystem = subsystem;
@@ -26,48 +24,45 @@ public class SSClimbCommand extends Command {
 
     @Override
     protected void initialize() {
-        state = State.Raising;
-
+        state = StiltControlState.All;
     }
 
     @Override
     protected void execute() {
-        int pov = this.oi.driverController.getPOV();
-        boolean shouldRaise = pov == 0;
-        boolean shouldLower = pov == 180;
-        if(state == State.Raising) {
+        this.raiseLowerStilts();
+        this.subsystem.calculateSSC();
+        this.driveStilts();
+        this.doTransitions();
+    }
+
+    private void raiseLowerStilts() {
+        boolean shouldRaise = this.oi.shouldRaiseStilts();
+        boolean shouldLower = this.oi.shouldLowerStilts();
+        if(state == StiltControlState.All) {
             if(shouldRaise) {
                 subsystem.raiseTargetPosition();
             }else if(shouldLower){
                 subsystem.lowerTargetPosition();
             }
 
-            boolean shouldGotoFrontRetracting = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FRONT);
-            if(shouldGotoFrontRetracting) {
-                state = State.FrontRetracting;
-            }
-        }else if(state == State.FrontRetracting) {
+        }else if(state == StiltControlState.Front) {
             if(shouldRaise) {
                 subsystem.raiseFrontTargetPosition();
             }else if(shouldLower){
                 subsystem.lowerFrontTargetPosition();
             }
-
-            boolean shouldGotoBackRetracting = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACK);
-            if(shouldGotoBackRetracting) {
-                state = State.BackRetracting;
-            }
-        }else if(state == State.BackRetracting) {
+        }else if(state == StiltControlState.Back) {
             if(shouldRaise) {
                 subsystem.raiseBackTargetPosition();
             }else if(shouldLower){
                 subsystem.lowerBackTargetPosition();
             }
         }
-        this.subsystem.calculateSSC();
+    }
 
-        boolean forward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
-        boolean backward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+    private void driveStilts() {
+        boolean forward = this.oi.shouldDriveStiltsForward();
+        boolean backward = this.oi.shouldDriveStiltsBackward();
         if(forward){
             this.subsystem.move(0.5);
         }else if(backward){
@@ -75,7 +70,19 @@ public class SSClimbCommand extends Command {
         }else{
             this.subsystem.stopMotor();
         }
-
+    }
+    
+    private void doTransitions() {
+        boolean shouldGotoControlAll= this.oi.shouldControlAllStilts();
+        boolean shouldGotoControlFront = this.oi.shouldControlFrontStilts();
+        boolean shouldGotoControlBack = this.oi.shouldControlBackStilts();
+        if(shouldGotoControlAll) {
+            state = StiltControlState.All;
+        }else if(shouldGotoControlFront) {
+            state = StiltControlState.Front;
+        }else if (shouldGotoControlBack) {
+            state = StiltControlState.Back;
+        }
     }
 
     @Override

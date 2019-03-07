@@ -175,22 +175,22 @@ public class Climber extends Subsystem{
     }
 
     /**
-     * as in raise robot
+     * as in raise stilts
      */
     public void raiseTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
         double inchPerSec = 7;
-        pos -= inchPerSec * 0.02;
+        pos += inchPerSec * 0.02;
         setTargetPosition(pos);
     }
 
     /**
-     * as in lower robot
+     * as in lower stilts
      */
     public void lowerTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
         double inchPerSec = 7;
-        pos += inchPerSec * 0.02;
+        pos -= inchPerSec * 0.02;
         setTargetPosition(pos);
     }
 
@@ -207,22 +207,22 @@ public class Climber extends Subsystem{
     }
 
     /**
-     * as in raise robot
+     * as in raise stilts
      */
     public void raiseFrontTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
         double inchPerSec = 7;
-        pos -= inchPerSec * 0.02;
+        pos += inchPerSec * 0.02;
         setFrontTargetPosition(pos);
     }
 
     /**
-     * as in lower robot
+     * as in lower stilts
      */
     public void lowerFrontTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
         double inchPerSec = 7;
-        pos += inchPerSec * 0.02;
+        pos -= inchPerSec * 0.02;
         setFrontTargetPosition(pos);
     }
 
@@ -241,22 +241,22 @@ public class Climber extends Subsystem{
     }
 
     /**
-     * as in raise robot
+     * as in raise stilts
      */
     public void raiseBackTargetPosition() {
         double pos = this.backTargetPositionInches;
         double inchPerSec = 7;
-        pos -= inchPerSec * 0.02;
+        pos += inchPerSec * 0.02;
         setBackTargetPosition(pos);
     }
 
     /**
-     * as in lower robot
+     * as in lower stilts
      */
     public void lowerBackTargetPosition() {
         double pos = this.backTargetPositionInches;
         double inchPerSec = 7;
-        pos += inchPerSec * 0.02;
+        pos -= inchPerSec * 0.02;
         setBackTargetPosition(pos);
     }
 

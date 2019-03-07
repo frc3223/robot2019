@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-    Joystick stick;
     int driverPort;
     int manipulatorPort;
 
@@ -34,7 +33,6 @@ public class OI {
     public JoystickButton lift_backward_button;
 
     public OI() {
-        stick = new Joystick(RobotMap.joyIndex);
         getDriverPort();
         driverController = new Joystick(driverPort);
         manipulatorController = new Joystick(manipulatorPort);
@@ -50,12 +48,6 @@ public class OI {
 
     }
 
-    public Joystick getJoystck() {
-
-        return stick;
-
-    }
-
     public void getDriverPort() {
         Joystick controller = new Joystick(0);
         String controllerName = controller.getName();
@@ -64,31 +56,29 @@ public class OI {
         manipulatorPort = 1;
     }
 
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a
-    //// joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
 
-    // Button button = new JoystickButton(stick, buttonNumber);
+    public boolean shouldRaiseStilts() {
+        return this.driverController.getPOV() == 0; // up
+    }
 
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
+    public boolean shouldLowerStilts() {
+        return this.driverController.getPOV() == 180; // down
+    }
 
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
+    public boolean shouldControlAllStilts() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_ALL);
+    }
 
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-
-    // Start the command when the button is released and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+    public boolean shouldControlFrontStilts() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FRONT);
+    }
+    public boolean shouldControlBackStilts() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACK);
+    }
+    public boolean shouldDriveStiltsForward() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
+    }
+    public boolean shouldDriveStiltsBackward() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+    }
 }
