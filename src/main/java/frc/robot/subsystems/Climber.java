@@ -29,7 +29,7 @@ public class Climber extends Subsystem{
     StiltStateSpaceController rightFrontSSC;
     StiltStateSpaceController leftFrontSSC;
 
-    double rightFrontTargetPositionInches = 0;
+    public double rightFrontTargetPositionInches = 0;
     double leftFrontTargetPositionInches = 0;
     double backTargetPositionInches = 0;
 
@@ -106,10 +106,10 @@ public class Climber extends Subsystem{
         this.leftFrontMotor.set(0.5);
 
     }
-    public void moveUp(){
-        this.backMotor.set(-0.5);
-        this.rightFrontMotor.set(-0.5);
-        this.leftFrontMotor.set(-0.5);
+    public void moveUp(double speed){
+        this.backMotor.set(speed);
+        this.rightFrontMotor.set(speed);
+        this.leftFrontMotor.set(-speed);
     }
     public void liftFront(){
         this.rightFrontMotor.set(-0.5);
@@ -168,6 +168,7 @@ public class Climber extends Subsystem{
         }
         this.leftFrontTargetPositionInches = -posInches;
         this.rightFrontTargetPositionInches = posInches;
+        System.out.println(" all pos " + posInches);
         if(posInches < -0.1) {
             posInches -= 0.5; // back stilt is 1/2 inch higher off the ground
         }
@@ -179,7 +180,7 @@ public class Climber extends Subsystem{
      */
     public void raiseTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
-        double inchPerSec = 7;
+        double inchPerSec = 12;
         pos += inchPerSec * 0.02;
         setTargetPosition(pos);
     }
@@ -189,7 +190,7 @@ public class Climber extends Subsystem{
      */
     public void lowerTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
-        double inchPerSec = 7;
+        double inchPerSec = 14;
         pos -= inchPerSec * 0.02;
         setTargetPosition(pos);
     }
@@ -204,6 +205,7 @@ public class Climber extends Subsystem{
         }
         this.leftFrontTargetPositionInches = -posInches;
         this.rightFrontTargetPositionInches = posInches;
+        System.out.println("front pos " + posInches);
     }
 
     /**
@@ -211,7 +213,7 @@ public class Climber extends Subsystem{
      */
     public void raiseFrontTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
-        double inchPerSec = 7;
+        double inchPerSec = 12;
         pos += inchPerSec * 0.02;
         setFrontTargetPosition(pos);
     }
@@ -221,7 +223,7 @@ public class Climber extends Subsystem{
      */
     public void lowerFrontTargetPosition() {
         double pos = this.rightFrontTargetPositionInches;
-        double inchPerSec = 7;
+        double inchPerSec = 14;
         pos -= inchPerSec * 0.02;
         setFrontTargetPosition(pos);
     }
@@ -234,10 +236,11 @@ public class Climber extends Subsystem{
         {
             posInches = -20;
         }
-        if(posInches < -0.1) {
+        /*if(posInches < -0.1) {
             posInches -= 0.5; // back stilt is 1/2 inch higher off the ground
-        }
+        }*/
         this.backTargetPositionInches = posInches;
+        System.out.println("Back pos " + posInches);
     }
 
     /**
@@ -245,8 +248,9 @@ public class Climber extends Subsystem{
      */
     public void raiseBackTargetPosition() {
         double pos = this.backTargetPositionInches;
-        double inchPerSec = 7;
+        double inchPerSec = 12;
         pos += inchPerSec * 0.02;
+        System.out.println("raise back");
         setBackTargetPosition(pos);
     }
 
@@ -255,8 +259,9 @@ public class Climber extends Subsystem{
      */
     public void lowerBackTargetPosition() {
         double pos = this.backTargetPositionInches;
-        double inchPerSec = 7;
+        double inchPerSec = 14;
         pos -= inchPerSec * 0.02;
+        System.out.println("lower back");
         setBackTargetPosition(pos);
     }
 

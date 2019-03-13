@@ -35,8 +35,8 @@ public class Drivetrain extends Subsystem {
 
     leftFrontTalon.setInverted(false);
     leftBackVictor.setInverted(false);
-    rightFrontTalon.setInverted(true);
-    rightBackVictor.setInverted(true);
+    rightFrontTalon.setInverted(false);
+    rightBackVictor.setInverted(false);
 
     SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontTalon, leftBackVictor);
     SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontTalon, rightBackVictor);

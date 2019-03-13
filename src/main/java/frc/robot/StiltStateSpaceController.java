@@ -54,8 +54,8 @@ public class StiltStateSpaceController extends StateSpaceController {
         assign(K, k);
         assign(Kff, kff);
         assign(this.L, L);
-        this.u_min.set(0, 0, -3);
-        this.u_max.set(0, 0, 3);
+        this.u_min.set(0, 0, -6);
+        this.u_max.set(0, 0, 6);
 
     }
 

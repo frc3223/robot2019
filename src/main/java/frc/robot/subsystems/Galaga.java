@@ -29,7 +29,7 @@ public class Galaga extends Subsystem {
   public Galaga(OI oi) {
     slideSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
     galagaSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
-    compressor = new Compressor();
+    compressor = new Compressor(RobotMap.PNEUMATICS_MODULE);
     compressor.setClosedLoopControl(true);
     this.oi = oi;
   }
@@ -54,4 +54,5 @@ public class Galaga extends Subsystem {
   public void slideIn() {
     slideSolenoid.set(Value.kReverse);
   }
+
 }

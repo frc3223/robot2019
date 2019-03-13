@@ -35,9 +35,9 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
     //stilts
-  public static final int STILTS_RIGHT_FRONT_CAN = 14;
+  public static final int STILTS_RIGHT_FRONT_CAN = 3;
   public static final int STILTS_BACK_CAN = 13;
-  public static final int STILTS_LEFT_FRONT_CAN = 3;
+  public static final int STILTS_LEFT_FRONT_CAN = 14;
   public static final int CLIMBER_DRIVE_MOTOR = 4;
 //lime light is on #8 pdp slot
   public static final int PNEUMATICS_MODULE = 21;
@@ -100,11 +100,11 @@ public class RobotMap {
   public static final int LIME_LIGHT_LIGHT_ON = 3;
 
 
-  //Pneumatics modes
-  public static final int SOLENOIDS_SLIDE_FORWARD = 4;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 2;
-  public static final int SOLENOIDS_GALAGA_FORWARD = 1;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 3;
+  //Pneumatics modes -- DO NOT CHANGE THIS OR MADDY WILL KILL YOU
+  public static final int SOLENOIDS_SLIDE_FORWARD = 3;
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 1;
+  public static final int SOLENOIDS_GALAGA_FORWARD = 2;
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 0;
 
   public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
   public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;

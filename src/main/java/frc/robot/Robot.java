@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.ActivateLimeLight;
+import frc.robot.commands.climb.StiltZero;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot {
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator m_elevator;
+  public StiltZero m_stiltZero;
   //public Intake m_intake;
 
   NetworkTableEntry xEntry;
@@ -72,6 +74,7 @@ public class Robot extends TimedRobot {
     //m_intake = new Intake();
     m_climber = new Climber(m_oi);
     m_elevator = new Elevator(m_oi);
+    m_stiltZero = new StiltZero(m_climber);
 
     m_elevator.logEverything();
     
@@ -141,6 +144,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //Initialization message
     System.out.println("Initiating autonomous!");
+    m_stiltZero.start();
   }
 
   /**

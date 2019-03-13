@@ -33,6 +33,7 @@ public class SSClimbCommand extends Command {
         this.subsystem.calculateSSC();
         this.driveStilts();
         this.doTransitions();
+        System.out.println("back position is:" + subsystem.backPosition());
     }
 
     private void raiseLowerStilts() {
@@ -48,13 +49,16 @@ public class SSClimbCommand extends Command {
         }else if(state == StiltControlState.Front) {
             if(shouldRaise) {
                 subsystem.raiseFrontTargetPosition();
+                System.out.println("raising fronnt" + subsystem.rightFrontTargetPositionInches);
             }else if(shouldLower){
                 subsystem.lowerFrontTargetPosition();
             }
         }else if(state == StiltControlState.Back) {
             if(shouldRaise) {
+                System.out.println("should raise");
                 subsystem.raiseBackTargetPosition();
             }else if(shouldLower){
+                System.out.println("should lower");
                 subsystem.lowerBackTargetPosition();
             }
         }
@@ -64,9 +68,9 @@ public class SSClimbCommand extends Command {
         boolean forward = this.oi.shouldDriveStiltsForward();
         boolean backward = this.oi.shouldDriveStiltsBackward();
         if(forward){
-            this.subsystem.move(0.5);
+            this.subsystem.move(1.0);
         }else if(backward){
-            this.subsystem.move(-0.5);
+            this.subsystem.move(-1.0);
         }else{
             this.subsystem.stopMotor();
         }
@@ -80,6 +84,7 @@ public class SSClimbCommand extends Command {
             state = StiltControlState.All;
         }else if(shouldGotoControlFront) {
             state = StiltControlState.Front;
+            System.out.println("front");
         }else if (shouldGotoControlBack) {
             state = StiltControlState.Back;
         }

@@ -56,6 +56,7 @@ public class Elevator extends Subsystem {
       motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI / Ng);
       motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI / Ng);
       initStateSpace();
+      this.setDisabled(true);
       notifier = new Notifier(new Runnable(){
         @Override
         public void run() {
