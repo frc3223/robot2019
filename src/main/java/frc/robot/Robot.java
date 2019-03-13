@@ -18,24 +18,15 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.ActivateLimeLight;
-import frc.robot.commands.GalagaIn;
-import frc.robot.commands.GalagaOut;
-import frc.robot.commands.SlideIn;
-import frc.robot.commands.SlideOut;
-import frc.robot.commands.IntakeOut;
-import frc.robot.commands.IntakeIn;
+import frc.robot.commands.climb.StiltZero;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
 
 import frc.robot.subsystems.Carriage;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import frc.robot.commands.ClimberDeploy;
-import frc.robot.commands.ClimberFrontUp;
-import frc.robot.commands.ClimberBackUp;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -57,6 +48,7 @@ public class Robot extends TimedRobot {
   public DataLogger logger;
   public DriverStation driverStation;
   public Elevator m_elevator;
+  public StiltZero m_stiltZero;
   //public Intake m_intake;
 
   NetworkTableEntry xEntry;
@@ -82,6 +74,7 @@ public class Robot extends TimedRobot {
     //m_intake = new Intake();
     m_climber = new Climber(m_oi);
     m_elevator = new Elevator(m_oi);
+    m_stiltZero = new StiltZero(m_climber);
 
     m_elevator.logEverything();
     
@@ -151,6 +144,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //Initialization message
     System.out.println("Initiating autonomous!");
+    m_stiltZero.start();
   }
 
   /**

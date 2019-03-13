@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
@@ -21,7 +21,7 @@ public class ClimberDeploy extends Command {
     this.subsystem = subsystem;
     this.oi = oi;
     requires(subsystem);
-    increment = 3;
+    increment = 1;
   }
 
   // Called just before this Command runs the first time
@@ -35,33 +35,39 @@ public class ClimberDeploy extends Command {
     boolean Bdone = false;
     boolean RFdone = false;
     boolean LFdone = false;
-    double stallVoltage = 0.1;
-    double liftingVoltage = 0.5;
-    if(subsystem.backPosition() < increment){
-      subsystem.moveBack(liftingVoltage);
-    }
-    if(subsystem.backPosition() >= increment){
-      subsystem.moveBack(stallVoltage);
+    double stallVoltageFront = -0.05;
+    double stallVoltageBack = -0.07;
+    double liftingVoltageFront = -0.3;
+    double liftingVoltageBack = -0.4;
+    if(subsystem.backPosition() > -increment){
+      subsystem.moveBack(liftingVoltageBack);
+      System.out.println("B lifting");
+    }else if(subsystem.backPosition() <= -increment){
+      System.out.println("B holding");
+      subsystem.moveBack(stallVoltageBack);
       Bdone = true;
     }
-    if(subsystem.rightFrontPosition() < increment){
-      subsystem.moveRightFront(liftingVoltage);
+    if(subsystem.rightFrontPosition() > -increment){
+      System.out.println("RF lifting");
+      subsystem.moveRightFront(liftingVoltageFront);
     }
-    if(subsystem.rightFrontPosition() >= increment){
-      subsystem.moveRightFront(stallVoltage);
+    if(subsystem.rightFrontPosition() <= -increment){
+      subsystem.moveRightFront(stallVoltageFront);
+      System.out.println("RF holding");
       RFdone = true;
     }
     if(subsystem.leftFrontPosition() < increment){
-      subsystem.moveLeftFront(liftingVoltage);
+      System.out.println("LF lifting");
+      subsystem.moveLeftFront(liftingVoltageFront);
     }
     if(subsystem.leftFrontPosition() >= increment){
-      subsystem.moveLeftFront(stallVoltage);
+      subsystem.moveLeftFront(stallVoltageFront);
+      System.out.println("LF holding");
       LFdone = true;
     }
     if(Bdone && RFdone && LFdone){
-      increment += increment;
-      if (increment > 21){
-        end();
+      if (increment < 18){
+          increment += increment;
       }
     }
   }
@@ -69,7 +75,7 @@ public class ClimberDeploy extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

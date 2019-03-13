@@ -33,16 +33,18 @@ public class ElevatorJoystick extends Command {
         if(this.rawAxisOutput == 0) {
             //this.elevator.maintainLevel();
             this.elevator.moveElevator(0);
+            
+           // System.out.println("explode " + 0);
             //System.out.println("maintain!");
         }
         else {
             this.elevator.moveElevator(rawAxisOutput);
-            //System.out.println("explode " + rawAxisOutput);
+           // System.out.println("explode " + rawAxisOutput);
         }
     }
 
     public void epsilonCheck() {
-        double epsilon = 0;
+        double epsilon = .1;
         if(this.rawAxisOutput > -epsilon && this.rawAxisOutput < epsilon) {
             this.rawAxisOutput = 0;
         }

@@ -35,9 +35,9 @@ public class RobotMap {
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 16;
   public static final int DRIVETRAIN_RIGHT_BACK_VICTOR = 15;
     //stilts
-  public static final int STILTS_RIGHT_FRONT_CAN = 14;
+  public static final int STILTS_RIGHT_FRONT_CAN = 3;
   public static final int STILTS_BACK_CAN = 13;
-  public static final int STILTS_LEFT_FRONT_CAN = 3;
+  public static final int STILTS_LEFT_FRONT_CAN = 14;
   public static final int CLIMBER_DRIVE_MOTOR = 4;
 //lime light is on #8 pdp slot
   public static final int PNEUMATICS_MODULE = 21;
@@ -73,9 +73,9 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_HATCH_DEPLOY = 3; //deploying hatches via right trigger
   public static final int MANIPULATOR_CONTROLLER_INTAKE_IN = 6; // Intake in with Left Bumper
   public static final int MANIPULATOR_CONTROLLER_INTAKE_OUT = 5; // Intake out with Right Bumper
-  public static final int DRIVER_CONTROLLER_LIFT_FRONT_UP = 3; //raising the front stilts via X button
-  public static final int DRIVER_CONTROLLER_LIFT_BACK_UP = 2; ////raising the back stilts via B button
-  public static final int DRIVER_CONTROLLER_LIFT_ALL_DOWN = 1; //lowering the stilts via A button
+  public static final int DRIVER_CONTROLLER_LIFT_ALL = 1; //raising all stilts via A button
+  public static final int DRIVER_CONTROLLER_LIFT_FRONT = 3; //raising the front stilts via X button
+  public static final int DRIVER_CONTROLLER_LIFT_BACK = 2; //raising the back stilts via B button
   public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 6; //moving fowards on the stilts with right trigger
   public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 5; //moving backwards on the stilts with left trigger
   //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
@@ -100,11 +100,11 @@ public class RobotMap {
   public static final int LIME_LIGHT_LIGHT_ON = 3;
 
 
-  //Pneumatics modes
-  public static final int SOLENOIDS_SLIDE_FORWARD = 1;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 3;
-  public static final int SOLENOIDS_GALAGA_FORWARD = 0;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 2;
+  //Pneumatics modes -- DO NOT CHANGE THIS OR MADDY WILL KILL YOU
+  public static final int SOLENOIDS_SLIDE_FORWARD = 3;
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 1;
+  public static final int SOLENOIDS_GALAGA_FORWARD = 2;
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 0;
 
   public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
   public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;

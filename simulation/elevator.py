@@ -28,6 +28,7 @@ class ElevatorSimulation:
         # assuming kinetic and max static are same
         self.friction_force = kwargs.pop('friction_force_N', 0)
         self.sprocket_radius_m = kwargs.pop('sprocket_radius_m', inch_to_meter(2.0))
+        self.climb_noload_zone = kwargs.pop('climb_noload_zone', (0, 0))
         self.hardstop_spring_constant=kwargs.pop('hardstop_spring_constant', lbs_to_N(200) / 0.01)
         self.gearbox_efficiency = kwargs.pop('gearbox_efficiency', 0.65)
         self.battery_resistance_ohms = kwargs.pop('battery_resistance_ohms', 0.015)
@@ -109,7 +110,10 @@ class ElevatorSimulation:
         gv2 = self.robot_mass_kg * g
         cw = self.counterweighting()
         
-        force = motor_force + gv1 - gv2 - cw
+        force = motor_force + gv1 - cw
+
+        if not(self.climb_noload_zone[0] < state.x < self.climb_noload_zone[1]):
+            force -= gv2
 
         if state.x < 0:
             force += (0-state.x) * self.hardstop_spring_constant
