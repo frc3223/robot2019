@@ -5,21 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.subsystems.Climber;
-import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
-public class ClimberMove extends Command {
-  Climber subsystem;
-  OI oi;
-  public ClimberMove(Climber subsystem, OI oi) {
+/**
+ * Add your docs here.
+ */
+public class WaitCommand extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public WaitCommand(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
-    this.subsystem = subsystem;
-    this.oi = oi;
-    requires(subsystem);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -30,28 +30,12 @@ public class ClimberMove extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean forward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
-    boolean backward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
-    if(forward){
-      this.subsystem.move(1);
-    }else if(backward){
-      this.subsystem.move(-1);
-    }else{
-      this.subsystem.stopMotor();
-    }
-    
+    System.out.println("waiting");
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
-    this.subsystem.stopMotor();
   }
 
   // Called when another command which requires one or more of the same

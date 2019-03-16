@@ -90,6 +90,9 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_DRIVE_ROTATE = 4; //Manipulator can move robot! --side to side
   /*=====================================================================================================================*/
   public static final int LIME_LIGHT_ON_BUTTON = 8; //A button in manipulator control
+  public static final int HATCH_GRAB_AUTO = 7; // runs the auto that aligns the robot and grabs a hatch panel.
+  public static final int HATCH_DEPLOY_AUTO = 8; // runs the auto that aligns the robot and deploys a hatch panel.
+
 
   //Climber things
   //public static final int CLIMBER_RIGHT_FRONT_CYLINDER_CHANNEL1 = 0;
@@ -110,10 +113,10 @@ public class RobotMap {
 
 
   //Pneumatics modes -- DO NOT CHANGE THIS OR MADDY WILL KILL YOU
-  public static final int SOLENOIDS_SLIDE_FORWARD = 3;
-  public static final int SOLENOIDS_SLIDE_BACKWARDS = 1;
-  public static final int SOLENOIDS_GALAGA_FORWARD = 2;
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 0;
+  public static final int SOLENOIDS_SLIDE_FORWARD = 3;//same on bravo
+  public static final int SOLENOIDS_SLIDE_BACKWARDS = 1;// same on bravo
+  public static final int SOLENOIDS_GALAGA_FORWARD = 4;//4 on bravo, 2 on alpha
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 2;// 2 on bravo, 0 on alpha
 
   public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
   public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;

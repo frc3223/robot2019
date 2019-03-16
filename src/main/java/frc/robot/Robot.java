@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.ActivateLimeLight;
+import frc.robot.commands.LimeLightHatchDeploy;
+import frc.robot.commands.LimeLightHatchGrab;
 import frc.robot.commands.climb.StiltZero;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -90,7 +92,9 @@ public class Robot extends TimedRobot {
 
     this.zeroElevator = new ZeroElevator(this.m_elevator, this.m_oi);
 
-    m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
+    m_oi.auto_deploy_sequence_button.whenPressed(new LimeLightHatchDeploy());
+    m_oi.auto_grab_sequence_button.whenPressed(new LimeLightHatchGrab());
+    //m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
     //m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     //m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
     //m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
@@ -103,10 +107,10 @@ public class Robot extends TimedRobot {
 
 
 
-    new Thread(() -> {
+    /*new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
       camera.setResolution(640, 480);
-    }).start();
+    }).start();*/
 
     //Initialization message
     System.out.println("Robot online.");

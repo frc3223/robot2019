@@ -22,7 +22,6 @@ public class OI {
     public Joystick driverController;
     public Joystick manipulatorController;
 
-    public JoystickButton limelight_on_button;
     public JoystickButton galaga_in_button;
     public JoystickButton galaga_out_button;
     public JoystickButton slide_in_button;
@@ -31,12 +30,13 @@ public class OI {
     public JoystickButton intake_out_button;
     public JoystickButton lift_forward_button;
     public JoystickButton lift_backward_button;
+    public JoystickButton auto_grab_sequence_button;
+    public JoystickButton auto_deploy_sequence_button;
 
     public OI() {
         getDriverPort();
         driverController = new Joystick(driverPort);
         manipulatorController = new Joystick(manipulatorPort);
-        limelight_on_button = new JoystickButton(driverController, RobotMap.LIME_LIGHT_ON_BUTTON);
         galaga_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_GALAGA_IN);
         galaga_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_GALAGA_OUT);
         slide_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_IN);
@@ -45,6 +45,8 @@ public class OI {
         intake_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_OUT);
         lift_forward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
         lift_backward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+        auto_grab_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_GRAB_AUTO);
+        auto_deploy_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_DEPLOY_AUTO);
 
     }
 
