@@ -23,6 +23,6 @@ public class ZeroElevator extends TimedCommand {
 
     @Override
     public void execute() {
-        this.elevator.moveElevator(-0.1);
+        this.elevator.moveElevator(0.1);
     }
 }

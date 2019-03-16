@@ -54,8 +54,8 @@ public class Elevator extends Subsystem {
   public Elevator(OI oi) {
     this.oi = oi;
     motors = new CANSparkMax[] { new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless) };
-    motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI / Ng);
-    motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI / Ng);
+    motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI * sprocketRadius / Ng);
+    motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI * sprocketRadius / Ng);
     initStateSpace();
     this.setDisabled(true);
     notifier = new Notifier(new Runnable() {
