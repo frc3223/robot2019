@@ -81,6 +81,7 @@ public class OI {
     public boolean shouldDriveStiltsBackward() {
         return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
     }
+
     public double getElevatorRawAxisOutput() {
         return this.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_ELEVATOR);
     }
@@ -89,5 +90,13 @@ public class OI {
     }
     public double getManipulatorDriveRotate() {
         return this.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_DRIVE_ROTATE);
+    }
+
+    public double forwardSpeed() {
+        return this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_FORWARD_AXIS);
+    }
+
+    public double backwardSpeed() {
+        return this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
     }
 }
