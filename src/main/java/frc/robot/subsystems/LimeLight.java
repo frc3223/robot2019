@@ -27,6 +27,11 @@ public class LimeLight extends Subsystem {
     table = inst.getTable("limelight");
   }
 
+  public double getDistance(){
+    
+    return 1.0;
+  }
+
   public int getValidTarget() {
     NetworkTableEntry tv;
     tv = table.getEntry("tv");

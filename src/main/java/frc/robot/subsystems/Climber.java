@@ -102,12 +102,12 @@ public class Climber extends Subsystem{
       }
     public void moveDown(int distance){
         this.backMotor.set(0.5);
-        this.rightFrontMotor.set(0.5);
+        this.rightFrontMotor.set(-0.5);
         this.leftFrontMotor.set(0.5);
 
     }
     public void moveUp(double speed){
-        this.backMotor.set(speed);
+        this.backMotor.set(-speed);
         this.rightFrontMotor.set(speed);
         this.leftFrontMotor.set(-speed);
     }
@@ -170,9 +170,9 @@ public class Climber extends Subsystem{
         this.rightFrontTargetPositionInches = posInches;
         System.out.println(" all pos " + posInches);
         if(posInches < -0.1) {
-            posInches -= 0.5; // back stilt is 1/2 inch higher off the ground
+            posInches += 0.5; // back stilt is 1/2 inch higher off the ground
         }
-        this.backTargetPositionInches = posInches;
+        this.backTargetPositionInches = -posInches;
     }
 
     /**
@@ -229,12 +229,12 @@ public class Climber extends Subsystem{
     }
 
     public void setBackTargetPosition(double posInches) {
-        if(posInches > 0) {
+        if(posInches < 0) {
             posInches = 0;
         }
-        if(posInches < -20)
+        if(posInches > 20)
         {
-            posInches = -20;
+            posInches = 20;
         }
         /*if(posInches < -0.1) {
             posInches -= 0.5; // back stilt is 1/2 inch higher off the ground
@@ -249,7 +249,7 @@ public class Climber extends Subsystem{
     public void raiseBackTargetPosition() {
         double pos = this.backTargetPositionInches;
         double inchPerSec = 12;
-        pos += inchPerSec * 0.02;
+        pos -= inchPerSec * 0.02;
         System.out.println("raise back");
         setBackTargetPosition(pos);
     }
@@ -260,7 +260,7 @@ public class Climber extends Subsystem{
     public void lowerBackTargetPosition() {
         double pos = this.backTargetPositionInches;
         double inchPerSec = 14;
-        pos -= inchPerSec * 0.02;
+        pos += inchPerSec * 0.02;
         System.out.println("lower back");
         setBackTargetPosition(pos);
     }

@@ -33,7 +33,6 @@ public class SSClimbCommand extends Command {
         this.subsystem.calculateSSC();
         this.driveStilts();
         this.doTransitions();
-        System.out.println("back position is:" + subsystem.backPosition());
     }
 
     private void raiseLowerStilts() {

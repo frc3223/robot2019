@@ -10,8 +10,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.OI;
@@ -24,17 +27,17 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * An example subsystem. You can replace me with your own Subsystem.
  */
 public class Elevator extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public static enum ElevatorLevels {
-      BOTTOM, MIDDLE, TOP
+    BOTTOM, MIDDLE, TOP
   }
 
   public double ticksPerRev = 42;
-  public double sprocketRadius = 0.0142875;//meters aka 1.428 centimeters aka about half an inch
+  public double sprocketRadius = 0.0142875;// meters aka 1.428 centimeters aka about half an inch
   public int Ng = 5;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
@@ -46,38 +49,39 @@ public class Elevator extends Subsystem {
   private double targetPosition = 0;
   private double targetVelocity = 0;
   public OI oi;
-  PowerDistributionPanel pdp;
-  public Elevator(OI oi) {
-      pdp = new PowerDistributionPanel(0);
-      this.oi = oi;
-      motors = new CANSparkMax[] {
-        new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless)
-      };
-      motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI / Ng);
-      motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI / Ng);
-      initStateSpace();
-      this.setDisabled(true);
-      notifier = new Notifier(new Runnable(){
-        @Override
-        public void run() {
-            calculate();
-        }
-      });
-      this.reset();
-      this.logger = new DataLogger("Elevator");
-      notifier.startPeriodic(0.02);
-  }
-/*  This method will call all internal logging methods.               */
-    public void logEverything() {
-        logMotorVoltage(this.logger);
-        logMotorCurrent(this.logger);
-        logMotorTemperature(this.logger);
-        logMotorPosition(this.logger);
-    }
+  NetworkTable table;
 
-/*  The move functions will move the elevator to the level specified  */
-/*  in the function name. As an example, moveBottom() will move the   */
-/*  elevator to the bottom level.                                     */
+  public Elevator(OI oi) {
+    this.oi = oi;
+    motors = new CANSparkMax[] { new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless) };
+    motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI / Ng);
+    motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI / Ng);
+    initStateSpace();
+    this.setDisabled(true);
+    notifier = new Notifier(new Runnable() {
+      @Override
+      public void run() {
+        calculate();
+      }
+    });
+    this.reset();
+    this.logger = new DataLogger("Elevator");
+    notifier.startPeriodic(0.02);
+
+    table = NetworkTableInstance.getDefault().getTable("Elevator");
+  }
+
+  /* This method will call all internal logging methods. */
+  public void logEverything() {
+    logMotorVoltage(this.logger);
+    logMotorCurrent(this.logger);
+    logMotorTemperature(this.logger);
+    logMotorPosition(this.logger);
+  }
+
+  /* The move functions will move the elevator to the level specified */
+  /* in the function name. As an example, moveBottom() will move the */
+  /* elevator to the bottom level. */
   public void moveBottom() {
 
   }
@@ -91,50 +95,52 @@ public class Elevator extends Subsystem {
   }
 
   public double getBusVoltage() {
-      return this.motors[0].getBusVoltage();
+    return this.motors[0].getBusVoltage();
   }
- 
+
   public void logMotorVoltage(DataLogger logger) {
-      for(int j = 0; j < this.motors.length; j++) {
-        int temp = j;
-        logger.add("Voltage (Motor " + (temp + 1) + ")", () -> {
-            return this.motors[temp].getAppliedOutput();
-        });
-      }
+    for (int j = 0; j < this.motors.length; j++) {
+      int temp = j;
+      logger.add("Voltage (Motor " + (temp + 1) + ")", () -> {
+        return this.motors[temp].getAppliedOutput();
+      });
+    }
   }
 
   public void logMotorTemperature(DataLogger logger) {
-      for(int i = 0; i < this.motors.length; i++) {
-          int temp = i;
-          logger.add("Temperature (Motor " + (temp + 1) + ")", () -> {
-              return this.motors[temp].getMotorTemperature();
-          });
-      }
+    for (int i = 0; i < this.motors.length; i++) {
+      int temp = i;
+      logger.add("Temperature (Motor " + (temp + 1) + ")", () -> {
+        return this.motors[temp].getMotorTemperature();
+      });
+    }
   }
 
   public void logMotorCurrent(DataLogger logger) {
-    for(int j = 0; j < this.motors.length; j++) {
+    for (int j = 0; j < this.motors.length; j++) {
       int temp = j;
       logger.add("Current (Motor " + (temp + 1) + ")", () -> {
-          return this.motors[temp].getOutputCurrent();
+        return this.motors[temp].getOutputCurrent();
       });
     }
   }
 
   public void logMotorPosition(DataLogger logger) {
-      logger.add("Position", () -> {
-          return this.getPosition();
-      });
+    logger.add("Position", () -> {
+      return this.getPosition();
+    });
   }
 
-  //For when the driver wants to manually control the elevator level
+  // For when the driver wants to manually control the elevator level
   public void moveElevator(double voltPercent) {
-    for(int i = 0; i < this.motors.length; i++) {
-        this.motors[i].set(voltPercent);
+    for (int i = 0; i < this.motors.length; i++) {
+      this.motors[i].set(voltPercent);
     }
   }
 
-/*  This is the method called in order to keep the elevator in a stable position.  */
+  /*
+   * This is the method called in order to keep the elevator in a stable position.
+   */
 
   public void maintainLevel() {
     double keepElevatorInPlace = 0.1;
@@ -142,16 +148,16 @@ public class Elevator extends Subsystem {
   }
 
   public synchronized void setDisabled(boolean isDisabled) {
-    if(!isDisabled){
+    if (!isDisabled) {
       setTargetPosition(getPosition());
     }
     this.isDisabled = isDisabled;
   }
 
   public void reset() {
-      for(int j = 0; j < this.motors.length; j++) {
-          this.motors[j].getEncoder().setPosition(0);
-      }
+    for (int j = 0; j < this.motors.length; j++) {
+      this.motors[j].getEncoder().setPosition(0);
+    }
   }
 
   public synchronized boolean isDisabled() {
@@ -163,7 +169,7 @@ public class Elevator extends Subsystem {
   }
 
   public synchronized double getTargetPosition() {
-      return this.targetPosition;
+    return this.targetPosition;
   }
 
   public synchronized void setTargetVelocity(double vel) {
@@ -171,7 +177,7 @@ public class Elevator extends Subsystem {
   }
 
   public synchronized double getTargetVelocity() {
-      return this.targetVelocity;
+    return this.targetVelocity;
   }
 
   public double getVelocity() {
@@ -180,64 +186,46 @@ public class Elevator extends Subsystem {
   }
 
   public double getPosition() {
-      double ticks = motors[0].getEncoder().getPosition();
-      return ticks;
+    double ticks = motors[0].getEncoder().getPosition();
+    return ticks;
   }
 
   public void calculate() {
-    if(stateSpaceController == null){
-        System.out.println("stateSpaceController is null");
+    if (stateSpaceController == null) {
+      System.out.println("stateSpaceController is null");
     }
-    if(!isDisabled()){
-        stateSpaceController.update();
-        stateSpaceController.setInput((r) -> {
-            //Target position (meter)
-            r.set(0, 0, getTargetPosition());
-            //Target velocity (meters/second)
-            r.set(1, 0, getTargetVelocity());
-        });
-        double voltage = stateSpaceController.u.get(0, 0);
-        for(int i = 0; i < motors.length; i++){
-            double availableVolt = motors[i].getBusVoltage();
-            double percentVolt = voltage / availableVolt;
-            motors[i].set(percentVolt);
-        }
-        stateSpaceController.setOutput((y) -> {
-            //Position in meters
-            y.set(0, 0, getPosition());
-        });
-        stateSpaceController.predict();
+    if (!isDisabled()) {
+      stateSpaceController.update();
+      stateSpaceController.setInput((r) -> {
+        // Target position (meter)
+        r.set(0, 0, getTargetPosition());
+        // Target velocity (meters/second)
+        r.set(1, 0, getTargetVelocity());
+      });
+      double voltage = stateSpaceController.u.get(0, 0);
+      for (int i = 0; i < motors.length; i++) {
+        double availableVolt = motors[i].getBusVoltage();
+        double percentVolt = voltage / availableVolt;
+        motors[i].set(percentVolt);
+      }
+      stateSpaceController.setOutput((y) -> {
+        // Position in meters
+        y.set(0, 0, getPosition());
+      });
+      stateSpaceController.predict();
     }
   }
 
   public void initStateSpace() {
     stateSpaceController = new StateSpaceController();
     stateSpaceController.init(2, 1, 1);
-    double[][] a = new double[][] {
-        { 1.0, 0.00011200086719228326 },
-        { 0.0, 2.8055267532365116e-78 }
-    };
-    double[][] a_inv = new double[][] {
-        { 1.0, -3.992151101859101e+73 },
-        { 0.0, 3.564393028319477e+77 }
-    };
-    double[][] b = new double[][] {
-        { 0.005629853396465432 },
-        { 0.2830779184406887 }
-    };
-    double[][] c = new double[][] {
-        { 1, 0 }
-    };
-    double[][] k = new double[][] {
-        { 31.665448806218844, 0.0035465577263293613 }
-    };
-    double[][] kff = new double[][] {
-        { 6.620339312648308, 3.328811143061263 }
-    };
-    double[][] L = new double[][] {
-        { 0.9999995555561982 },
-        { 1.9528654827747843e-94 }
-    };
+    double[][] a = new double[][] { { 1.0, 0.00011200086719228326 }, { 0.0, 2.8055267532365116e-78 } };
+    double[][] a_inv = new double[][] { { 1.0, -3.992151101859101e+73 }, { 0.0, 3.564393028319477e+77 } };
+    double[][] b = new double[][] { { 0.005629853396465432 }, { 0.2830779184406887 } };
+    double[][] c = new double[][] { { 1, 0 } };
+    double[][] k = new double[][] { { 31.665448806218844, 0.0035465577263293613 } };
+    double[][] kff = new double[][] { { 6.620339312648308, 3.328811143061263 } };
+    double[][] L = new double[][] { { 0.9999995555561982 }, { 1.9528654827747843e-94 } };
     // Ks is 0.3527161191692306
     // Kv is 3.5325962742287254
     // Ka is 0.00039565384615384614
@@ -257,18 +245,35 @@ public class Elevator extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new ElevatorJoystick(this, this.oi ));
+    setDefaultCommand(new ElevatorJoystick(this, this.oi));
   }
 
   public void measureVoltage(double volts) {
 
   }
 
+  public double getMotorVoltage() {
+    return this.motors[0].get() * this.motors[0].getBusVoltage();
+  }
+
+  public double getMotorCurrent() {
+    return this.motors[0].getOutputCurrent();
+  }
+
   @Override
-    public void periodic() {
-      if(RobotState.isEnabled()) {
-          this.logger.log();
-      }
+  public void periodic() {
+    if (RobotState.isEnabled()) {
+      this.logger.log();
+    }
+
+    NetworkTableEntry positionEntry = table.getEntry("Position");
+    positionEntry.setNumber(this.getPosition());
+    NetworkTableEntry voltageEntry = table.getEntry("Voltage");
+    voltageEntry.setNumber(this.getMotorVoltage());
+    NetworkTableEntry currentEntry = table.getEntry("Current");
+    currentEntry.setNumber(this.getMotorCurrent());
+    
+
   }
 
 }
