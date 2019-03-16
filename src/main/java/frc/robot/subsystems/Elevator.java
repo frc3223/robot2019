@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -17,10 +15,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.OI;
 import frc.robot.RobotMap;
 import frc.robot.StateSpaceController;
-import frc.robot.commands.ElevatorJoystick;
+import frc.robot.commands.elevator.ElevatorJoystick;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
@@ -45,6 +41,10 @@ public class Elevator extends Subsystem {
   private boolean isDisabled = false;
   private double targetPosition = 0;
   private double targetVelocity = 0;
+  private double maxPosition = 2;
+  private double minPosition = 0;
+
+
   public OI oi;
   PowerDistributionPanel pdp;
   public Elevator(OI oi) {
@@ -144,6 +144,7 @@ public class Elevator extends Subsystem {
   public synchronized void setDisabled(boolean isDisabled) {
     if(!isDisabled){
       setTargetPosition(getPosition());
+      stateSpaceController.x_prev.set(0, 0, getPosition());
     }
     this.isDisabled = isDisabled;
   }
@@ -159,7 +160,12 @@ public class Elevator extends Subsystem {
   }
 
   public synchronized void setTargetPosition(double pos) {
-    this.targetPosition = pos;
+      if(pos <= this.minPosition) {
+          pos = this.minPosition;
+      } else if(pos >= this.maxPosition) {
+          pos = this.maxPosition;
+      }
+      this.targetPosition = pos;
   }
 
   public synchronized double getTargetPosition() {

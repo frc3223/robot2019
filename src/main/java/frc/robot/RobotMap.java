@@ -56,11 +56,20 @@ public class RobotMap {
   public static final int OI_DRIVER_CONTROLLER = 0;
 
   // Xbox controller buttons
+/*=====================================================================================================================*/
   public static final int DRIVER_CONTROLLER_MOVE_AXIS = 1; //left joystick up down
   public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 5; //right joystick up-down
   public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 4; //right joystick L-R
-  public static final int MANIPULATOR_CONTROLLER_ELEVATOR = 1; //left joystick up-down
+
+  public static final int DRIVER_CONTROLLER_LIFT_ALL = 1; //raising all stilts via A button
+  public static final int DRIVER_CONTROLLER_LIFT_FRONT = 3; //raising the front stilts via X button
+  public static final int DRIVER_CONTROLLER_LIFT_BACK = 2; //raising the back stilts via B button
+  public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 6; //moving fowards on the stilts with right trigger
+  public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 5; //moving backwards on the stilts with left trigger
+  //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
+  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
+/*=====================================================================================================================*/
   public static final int MANIPULATOR_CONTROLLER_GALAGA_OUT = 3; // Galaga grabs hatch with X
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
   public static final int MANIPULATOR_CONTROLLER_SLIDE_OUT = 4; // Slide out with Y
@@ -73,13 +82,11 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_HATCH_DEPLOY = 3; //deploying hatches via right trigger
   public static final int MANIPULATOR_CONTROLLER_INTAKE_IN = 6; // Intake in with Left Bumper
   public static final int MANIPULATOR_CONTROLLER_INTAKE_OUT = 5; // Intake out with Right Bumper
-  public static final int DRIVER_CONTROLLER_LIFT_ALL = 1; //raising all stilts via A button
-  public static final int DRIVER_CONTROLLER_LIFT_FRONT = 3; //raising the front stilts via X button
-  public static final int DRIVER_CONTROLLER_LIFT_BACK = 2; //raising the back stilts via B button
-  public static final int DRIVER_CONTROLLER_LIFT_FORWARD = 6; //moving fowards on the stilts with right trigger
-  public static final int DRIVER_CONTROLLER_LIFT_BACKWARD = 5; //moving backwards on the stilts with left trigger
-  //  Dunno why we would want the elevator to rotate, but I'll put it in anyway.
-  public static final int DRIVER_CONTROLLER_RIGHT_MOVE_ROTATE = 4;
+
+  public static final int MANIPULATOR_CONTROLLER_ELEVATOR = 1; //left joystick up-down
+  public static final int MANIPULATOR_CONTROLLER_DRIVE_MOVE = 5; // Manipulator can move robot! --up down
+  public static final int MANIPULATOR_CONTROLLER_DRIVE_ROTATE = 4; //Manipulator can move robot! --side to side
+  /*=====================================================================================================================*/
   public static final int LIME_LIGHT_ON_BUTTON = 8; //A button in manipulator control
 
   //Climber things

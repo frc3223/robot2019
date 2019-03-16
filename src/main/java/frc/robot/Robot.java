@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.commands.elevator.MoveElevator;
+import frc.robot.commands.elevator.ZeroElevator;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
@@ -49,6 +51,10 @@ public class Robot extends TimedRobot {
   public DriverStation driverStation;
   public Elevator m_elevator;
   public StiltZero m_stiltZero;
+  public MoveElevator moveElevatorBottom;
+  public MoveElevator moveElevatorMiddle;
+  public MoveElevator moveElevatorTop;
+  public ZeroElevator zeroElevator;
   //public Intake m_intake;
 
   NetworkTableEntry xEntry;
@@ -77,7 +83,13 @@ public class Robot extends TimedRobot {
     m_stiltZero = new StiltZero(m_climber);
 
     m_elevator.logEverything();
-    
+
+    this.moveElevatorBottom = new MoveElevator(this.m_elevator, this.m_oi, 0);
+    this.moveElevatorMiddle = new MoveElevator(this.m_elevator, this.m_oi, 1);
+    this.moveElevatorTop = new MoveElevator(this.m_elevator, this.m_oi, 2);
+
+    this.zeroElevator = new ZeroElevator(this.m_elevator, this.m_oi);
+
     m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
     //m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     //m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
@@ -88,7 +100,8 @@ public class Robot extends TimedRobot {
     //m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
     //m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
     //m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
-    
+
+
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -145,6 +158,7 @@ public class Robot extends TimedRobot {
     //Initialization message
     System.out.println("Initiating autonomous!");
     m_stiltZero.start();
+    zeroElevator.start();
   }
 
   /**
