@@ -33,8 +33,8 @@ public class Elevator extends Subsystem {
   }
 
   public double ticksPerRev = 42;
-  public double sprocketRadius = 0.0142875;// meters aka 1.428 centimeters aka about half an inch
-  public int Ng = 5;
+  public double sprocketRadius = 0.0142875;// meters for a 16 tooth sprocket
+  public int Ng = 10;
   public ElevatorLevels elevatorLevel = ElevatorLevels.BOTTOM;
   public Notifier notifier;
   public StateSpaceController stateSpaceController;
@@ -44,8 +44,8 @@ public class Elevator extends Subsystem {
   private boolean isDisabled = false;
   private double targetPosition = 0;
   private double targetVelocity = 0;
-  private double maxPosition = 2;
-  private double minPosition = 0;
+  private double maxPosition = 0;
+  private double minPosition = -1.6;
 
 
   public OI oi;
@@ -54,8 +54,8 @@ public class Elevator extends Subsystem {
   public Elevator(OI oi) {
     this.oi = oi;
     motors = new CANSparkMax[] { new CANSparkMax(RobotMap.DRIVETRAIN_ELEVATOR_CAN, MotorType.kBrushless) };
-    motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI * sprocketRadius / Ng);
-    motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI * sprocketRadius / Ng);
+    motors[0].getEncoder().setPositionConversionFactor(2 * Math.PI * sprocketRadius * 2 / Ng);
+    motors[0].getEncoder().setVelocityConversionFactor(2 * Math.PI * sprocketRadius * 2 / Ng);
     initStateSpace();
     this.setDisabled(true);
     notifier = new Notifier(new Runnable() {
@@ -272,10 +272,6 @@ public class Elevator extends Subsystem {
     setDefaultCommand(new ElevatorJoystick(this, this.oi));
   }
 
-  public void measureVoltage(double volts) {
-
-  }
-
   public double getMotorVoltage() {
     return this.motors[0].get() * this.motors[0].getBusVoltage();
   }
@@ -292,12 +288,14 @@ public class Elevator extends Subsystem {
 
     NetworkTableEntry positionEntry = table.getEntry("Position");
     positionEntry.setNumber(this.getPosition());
+    NetworkTableEntry enabledEntry = table.getEntry("SS_Enabled");
+    enabledEntry.setBoolean(!this.isDisabled());
+    NetworkTableEntry targetPositionEntry = table.getEntry("TargetPosition");
+    targetPositionEntry.setNumber(this.getTargetPosition());
     NetworkTableEntry voltageEntry = table.getEntry("Voltage");
     voltageEntry.setNumber(this.getMotorVoltage());
     NetworkTableEntry currentEntry = table.getEntry("Current");
     currentEntry.setNumber(this.getMotorCurrent());
-    
-
   }
 
 }
