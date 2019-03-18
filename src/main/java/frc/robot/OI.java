@@ -99,6 +99,6 @@ public class OI {
     }
 
     public double backwardSpeed() {
-        return this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
+        return -this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
     }
 }
