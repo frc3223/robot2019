@@ -38,7 +38,7 @@ public class RobotMap {
   public static final int STILTS_RIGHT_FRONT_CAN = 3;
   public static final int STILTS_BACK_CAN = 13;
   public static final int STILTS_LEFT_FRONT_CAN = 14;
-  public static final int CLIMBER_DRIVE_MOTOR = 4;
+  public static final int CLIMBER_DRIVE_MOTOR = 11;
 //lime light is on #8 pdp slot
   public static final int PNEUMATICS_MODULE = 21;
 
@@ -46,9 +46,8 @@ public class RobotMap {
   public static final int TEST_SPARKMAX = 30;
 
   //Manipulator
-  public static final int CARRIAGE_VICTOR = 11;
-  public static final int INTAKE_VICTOR = 5;
-
+  public static final int CARRIAGE_VICTOR = 4;
+  public static final int INTAKE_VICTOR = 5; // not used
   //limit switch values
   public static final int LIMIT_SWITCH_LEFT = 1;
   public static final int LIMIT_SWITCH_RIGHT = 2;
@@ -76,8 +75,8 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_GALAGA_IN = 2; // Galaga drops hatch with B
   public static final int MANIPULATOR_CONTROLLER_SLIDE_OUT = 4; // Slide out with Y
   public static final int MANIPULATOR_CONTROLLER_SLIDE_IN = 1; // Slide in with A
-  public static final int MANIPULATOR_CONTROLLER_CARGO_PULLIN = 2; //cargo pull in trigger Left
-  public static final int MANIPULATOR_CONTROLLER_CARGO_PUSHOUT = 3; //cargo push out trigger Right
+  public static final int MANIPULATOR_CONTROLLER_CARGO_PULLIN = 3; //cargo pull in trigger Left
+  public static final int MANIPULATOR_CONTROLLER_CARGO_PUSHOUT = 2; //cargo push out trigger Right
   public static final int MANIPULATOR_CONTROLLER_CARGO_INTAKE = 5; //cargo intake on left button
   public static final int MANIPULATOR_CONTROLLER_CARGO_DEPLOY = 2; //cargo deploy via left trigger
   public static final int MANIPULATOR_CONTROLLER_HATCH_INTAKE = 6; // grabbing hatches via right button
@@ -117,8 +116,9 @@ public class RobotMap {
   //Pneumatics modes -- DO NOT CHANGE THIS OR MADDY WILL KILL YOU
   public static final int SOLENOIDS_SLIDE_FORWARD = 3;//same on bravo
   public static final int SOLENOIDS_SLIDE_BACKWARDS = 1;// same on bravo
-  public static final int SOLENOIDS_GALAGA_FORWARD = 4;//4 on bravo, 2 on alpha
-  public static final int SOLENOIDS_GALAGA_BACKWARDS = 2;// 2 on bravo, 0 on alpha
+  public static final int SOLENOIDS_GALAGA_FORWARD = 2;//4 on bravo, 2 on alpha
+  public static final int SOLENOIDS_GALAGA_BACKWARDS = 0
+  ;// 2 on bravo, 0 on alpha
 
   public static final int SOLENOIDS_INTAKE_FORWARDS = 9;
   public static final int SOLENOIDS_INTAKE_BACKWARDS = 11;
