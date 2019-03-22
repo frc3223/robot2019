@@ -33,9 +33,9 @@ public class ClimberMove extends Command {
     boolean forward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
     boolean backward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
     if(forward){
-      this.subsystem.move(1);
+      this.subsystem.move(0.5);
     }else if(backward){
-      this.subsystem.move(-1);
+      this.subsystem.move(-0.5);
     }else{
       this.subsystem.stopMotor();
     }

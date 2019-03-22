@@ -1,3 +1,4 @@
+package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
@@ -29,7 +30,7 @@ public class LimelightBackingAlign extends Command {
         int tv = limelight.getValidTarget();
         if (tv == 1) { // If the target is valid
             double tx = limelight.getHorizontalOffset();
-            if (Math.abs(tx) < 1.0) {
+            if (Math.abs(tx) < 0.5) {
                 isAligned = true;
                 tx = 0;
             }

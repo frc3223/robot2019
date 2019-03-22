@@ -8,23 +8,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 public class LimeLightHatchDeploy extends CommandGroup {
+  Drivetrain subsystem;
+  OI oi;
   /**
    * Add your docs here.
    */
-  public LimeLightHatchDeploy() {
+  public LimeLightHatchDeploy(Drivetrain subsystem,OI oi) {
+    this.subsystem = subsystem;
+    this.oi = oi;
     addSequential(new LimeLightLEDOn());
-    addSequential(new WaitCommand(2));
-    
+    addSequential(new WaitCommand(0.2));
     addSequential(new LimeLightAlign());
-    addSequential(new LimeLightLEDOff());
-    //addSequential(new SlideOut(Robot.m_galaga,Robot.m_oi));
-    //addSequential(new WaitCommand(1.0));
-    //addSequential(new GalagaIn(Robot.m_galaga,Robot.m_oi));
-    //addSequential(new WaitCommand(1.0));
-    //addSequential(new SlideIn(Robot.m_galaga,Robot.m_oi));
+    addSequential(new SlideOut(Robot.m_galaga,Robot.m_oi));
+    addSequential(new WaitCommand(0.2));
+    addSequential(new GalagaIn(Robot.m_galaga,Robot.m_oi));      
+    addSequential(new WaitCommand(0.2));
+    addSequential(new SlideIn(Robot.m_galaga,Robot.m_oi));
+    
+    
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

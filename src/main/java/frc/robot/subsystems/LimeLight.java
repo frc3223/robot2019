@@ -21,14 +21,19 @@ public class LimeLight extends Subsystem {
   // here. Call these from Commands.
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("limelight");
+  DataLogger logger;
 
   public LimeLight() {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("limelight");
+    this.logger = new DataLogger("limelight_crap");
+    this.logger.add("short bounding box", ()->getShortBB());
+    this.logger.add("long bounding box", ()-> getLongBB());
+    this.logger.add("horiz. offset", ()-> getHorizontalOffset());
+    this.logger.add("golden distance?", ()-> getGoldenDistance());
   }
 
-  public double getDistance(){
-    
+  public double getDistance(){ 
     return 1.0;
   }
 
@@ -78,6 +83,16 @@ public class LimeLight extends Subsystem {
     NetworkTableEntry ledMode;
     ledMode = table.getEntry("ledMode");
     ledMode.setNumber(RobotMap.LIME_LIGHT_LIGHT_ON);
+  }
+
+  public boolean getGoldenDistance(){
+    if(getLongBB() < 50 && getShortBB() < 20){
+      System.out.println("golden distance acheived!");
+      return true;
+    }else{
+      System.out.println("still too far");
+      return false;
+    }
   }
 
   @Override

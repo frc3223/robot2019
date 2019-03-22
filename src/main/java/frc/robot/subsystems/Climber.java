@@ -150,6 +150,12 @@ public class Climber extends Subsystem{
     }
 
     public void move(double speed){
+        if(speed > 0.5){
+            speed = 0.5;
+        }
+        if(speed < -0.5){
+            speed = -0.5;
+        }
         driveMotor.set(speed);
     }
 

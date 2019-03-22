@@ -67,9 +67,9 @@ public class SSClimbCommand extends Command {
         boolean forward = this.oi.shouldDriveStiltsForward();
         boolean backward = this.oi.shouldDriveStiltsBackward();
         if(forward){
-            this.subsystem.move(1.0);
+            this.subsystem.move(0.5);
         }else if(backward){
-            this.subsystem.move(-1.0);
+            this.subsystem.move(-0.5);
         }else{
             this.subsystem.stopMotor();
         }

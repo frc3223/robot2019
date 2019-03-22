@@ -49,10 +49,10 @@ public class Drivetrain extends Subsystem {
   }
 
   public void moveLeft() {
-    arcadeDrive(0.5, -0.5);
+    arcadeDrive(1, 1);
   }
   public void moveRight() {
-    arcadeDrive(0.5, 0.5);
+    arcadeDrive(1, 1);
   }
 
   public void stop() {
@@ -60,7 +60,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void moveForward(){
-    arcadeDrive(0.5 ,0);
+    arcadeDrive(0.7 ,0);
   }
 
   @Override

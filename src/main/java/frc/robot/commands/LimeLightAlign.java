@@ -18,6 +18,7 @@ public class LimeLightAlign extends Command {
   boolean stopAnyways = false;
   double timeAligned = 0.0;
   boolean moveForward = false;
+  boolean res = false;
   public LimeLightAlign() {
     requires(Robot.m_limelight);
     // Use requires() here to declare subsystem dependencies
@@ -50,40 +51,36 @@ public class LimeLightAlign extends Command {
           System.out.println("bounding box y is: " + Robot.m_limelight.getShortBB());
           double horizOff = Robot.m_limelight.getHorizontalOffset();
 
-          if(horizOff < -2) {// if the offset is too far right
+          if(horizOff < -1.2) {// if the offset is too far right+-
             System.out.println("needs to move left");
             Robot.m_drivetrain.moveLeft();
 
-          }else if(horizOff > 2) { // if the offset is too far left
+          }else if(horizOff > 1.2) { // if the offset is too far left
             System.out.println("needs to move right");
             Robot.m_drivetrain.moveRight();
 
-          }else if(horizOff >= -2 && horizOff <= 2) {// if off set is just right
+          }else if(horizOff >= -1.0 && horizOff <= 1.0) {// if off set is just right
             System.out.println("Move forward / Aligned");
             Robot.m_drivetrain.stop();
             aligned = true;
-            end();
-           
-            
-            /*if(!moveForward){
-              timeAligned = time.get();
-              moveForward = true;
-            }else if(time.get() - timeAligned >= 2.5){
-              Robot.m_drivetrain.stop();
-              Robot.m_limelight.turnLEDOff();
-              moveForward = false;
-            }else{
-              moveForward = true;
-              Robot.m_limelight.turnLEDOn();
+            if(!Robot.m_limelight.getGoldenDistance() && aligned){
+              System.out.println("moving forward");
               Robot.m_drivetrain.moveForward();
-            }*/
+            }else if(Robot.m_limelight.getGoldenDistance()){
+              System.out.println("close enough");
+              end();
+            }else{
+              end();
+            }
+            
           }
               
         }else{
-          stopAnyways = true;
+          end();
         }
+
       }else{
-        stopAnyways = true;
+        end();
       }
     }
   }

@@ -32,6 +32,7 @@ public class OI {
     public JoystickButton lift_backward_button;
     public JoystickButton auto_grab_sequence_button;
     public JoystickButton auto_deploy_sequence_button;
+    public JoystickButton turn_limelight_off;
 
     public OI() {
         getDriverPort();
@@ -47,7 +48,7 @@ public class OI {
         lift_backward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
         auto_grab_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_GRAB_AUTO);
         auto_deploy_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_DEPLOY_AUTO);
-
+        turn_limelight_off = new JoystickButton(manipulatorController,RobotMap.LIME_LIGHT_OFF_BUTTON);
     }
 
     public void getDriverPort() {

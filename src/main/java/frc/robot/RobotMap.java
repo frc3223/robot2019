@@ -89,9 +89,11 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_DRIVE_MOVE = 5; // Manipulator can move robot! --up down
   public static final int MANIPULATOR_CONTROLLER_DRIVE_ROTATE = 4; //Manipulator can move robot! --side to side
   /*=====================================================================================================================*/
-  public static final int LIME_LIGHT_ON_BUTTON = 8; //A button in manipulator control
-  public static final int HATCH_GRAB_AUTO = 7; // runs the auto that aligns the robot and grabs a hatch panel.
-  public static final int HATCH_DEPLOY_AUTO = 8; // runs the auto that aligns the robot and deploys a hatch panel.
+  public static final int LIME_LIGHT_OFF_BUTTON = 8; //A button in manipulator control
+  public static final int HATCH_GRAB_AUTO = 5; // runs the auto that aligns the robot and 
+  //grabs a hatch panel via the left bumber button
+  public static final int HATCH_DEPLOY_AUTO = 6; // runs the auto that aligns the robot 
+  //and deploys a hatch panel via the right bumper button
 
 
   //Climber things
