@@ -141,11 +141,13 @@ public class Robot extends TimedRobot {
     //De-initialization message
     System.out.println("Robot is now offline.");
     //elevator.setDisabled(false);
+    
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    m_oi.printPhotoSwitch();
   }
 
   /**

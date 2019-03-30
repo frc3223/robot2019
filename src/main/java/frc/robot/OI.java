@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -18,6 +19,9 @@ public class OI {
 
     int driverPort;
     int manipulatorPort;
+    DigitalInput sensor1;
+    DigitalInput sensor2;
+    DigitalInput sensor3;
 
     public Joystick driverController;
     public Joystick manipulatorController;
@@ -49,6 +53,8 @@ public class OI {
         auto_grab_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_GRAB_AUTO);
         auto_deploy_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_DEPLOY_AUTO);
         turn_limelight_off = new JoystickButton(manipulatorController,RobotMap.LIME_LIGHT_OFF_BUTTON);
+        sensor1 = new DigitalInput(9);
+        sensor2 = new DigitalInput(8);
     }
 
     public void getDriverPort() {
@@ -58,7 +64,6 @@ public class OI {
         driverPort = 0;
         manipulatorPort = 1;
     }
-
 
     public boolean shouldRaiseStilts() {
         return this.driverController.getPOV() == 0; // up
@@ -101,5 +106,14 @@ public class OI {
 
     public double backwardSpeed() {
         return -this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
+    }
+
+    public boolean getPhotoSwitch(DigitalInput sensor){
+        return sensor.get();
+    }
+
+    public void printPhotoSwitch(){
+        System.out.println("the value for sensor one is " + getPhotoSwitch(sensor1));
+        System.out.println("the value for sensor two is " + getPhotoSwitch(sensor2));
     }
 }
