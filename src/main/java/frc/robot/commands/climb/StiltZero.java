@@ -5,43 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.subsystems.Climber;
+import frc.robot.RobotMap;
+import frc.robot.OI;
 
-public class ClimberCommand extends Command {
+public class StiltZero extends TimedCommand {
   Climber subsystem;
-  OI oi;
+    OI oi;
+  public StiltZero(Climber subsystem) {
+    super(1);
+    this.subsystem = subsystem;
+    requires(subsystem);
 
-  public ClimberCommand(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.subsystem = subsystem;
-    this.oi = oi;
-    requires(subsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  }
+    subsystem.moveUp(0.1);
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    subsystem.reset();
   }
 
   // Called when another command which requires one or more of the same

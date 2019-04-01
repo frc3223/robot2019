@@ -33,6 +33,11 @@ public class Drivetrain extends Subsystem {
     rightFrontTalon = new WPI_TalonSRX(RobotMap.DRIVETRAIN_RIGHT_FRONT_TALON);
     rightBackVictor = new WPI_VictorSPX(RobotMap.DRIVETRAIN_RIGHT_BACK_VICTOR);
 
+    leftFrontTalon.setInverted(false);
+    leftBackVictor.setInverted(false);
+    rightFrontTalon.setInverted(false);
+    rightBackVictor.setInverted(false);
+
     SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontTalon, leftBackVictor);
     SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontTalon, rightBackVictor);
 
@@ -44,10 +49,10 @@ public class Drivetrain extends Subsystem {
   }
 
   public void moveLeft() {
-    arcadeDrive(0.5, -0.5);
+    arcadeDrive(1, 1);
   }
   public void moveRight() {
-    arcadeDrive(0.5, 0.5);
+    arcadeDrive(1, 1);
   }
 
   public void stop() {
@@ -55,7 +60,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void moveForward(){
-    arcadeDrive(0.5 ,0);
+    arcadeDrive(0.7 ,0);
   }
 
   @Override

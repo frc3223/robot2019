@@ -5,52 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climber;
 
-public class IntakeIn extends Command {
-  Intake subsystem;
+public class SSClimberTest extends Command {
+  Climber subsystem;
   OI oi;
+  int increment;
 
-  public IntakeIn(Intake subsystem, OI oi) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  public SSClimberTest(Climber subsystem, OI oi) {
     this.subsystem = subsystem;
     this.oi = oi;
     requires(subsystem);
-
+    increment = 3;
+    subsystem.reset();
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    subsystem.setTargetPosition(-3);
+      
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.intakeIn();
-    this.subsystem.intakeMotorOff();
+      this.subsystem.calculateSSC();
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

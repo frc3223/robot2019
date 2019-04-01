@@ -7,9 +7,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.GalagaTest;
+import frc.robot.OI;
 
 /**
  * Add your docs here.
@@ -19,30 +23,36 @@ public class Galaga extends Subsystem {
   // here. Call these from Commands.
   DoubleSolenoid slideSolenoid;
   DoubleSolenoid galagaSolenoid;
+  Compressor compressor;
+  OI oi;
 
-  public Galaga() {
-    slideSolenoid = new DoubleSolenoid(RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
-    galagaSolenoid = new DoubleSolenoid(RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
+  public Galaga(OI oi) {
+    slideSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_SLIDE_FORWARD, RobotMap.SOLENOIDS_SLIDE_BACKWARDS);
+    galagaSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_GALAGA_FORWARD, RobotMap.SOLENOIDS_GALAGA_BACKWARDS);
+    compressor = new Compressor(RobotMap.PNEUMATICS_MODULE);
+    compressor.setClosedLoopControl(true);
+    this.oi = oi;
   }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new GalagaTest(this, this.oi));
   }
 
   public void galagaOut() {
-    galagaSolenoid.set(DoubleSolenoid.Value.kForward);
+    galagaSolenoid.set(Value.kForward);
   }
 
   public void galagaIn() {
-    galagaSolenoid.set(DoubleSolenoid.Value.kReverse);
+    galagaSolenoid.set(Value.kReverse);
   }
   public void slideOut() {
-    slideSolenoid.set(DoubleSolenoid.Value.kForward);
+    slideSolenoid.set(Value.kForward);
   }
 
   public void slideIn() {
-    slideSolenoid.set(DoubleSolenoid.Value.kReverse);
+    slideSolenoid.set(Value.kReverse);
   }
+
 }

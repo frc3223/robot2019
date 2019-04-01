@@ -7,42 +7,38 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import frc.robot.commands.CarriagePushPull;
 
 /**
  * Add your docs here.
  */
-public class Intake extends Subsystem {
+public class Carriage extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  DoubleSolenoid intakeSolenoid;
-  WPI_VictorSPX intakeMotorController;
+  WPI_VictorSPX carriageMotorController = null;
+  public Carriage(){
+    carriageMotorController = new WPI_VictorSPX(RobotMap.CARRIAGE_VICTOR);
+  }
 
-  public Intake() {
-    intakeSolenoid = new DoubleSolenoid(RobotMap.PNEUMATICS_MODULE,RobotMap.SOLENOIDS_INTAKE_FORWARDS, RobotMap.SOLENOIDS_INTAKE_BACKWARDS);
-    intakeMotorController = new WPI_VictorSPX(RobotMap.INTAKE_VICTOR);
+  public void carriagePushOut(){
+    carriageMotorController.set(0.75);
+  }
+
+  public void carriagePullIn(){
+    carriageMotorController.set(-0.75);
+  }
+
+  public void carriageStop(){
+    carriageMotorController.set(0.0);
   }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-  }
-
-  public void intakeOut() {
-    intakeSolenoid.set(DoubleSolenoid.Value.kForward);
-  }
-  public void intakeIn() {
-    intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
-  }
-  public void intakeMotorOn() {
-    intakeMotorController.set(0.75);
-  }
-  public void intakeMotorOff() {
-    intakeMotorController.set(-0.75);
+    setDefaultCommand(new CarriagePushPull());
   }
 }

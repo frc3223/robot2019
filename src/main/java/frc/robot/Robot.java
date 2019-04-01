@@ -7,12 +7,11 @@
 
 package frc.robot;
 
+import frc.robot.commands.elevator.MoveElevator;
+import frc.robot.commands.elevator.ZeroElevator;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
-import frc.robot.RobotMap;
-
-import com.google.inject.Injector;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -21,23 +20,18 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.ActivateLimeLight;
-import frc.robot.commands.GalagaIn;
-import frc.robot.commands.GalagaOut;
-import frc.robot.commands.SlideIn;
-import frc.robot.commands.SlideOut;
-import frc.robot.commands.IntakeOut;
-import frc.robot.commands.IntakeIn;
+import frc.robot.commands.LimeLightHatchDeploy;
+import frc.robot.commands.LimeLightHatchGrab;
+import frc.robot.commands.LimeLightLEDOff;
+import frc.robot.commands.climb.StiltZero;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Galaga;
-import frc.robot.subsystems.Intake;
+
+import frc.robot.subsystems.Carriage;
+import frc.robot.subsystems.Climber;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
-import frc.robot.commands.ClimberDeploy;
-import frc.robot.commands.ClimberFrontUp;
-import frc.robot.commands.ClimberBackUp;
-import frc.robot.commands.ClimberMoveForward;
-import frc.robot.commands.ClimberMoveBackward;
-import frc.robot.commands.ElevatorTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,17 +44,21 @@ import frc.robot.commands.ElevatorTest;
 public class Robot extends TimedRobot {
   private ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
-  private Injector injector;
 
   public static Drivetrain m_drivetrain = null;
   public static LimeLight m_limelight = null;
   public static Galaga m_galaga = null;
+  public static Carriage m_carriage = null;
+  public static Climber m_climber = null;
   public DataLogger logger;
   public DriverStation driverStation;
-  public Elevator elevator;
-  public Intake m_intake;
-  
-
+  public Elevator m_elevator;
+  public StiltZero m_stiltZero;
+  public MoveElevator moveElevatorBottom;
+  public MoveElevator moveElevatorMiddle;
+  public MoveElevator moveElevatorTop;
+  public ZeroElevator zeroElevator;
+  //public Intake m_intake;
 
   NetworkTableEntry xEntry;
   /**
@@ -80,29 +78,41 @@ public class Robot extends TimedRobot {
     m_drivetrain = new Drivetrain();
     m_limelight = new LimeLight();
     m_oi = new OI();
-    m_galaga = new Galaga();
-    m_intake = new Intake();
-    
+    m_galaga = new Galaga(m_oi);
+    m_carriage = new Carriage();
+    //m_intake = new Intake();
+    m_climber = new Climber(m_oi);
+    m_elevator = new Elevator(m_oi);
+    m_stiltZero = new StiltZero(m_climber);
+  
 
-    m_oi.limelight_on_button.toggleWhenPressed(new ActivateLimeLight());
-    m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
-    m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
-    m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
-    m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
-    m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
-    m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
-    m_oi.all_down_button.whenPressed(new ClimberDeploy());
-    m_oi.front_up_button.whenPressed(new ClimberFrontUp());
-    m_oi.back_up_button.whenPressed(new ClimberBackUp());
-    m_oi.lift_forward_button.whenPressed(new ClimberMoveForward());
-    m_oi.lift_backward_button.whenPressed(new ClimberMoveBackward());
-    m_oi.elevator_death_button.whenPressed(new ElevatorTest());
-    
+    m_elevator.logEverything();
 
-    new Thread(() -> {
+    this.moveElevatorBottom = new MoveElevator(this.m_elevator, this.m_oi, 0);
+    this.moveElevatorMiddle = new MoveElevator(this.m_elevator, this.m_oi, 1);
+    this.moveElevatorTop = new MoveElevator(this.m_elevator, this.m_oi, 2);
+
+    this.zeroElevator = new ZeroElevator(this.m_elevator, this.m_oi);
+
+    m_oi.auto_deploy_sequence_button.whenPressed(new LimeLightHatchDeploy(m_drivetrain,m_oi));
+    m_oi.auto_grab_sequence_button.whenPressed(new LimeLightHatchGrab(m_drivetrain,m_oi));
+    m_oi.turn_limelight_off.cancelWhenPressed(new LimeLightHatchDeploy(m_drivetrain,m_oi));
+    m_oi.turn_limelight_off.cancelWhenPressed(new LimeLightHatchGrab(m_drivetrain,m_oi));
+    //m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
+    //m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
+    //m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
+    //m_oi.slide_in_button.whenPressed(new SlideIn(m_galaga, m_oi));
+    //m_oi.slide_out_button.whenPressed(new SlideOut(m_galaga, m_oi));
+    //m_oi.intake_in_button.whenPressed(new IntakeIn(m_intake, m_oi));
+    //m_oi.intake_out_button.whenPressed(new IntakeOut(m_intake, m_oi));
+    //m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
+    //m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
+    //m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
+
+    /*new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
       camera.setResolution(640, 480);
-    }).start();
+    }).start();*/
 
     //Initialization message
     System.out.println("Robot online.");
@@ -153,6 +163,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //Initialization message
     System.out.println("Initiating autonomous!");
+    m_stiltZero.start();
+    zeroElevator.start();
   }
 
   /**

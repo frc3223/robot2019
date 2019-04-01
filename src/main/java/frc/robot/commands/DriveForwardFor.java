@@ -7,19 +7,25 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.OI;
-import frc.robot.subsystems.Climber;
 
-public class ClimberDeploy extends Command {
-  Climber subsystem;
+/**
+ * Add your docs here.
+ */
+public class DriveForwardFor extends TimedCommand {
+  Drivetrain subsystem;
   OI oi;
-
-  public ClimberDeploy() {
-    // Use requires() here to declare subsystem dependencies
-    this.subsystem = subsystem;
+  /**
+   * Add your docs here.
+   */
+  public DriveForwardFor(double timeout,Drivetrain subsystem,OI oi) {
+    super(timeout);
     this.oi = oi;
-    requires(subsystem);
+    this.subsystem = subsystem;
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -30,16 +36,10 @@ public class ClimberDeploy extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.liftRobot();
+    this.subsystem.moveForward();
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
   }

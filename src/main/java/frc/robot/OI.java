@@ -16,33 +16,61 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-    Joystick stick;
     int driverPort;
     int manipulatorPort;
 
-    public OI(){
-        stick  = new Joystick(RobotMap.joyIndex);
+    public Joystick driverController;
+    public Joystick manipulatorController;
+
+    public JoystickButton galaga_in_button;
+    public JoystickButton galaga_out_button;
+    public JoystickButton slide_in_button;
+    public JoystickButton slide_out_button;
+    public JoystickButton intake_in_button;
+    public JoystickButton intake_out_button;
+    public JoystickButton lift_forward_button;
+    public JoystickButton lift_backward_button;
+    public JoystickButton auto_grab_sequence_button;
+    public JoystickButton auto_deploy_sequence_button;
+    public JoystickButton turn_limelight_off;
+
+    public OI() {
         getDriverPort();
+        driverController = new Joystick(driverPort);
+        manipulatorController = new Joystick(manipulatorPort);
+        galaga_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_GALAGA_IN);
+        galaga_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_GALAGA_OUT);
+        slide_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_IN);
+        slide_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_SLIDE_OUT);
+        intake_in_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_IN);
+        intake_out_button = new JoystickButton(manipulatorController, RobotMap.MANIPULATOR_CONTROLLER_INTAKE_OUT);
+        lift_forward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
+        lift_backward_button = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+        auto_grab_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_GRAB_AUTO);
+        auto_deploy_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_DEPLOY_AUTO);
+        turn_limelight_off = new JoystickButton(manipulatorController,RobotMap.LIME_LIGHT_OFF_BUTTON);
     }
 
-    public Joystick getJoystck(){
-
-        return stick;
-
-    }
-
-    public void getDriverPort(){
+    public void getDriverPort() {
         Joystick controller = new Joystick(0);
         String controllerName = controller.getName();
-        if(controllerName.contains("Pro")){
-            driverPort = 0;
-            manipulatorPort = 1;
-        }else{
-            driverPort = 1;
-            manipulatorPort = 0;
-        }
+
+        driverPort = 0;
+        manipulatorPort = 1;
     }
 
+
+    public boolean shouldRaiseStilts() {
+        return this.driverController.getPOV() == 0; // up
+    }
+
+    public boolean shouldLowerStilts() {
+        return this.driverController.getPOV() == 180; // down
+    }
+
+    public boolean shouldControlAllStilts() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_ALL);
+    }
 
   public Joystick driverController = new Joystick(driverPort);
   public Joystick manipulatorController = new Joystick(manipulatorPort);
@@ -91,4 +119,34 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+    public boolean shouldControlFrontStilts() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FRONT);
+    }
+    public boolean shouldControlBackStilts() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACK);
+    }
+    public boolean shouldDriveStiltsForward() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
+    }
+    public boolean shouldDriveStiltsBackward() {
+        return this.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+    }
+
+    public double getElevatorRawAxisOutput() {
+        return this.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_ELEVATOR);
+    }
+    public double getManipulatorDriveMove() {
+        return this.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_DRIVE_MOVE);
+    }
+    public double getManipulatorDriveRotate() {
+        return this.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_DRIVE_ROTATE);
+    }
+
+    public double forwardSpeed() {
+        return this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_FORWARD_AXIS);
+    }
+
+    public double backwardSpeed() {
+        return -this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
+    }
 }

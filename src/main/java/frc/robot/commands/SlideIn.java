@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.RobotMap;
 import frc.robot.subsystems.Galaga;
 
 public class SlideIn extends Command {

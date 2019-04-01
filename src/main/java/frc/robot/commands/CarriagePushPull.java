@@ -8,20 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.subsystems.Intake;
+import frc.robot.RobotMap;
+import frc.robot.Robot;
 
-public class IntakeIn extends Command {
-  Intake subsystem;
-  OI oi;
-
-  public IntakeIn(Intake subsystem, OI oi) {
+public class CarriagePushPull extends Command {
+  public CarriagePushPull() {
+    requires(Robot.m_carriage);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.subsystem = subsystem;
-    this.oi = oi;
-    requires(subsystem);
-
   }
 
   // Called just before this Command runs the first time
@@ -32,19 +26,30 @@ public class IntakeIn extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.intakeIn();
-    this.subsystem.intakeMotorOff();
+    double leftTrigger = Robot.m_oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_CARGO_PULLIN);
+    double rightTrigger = Robot.m_oi.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_CARGO_PUSHOUT);
+  
+    if(leftTrigger > 0 && rightTrigger == 0){ //Left pressed
+      Robot.m_carriage.carriagePullIn();
+    }else if(rightTrigger > 0 && leftTrigger == 0){ //Right pressed
+      Robot.m_carriage.carriagePushOut();
+    }else if(leftTrigger > 0 && rightTrigger > 0){ //Both pressed
+      Robot.m_carriage.carriageStop();
+    }else if(leftTrigger == 0 && rightTrigger == 0){ //Neither pressed
+      Robot.m_carriage.carriageStop();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.m_carriage.carriageStop();
   }
 
   // Called when another command which requires one or more of the same

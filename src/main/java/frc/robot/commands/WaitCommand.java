@@ -7,21 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.subsystems.Intake;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
-public class IntakeIn extends Command {
-  Intake subsystem;
-  OI oi;
-
-  public IntakeIn(Intake subsystem, OI oi) {
+/**
+ * Add your docs here.
+ */
+public class WaitCommand extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public WaitCommand(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.subsystem = subsystem;
-    this.oi = oi;
-    requires(subsystem);
-
   }
 
   // Called just before this Command runs the first time
@@ -32,17 +30,10 @@ public class IntakeIn extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.intakeIn();
-    this.subsystem.intakeMotorOff();
+    System.out.println("waiting");
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
   }
@@ -51,6 +42,5 @@ public class IntakeIn extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

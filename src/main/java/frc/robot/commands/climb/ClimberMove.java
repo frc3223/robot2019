@@ -5,16 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Climber;
+import frc.robot.RobotMap;
 
-public class ClimberMoveForward extends Command {
+public class ClimberMove extends Command {
   Climber subsystem;
   OI oi;
-  public ClimberMoveForward() {
+  public ClimberMove(Climber subsystem, OI oi) {
     // Use requires() here to declare subsystem dependencies
     this.subsystem = subsystem;
     this.oi = oi;
@@ -29,7 +30,16 @@ public class ClimberMoveForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.moveForward();
+    boolean forward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_FORWARD);
+    boolean backward = this.oi.driverController.getRawButton(RobotMap.DRIVER_CONTROLLER_LIFT_BACKWARD);
+    if(forward){
+      this.subsystem.move(0.5);
+    }else if(backward){
+      this.subsystem.move(-0.5);
+    }else{
+      this.subsystem.stopMotor();
+    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,6 +51,7 @@ public class ClimberMoveForward extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    this.subsystem.stopMotor();
   }
 
   // Called when another command which requires one or more of the same

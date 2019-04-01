@@ -10,46 +10,51 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import java.lang.Math;
 
 public class DriveArcade extends Command {
   public DriveArcade() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.m_drivetrain);
   }
 
-  // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-  }
+  protected void initialize() {/* Y U NO PUT THESE BRACKETS ON SAME LINE? */}
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double moveSpeed = -Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_MOVE_AXIS);
+    double moveSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_MOVE_AXIS);
     double rotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_ROTATE_AXIS);
-    double slowmoveSpeed = -Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
-    double slowrotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS);
-    Robot.m_drivetrain.arcadeDrive(moveSpeed*1, rotateSpeed*1);
-    Robot.m_drivetrain.arcadeDrive(slowmoveSpeed*0.5, slowrotateSpeed*0.5);
+    double slowMoveSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_MOVE_AXIS);
+    double slowRotateSpeed = Robot.m_oi.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS);
+
+    double moveSpeedManip = Robot.m_oi.getManipulatorDriveMove();
+    double rotateSpeedManip = Robot.m_oi.getManipulatorDriveRotate();
+
+    double forwardSpeed = Robot.m_oi.forwardSpeed();
+    double backwardSpeed = Robot.m_oi.backwardSpeed();
+
+    if(Math.abs(forwardSpeed) >= 0.1) {
+      Robot.m_drivetrain.arcadeDrive(forwardSpeed, 0);
+    }else if(Math.abs(backwardSpeed) >= 0.1) {
+      Robot.m_drivetrain.arcadeDrive(backwardSpeed, 0);
+    }else if(Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1){ //Right joystick used
+      Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.5, slowRotateSpeed*0.8);
+    } else if(Math.abs(moveSpeed) >= 0.1 || Math.abs(rotateSpeed) >= 0.1){ //Left joystick used
+      Robot.m_drivetrain.arcadeDrive(moveSpeed*1, rotateSpeed*1);
+    } else if(Math.abs(moveSpeedManip) >= 0.1 || Math.abs(rotateSpeedManip) >= 0.1){ //Right joystick on manipulator controller used
+      Robot.m_drivetrain.arcadeDrive(moveSpeedManip*0.5, rotateSpeedManip*0.8);
+    } else {
+      Robot.m_drivetrain.stop();
+    }
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_drivetrain.arcadeDrive(0,0);
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    end();
+    Robot.m_drivetrain.stop();
   }
 }
