@@ -64,7 +64,7 @@ public class Climber extends Subsystem{
         this.initLogger(this.logger);
 
 
-        this.backSSC = new StiltStateSpaceController(-0.8, 0);
+        this.backSSC = new StiltStateSpaceController(-3.0, 0);
         this.leftFrontSSC = new StiltStateSpaceController(0, 0);
         this.rightFrontSSC = new StiltStateSpaceController(0, 0);
     }

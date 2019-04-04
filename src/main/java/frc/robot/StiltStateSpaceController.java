@@ -54,8 +54,8 @@ public class StiltStateSpaceController extends StateSpaceController {
         assign(K, k);
         assign(Kff, kff);
         assign(this.L, L);
-        this.u_min.set(0, 0, -6);
-        this.u_max.set(0, 0, 6);
+        this.u_min.set(0, 0, -8);
+        this.u_max.set(0, 0, 8);
 
     }
 
@@ -85,8 +85,12 @@ public class StiltStateSpaceController extends StateSpaceController {
     }
 
     private double feedForward() {
-        if(raising) {
-            return this.raiseFeedforward;
+        if(raising) { 
+            if (Math.abs(x_prev.get(0,0)) < 2){
+                return 0;
+            }else{
+                return this.raiseFeedforward;
+            }
         }else{
             return this.retractFeedforward;
         }
