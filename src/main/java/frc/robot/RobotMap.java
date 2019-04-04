@@ -112,6 +112,9 @@ public class RobotMap {
   public static final int LIME_LIGHT_LIGHT_BLINK = 2;
   public static final int LIME_LIGHT_LIGHT_ON = 3;
 
+  //photoSensor DIO ports
+  public static final int FRONT_PHOTO_SENSOR = 9;
+  public static final int CASTER_PHOTO_SENSOR = 8;
 
   //Pneumatics modes -- DO NOT CHANGE THIS OR MADDY WILL KILL YOU
   public static final int SOLENOIDS_SLIDE_FORWARD = 3;//same on bravo

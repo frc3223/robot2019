@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -33,6 +34,8 @@ public class OI {
     public JoystickButton auto_grab_sequence_button;
     public JoystickButton auto_deploy_sequence_button;
     public JoystickButton turn_limelight_off;
+    public DigitalInput frontSensor;
+    public DigitalInput casterSensor;
 
     public OI() {
         getDriverPort();
@@ -49,6 +52,8 @@ public class OI {
         auto_grab_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_GRAB_AUTO);
         auto_deploy_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_DEPLOY_AUTO);
         turn_limelight_off = new JoystickButton(manipulatorController,RobotMap.LIME_LIGHT_OFF_BUTTON);
+        frontSensor = new DigitalInput(RobotMap.FRONT_PHOTO_SENSOR);
+        casterSensor = new DigitalInput(RobotMap.CASTER_PHOTO_SENSOR);
     }
 
     public void getDriverPort() {
@@ -102,4 +107,12 @@ public class OI {
     public double backwardSpeed() {
         return -this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
     }
+
+    public boolean isFrontTarget(){
+        return frontSensor.get();
+      }
+    
+      public boolean isCasterTarget(){
+        return casterSensor.get();
+      }
 }

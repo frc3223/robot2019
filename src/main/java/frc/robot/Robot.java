@@ -30,6 +30,10 @@ import frc.robot.subsystems.Galaga;
 
 import frc.robot.subsystems.Carriage;
 import frc.robot.subsystems.Climber;
+//import frc.robot.subsystems.PhotoSensor;
+import frc.robot.commands.DetectCasterClimb;
+import frc.robot.commands.DetectFrontObject;
+
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 
@@ -58,6 +62,10 @@ public class Robot extends TimedRobot {
   public MoveElevator moveElevatorMiddle;
   public MoveElevator moveElevatorTop;
   public ZeroElevator zeroElevator;
+  //public static PhotoSensor m_photoSensor = null;
+
+  public static DetectCasterClimb casterCommand = null;
+  public static DetectFrontObject frontObjectCommand = null;
   //public Intake m_intake;
 
   NetworkTableEntry xEntry;
@@ -84,6 +92,7 @@ public class Robot extends TimedRobot {
     m_climber = new Climber(m_oi);
     m_elevator = new Elevator(m_oi);
     m_stiltZero = new StiltZero(m_climber);
+    //m_photoSensor = new PhotoSensor();
   
 
     m_elevator.logEverything();
@@ -113,6 +122,8 @@ public class Robot extends TimedRobot {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
       camera.setResolution(640, 480);
     }).start();*/
+    casterCommand = new DetectCasterClimb();
+    frontObjectCommand = new DetectFrontObject();
 
     //Initialization message
     System.out.println("Robot online.");
@@ -180,6 +191,9 @@ public class Robot extends TimedRobot {
     //Initialization message
     System.out.println("Initiating teleop!");
     //elevator.setDisabled(true);
+    casterCommand.start();
+    frontObjectCommand.start();
+
   }
 
   /**
