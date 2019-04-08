@@ -38,7 +38,12 @@ public class ElevatorJoystick extends Command {
             //System.out.println("maintain!");
         }
         else {
-            this.elevator.moveElevator(rawAxisOutput);
+            if(this.rawAxisOutput < 0.1){
+                this.elevator.moveElevator(rawAxisOutput*0.3);
+            }else{
+                this.elevator.moveElevator(rawAxisOutput);
+            }
+
            // System.out.println("explode " + rawAxisOutput);
         }
     }

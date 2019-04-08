@@ -8,42 +8,38 @@
 package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.subsystems.Climber;
+import frc.robot.Robot;
 
-public class ClimberBackUp extends Command {
-  Climber subsystem;
-  OI oi;
-  public ClimberBackUp(Climber subsystem, OI oi) {
+public class ForwardTilFront extends Command {
+  boolean done;
+  public ForwardTilFront() {
+    done = false;
     // Use requires() here to declare subsystem dependencies
-    this.subsystem = subsystem;
-    this.oi = oi;
-    requires(subsystem);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("Raising back stilt");
+    System.out.println("Forward Til Front initalized");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.setBackTargetPosition(0);
-
+    if(Robot.m_oi.getLeftStiltSensor() && Robot.m_oi.getRightStiltSensor()){
+      Robot.m_climber.stopMotor();
+      System.out.println("front weels are on HAB");
+      done = true;
+    }else{
+      Robot.m_climber.move(0.5);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(Math.abs(this.subsystem.backPosition()) <= 1){
-      System.out.println("Back stilt raised");
-      return true;
-    }else{
-      return false;
-    }
-
+    return done;
   }
 
   // Called once after isFinished returns true

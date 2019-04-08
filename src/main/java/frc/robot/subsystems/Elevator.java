@@ -19,6 +19,7 @@ import frc.robot.OI;
 import frc.robot.RobotMap;
 import frc.robot.StateSpaceController;
 import frc.robot.commands.elevator.ElevatorJoystick;
+import frc.robot.commands.elevator.MoveElevSetpoint;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -47,6 +48,13 @@ public class Elevator extends Subsystem {
   private double maxPosition = 0;
   private double minPosition = -1.6;
 
+  public double[] elevatorPositions = new double[] { 0, // lowlevel hatch height - actually 48.26cm/19iches - subtract from everything
+      -0.20, // supposed lowlevel cargo height 27 inches
+      -0.7232, // supposed midlevel hatch height 47.5 inches
+      -0.9271, // supposed midlevel cargo height 55.5 in
+      -1.4351, // supposed highlevel hatch height 75.5
+      -1.6// highlevel cargo height 84
+  };
 
   public OI oi;
   NetworkTable table;
@@ -69,6 +77,41 @@ public class Elevator extends Subsystem {
     notifier.startPeriodic(0.02);
 
     table = NetworkTableInstance.getDefault().getTable("Elevator");
+  }
+
+  public void goUpPosition() {
+    double currentTar = getTargetPosition();
+    if (currentTar == elevatorPositions[elevatorPositions.length-1]) {
+      return;
+    }
+    for (int a = 0; a < elevatorPositions.length; a++) {
+      if (elevatorPositions[a] < currentTar) {
+        setTargetPosition(elevatorPositions[a]);
+        break;
+      }
+    }
+  }
+
+  public void goDownPosition(){
+    double currentTar = getTargetPosition();
+    if (currentTar == elevatorPositions[0]) {
+      return;
+    }
+    for (int a = elevatorPositions.length-1; a >= 0; a--){
+      if (elevatorPositions[a] > currentTar) {
+        setTargetPosition(elevatorPositions[a]);
+        break;
+      }
+    }
+  }
+
+  public void stopAtCurrentPos(){
+    double pos = getCurrentPosition();
+    setTargetPosition(pos); 
+  }
+
+  public double getCurrentPosition(){
+    return this.motors[0].getEncoder().getPosition();
   }
 
   /* This method will call all internal logging methods. */
@@ -166,12 +209,12 @@ public class Elevator extends Subsystem {
   }
 
   public synchronized void setTargetPosition(double pos) {
-      if(pos <= this.minPosition) {
-          pos = this.minPosition;
-      } else if(pos >= this.maxPosition) {
-          pos = this.maxPosition;
-      }
-      this.targetPosition = pos;
+    if (pos <= this.minPosition) {
+      pos = this.minPosition;
+    } else if (pos >= this.maxPosition) {
+      pos = this.maxPosition;
+    }
+    this.targetPosition = pos;
   }
 
   public synchronized double getTargetPosition() {
@@ -225,31 +268,13 @@ public class Elevator extends Subsystem {
   public void initStateSpace() {
     stateSpaceController = new StateSpaceController();
     stateSpaceController.init(2, 1, 1);
-      double[][] a = new double[][] {
-              { 1.0, 2.8000216798070815e-05 },
-              { 0.0, 6.1952331876713e-311 }
-      };
-      double[][] a_inv = new double[][] {
-              { 1.0, 0.0 },
-              { 0.0, 1.0 }
-      };
-      double[][] b = new double[][] {
-              { 0.002826816062863344 },
-              { 0.14153895922034437 }
-      };
-      double[][] c = new double[][] {
-              { 1, 0 }
-      };
-      double[][] k = new double[][] {
-              { 61.58698057020303, 0.0017244488079042597 }
-      };
-      double[][] kff = new double[][] {
-              { 12.525506544650831, 6.271533487190302 }
-      };
-      double[][] L = new double[][] {
-              { 0.999999555555966 },
-              { 0.0 }
-      };
+    double[][] a = new double[][] { { 1.0, 2.8000216798070815e-05 }, { 0.0, 6.1952331876713e-311 } };
+    double[][] a_inv = new double[][] { { 1.0, 0.0 }, { 0.0, 1.0 } };
+    double[][] b = new double[][] { { 0.002826816062863344 }, { 0.14153895922034437 } };
+    double[][] c = new double[][] { { 1, 0 } };
+    double[][] k = new double[][] { { 61.58698057020303, 0.0017244488079042597 } };
+    double[][] kff = new double[][] { { 12.525506544650831, 6.271533487190302 } };
+    double[][] L = new double[][] { { 0.999999555555966 }, { 0.0 } };
     // Ks is -0.029043735507692382
     // Kv is 7.065192548457451
     // Ka is 0.00019782692307692307
@@ -269,7 +294,7 @@ public class Elevator extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new ElevatorJoystick(this, this.oi));
+    setDefaultCommand(new MoveElevSetpoint(this, this.oi));
   }
 
   public double getMotorVoltage() {

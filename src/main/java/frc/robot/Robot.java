@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.elevator.MoveElevSetpoint;
 import frc.robot.commands.elevator.MoveElevator;
 import frc.robot.commands.elevator.ZeroElevator;
 import frc.robot.subsystems.Drivetrain;
@@ -23,6 +24,8 @@ import frc.robot.commands.ActivateLimeLight;
 import frc.robot.commands.LimeLightHatchDeploy;
 import frc.robot.commands.LimeLightHatchGrab;
 import frc.robot.commands.LimeLightLEDOff;
+import frc.robot.commands.RumbleFrontStilts;
+import frc.robot.commands.climb.AutoClimb;
 import frc.robot.commands.climb.StiltZero;
 import frc.robot.subsystems.DataLogger;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -33,6 +36,7 @@ import frc.robot.subsystems.Climber;
 //import frc.robot.subsystems.PhotoSensor;
 import frc.robot.commands.DetectCasterClimb;
 import frc.robot.commands.DetectFrontObject;
+import frc.robot.commands.RumbleFrontStilts;
 
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -66,6 +70,8 @@ public class Robot extends TimedRobot {
 
   public static DetectCasterClimb casterCommand = null;
   public static DetectFrontObject frontObjectCommand = null;
+  public static RumbleFrontStilts rumbleFrontStilts = null;
+  public static MoveElevSetpoint elevatorSetpoint = null;
   //public Intake m_intake;
 
   NetworkTableEntry xEntry;
@@ -83,7 +89,9 @@ public class Robot extends TimedRobot {
     this.logger.add("Time delta", ()-> this.getPeriod());
     this.logger.add("Voltage", ()-> RobotController.getBatteryVoltage());
     this.logger.add("Match No.", ()-> this.driverStation.getMatchNumber());
+
     m_drivetrain = new Drivetrain();
+    //m_drivetrain.logMotorCurrents(this.logger);
     m_limelight = new LimeLight();
     m_oi = new OI();
     m_galaga = new Galaga(m_oi);
@@ -103,10 +111,10 @@ public class Robot extends TimedRobot {
 
     this.zeroElevator = new ZeroElevator(this.m_elevator, this.m_oi);
 
-    m_oi.auto_deploy_sequence_button.whenPressed(new LimeLightHatchDeploy(m_drivetrain,m_oi));
-    m_oi.auto_grab_sequence_button.whenPressed(new LimeLightHatchGrab(m_drivetrain,m_oi));
-    m_oi.turn_limelight_off.cancelWhenPressed(new LimeLightHatchDeploy(m_drivetrain,m_oi));
-    m_oi.turn_limelight_off.cancelWhenPressed(new LimeLightHatchGrab(m_drivetrain,m_oi));
+    //m_oi.auto_deploy_sequence_button.whenPressed(new LimeLightHatchDeploy(m_drivetrain,m_oi));
+    //m_oi.auto_grab_sequence_button.whenPressed(new LimeLightHatchGrab(m_drivetrain,m_oi));
+    //m_oi.turn_limelight_off.cancelWhenPressed(new LimeLightHatchDeploy(m_drivetrain,m_oi));
+    //m_oi.turn_limelight_off.cancelWhenPressed(new LimeLightHatchGrab(m_drivetrain,m_oi));
     //m_oi.limelight_on_button.whenPressed(new ActivateLimeLight());
     //m_oi.galaga_in_button.whenPressed(new GalagaIn(m_galaga, m_oi));
     //m_oi.galaga_out_button.whenPressed(new GalagaOut(m_galaga, m_oi));
@@ -117,6 +125,7 @@ public class Robot extends TimedRobot {
     //m_oi.all_down_button.whenPressed(new ClimberDeploy(m_climber, m_oi));
     //m_oi.front_up_button.whenPressed(new ClimberFrontUp(m_climber, m_oi));
     //m_oi.back_up_button.whenPressed(new ClimberBackUp(m_climber, m_oi));
+    //m_oi.auto_climb.whenPressed(new AutoClimb());
 
     /*new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -124,6 +133,8 @@ public class Robot extends TimedRobot {
     }).start();*/
     casterCommand = new DetectCasterClimb();
     frontObjectCommand = new DetectFrontObject();
+    rumbleFrontStilts = new RumbleFrontStilts();
+    //elevatorSetpoint = new MoveElevSetpoint(m_elevator, m_oi);
 
     //Initialization message
     System.out.println("Robot online.");
@@ -193,6 +204,8 @@ public class Robot extends TimedRobot {
     //elevator.setDisabled(true);
     casterCommand.start();
     frontObjectCommand.start();
+    rumbleFrontStilts.start();
+    //elevatorSetpoint.start();
 
   }
 
@@ -202,7 +215,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
+System.out.println("left stilt is:"+ m_oi.getLeftStiltSensor()+"and the right stilt is:"+ m_oi.getRightStiltSensor());
     this.logger.log();
   }
 

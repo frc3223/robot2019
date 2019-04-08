@@ -5,45 +5,55 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.subsystems.Climber;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 
-public class ClimberBackUp extends Command {
-  Climber subsystem;
-  OI oi;
-  public ClimberBackUp(Climber subsystem, OI oi) {
+public class RumbleFrontStilts extends Command {
+  public boolean rumbled;
+  public Timer time;
+  public RumbleFrontStilts() {
+    rumbled = false;
+    time = new Timer();
     // Use requires() here to declare subsystem dependencies
-    this.subsystem = subsystem;
-    this.oi = oi;
-    requires(subsystem);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("Raising back stilt");
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.setBackTargetPosition(0);
-
+    if(Robot.m_oi.getLeftStiltSensor() || Robot.m_oi.getRightStiltSensor()){
+      if(!rumbled){
+        System.out.println("front stilts, should rumble");
+        time.start();
+        Robot.m_oi.driverController.setRumble(Joystick.RumbleType.kRightRumble,1.0);
+        Robot.m_oi.manipulatorController.setRumble(Joystick.RumbleType.kRightRumble,1.0);
+        rumbled = true;  
+        }
+    }else{
+      rumbled = false;
+    }
+    if(time.get() > 1.0){
+      Robot.m_oi.driverController.setRumble(Joystick.RumbleType.kRightRumble,0.0);
+      Robot.m_oi.manipulatorController.setRumble(Joystick.RumbleType.kRightRumble,0.0);
+      time.stop();
+      time.reset();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(Math.abs(this.subsystem.backPosition()) <= 1){
-      System.out.println("Back stilt raised");
-      return true;
-    }else{
-      return false;
-    }
-
+    return false;
   }
 
   // Called once after isFinished returns true

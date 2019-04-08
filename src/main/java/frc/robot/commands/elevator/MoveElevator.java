@@ -38,4 +38,9 @@ public class MoveElevator extends Command {
         this.elevator.setTargetPosition(profiler.getCurrentPosition());
         this.elevator.setTargetVelocity(this.profiler.getCurrentTargetVelocity());
     }
+
+
+    public void end(){
+
+    }
 }

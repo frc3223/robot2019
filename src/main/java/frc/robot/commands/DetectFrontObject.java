@@ -16,7 +16,6 @@ public class DetectFrontObject extends Command {
   boolean rumbled;
   Timer time;
   public DetectFrontObject() {
-    //requires(Robot.m_photoSensor);
     time = new Timer();
   }
 
@@ -30,19 +29,21 @@ public class DetectFrontObject extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.m_oi.isFrontTarget()){
+    if(Robot.m_oi.isCargoSensorTarget() || Robot.m_oi.isHatchSensor()){
       if(!rumbled){
         time.start();
-        System.out.println("should rumble");
+        System.out.println("front object - should rumble");
         Robot.m_oi.driverController.setRumble(Joystick.RumbleType.kRightRumble,1.0);
+        Robot.m_oi.manipulatorController.setRumble(Joystick.RumbleType.kRightRumble,1.0);
         rumbled = true;  
         }
     }else{
       rumbled = false;
     }
-    if(time.get() > 2.0){
-      System.out.println("should stop rumbling");
+    if(time.get() > 1.0){
+      System.out.println("front object - should stop rumbling");
       Robot.m_oi.driverController.setRumble(Joystick.RumbleType.kRightRumble,0.0);
+      Robot.m_oi.manipulatorController.setRumble(Joystick.RumbleType.kRightRumble,0.0);
       time.stop();
       time.reset();
     }

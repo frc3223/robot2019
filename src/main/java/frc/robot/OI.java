@@ -36,6 +36,11 @@ public class OI {
     public JoystickButton turn_limelight_off;
     public DigitalInput frontSensor;
     public DigitalInput casterSensor;
+    public DigitalInput cargoSensor;
+    public DigitalInput hatchSensor;
+    public DigitalInput leftStiltLimit;
+    public DigitalInput rightStiltLimit;
+    public JoystickButton auto_climb;
 
     public OI() {
         getDriverPort();
@@ -52,8 +57,14 @@ public class OI {
         auto_grab_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_GRAB_AUTO);
         auto_deploy_sequence_button = new JoystickButton(manipulatorController,RobotMap.HATCH_DEPLOY_AUTO);
         turn_limelight_off = new JoystickButton(manipulatorController,RobotMap.LIME_LIGHT_OFF_BUTTON);
+        auto_climb = new JoystickButton(driverController, RobotMap.DRIVER_CONTROLLER_AUTO_CLIMB);
         frontSensor = new DigitalInput(RobotMap.FRONT_PHOTO_SENSOR);
         casterSensor = new DigitalInput(RobotMap.CASTER_PHOTO_SENSOR);
+        cargoSensor = new DigitalInput(RobotMap.CARGO_SENSOR);
+        hatchSensor = new DigitalInput(RobotMap.HATCH_SENSOR);
+        leftStiltLimit = new DigitalInput(RobotMap.LEFT_STILT);
+        rightStiltLimit = new DigitalInput(RobotMap.RIGHT_STILT);
+
     }
 
     public void getDriverPort() {
@@ -114,5 +125,21 @@ public class OI {
     
       public boolean isCasterTarget(){
         return casterSensor.get();
+      }
+
+      public boolean isCargoSensorTarget(){
+        return !cargoSensor.get();
+      }
+
+      public boolean isHatchSensor(){
+          return !hatchSensor.get();
+      }
+
+      public boolean getLeftStiltSensor(){
+          return leftStiltLimit.get();
+      }
+
+      public boolean getRightStiltSensor(){
+          return rightStiltLimit.get();
       }
 }

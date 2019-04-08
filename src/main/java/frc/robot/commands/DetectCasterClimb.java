@@ -39,18 +39,20 @@ public class DetectCasterClimb extends Command {
     if(Robot.m_oi.isCasterTarget()){
       if(climbedYet){
         Robot.m_oi.driverController.setRumble(Joystick.RumbleType.kLeftRumble,1.0);
+        Robot.m_oi.manipulatorController.setRumble(Joystick.RumbleType.kLeftRumble, 1.0);
         time.start();
-        System.out.println("should rumble");
+        //System.out.println("caster - should rumble");
         climbedYet = false;
       }
     }else{
       //climbing
-      System.out.println("no longer sees ground");
+      //System.out.println("caster - no longer sees ground");
       climbedYet = true;
     }
     if(time.get() > 2.0 && !rumbled){
       Robot.m_oi.driverController.setRumble(Joystick.RumbleType.kLeftRumble,0.0);
-      System.out.println("rumbling should stop");
+      Robot.m_oi.manipulatorController.setRumble(Joystick.RumbleType.kLeftRumble, 0.0);
+      //System.out.println("caster - rumbling should stop");
       rumbled = true;
       time.stop();
       done = true;

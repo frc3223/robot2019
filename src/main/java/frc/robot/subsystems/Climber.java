@@ -64,7 +64,7 @@ public class Climber extends Subsystem{
         this.initLogger(this.logger);
 
 
-        this.backSSC = new StiltStateSpaceController(-3.0, 0);
+        this.backSSC = new StiltStateSpaceController(-3.7, 0);
         this.leftFrontSSC = new StiltStateSpaceController(0, 0);
         this.rightFrontSSC = new StiltStateSpaceController(0, 0);
     }
@@ -176,7 +176,7 @@ public class Climber extends Subsystem{
         this.rightFrontTargetPositionInches = posInches;
         System.out.println(" all pos " + posInches);
         if(posInches < -0.1) {
-            posInches += 0.5; // back stilt is 1/2 inch higher off the ground
+            posInches -= 0.5; // back stilt is 1/2 inch lower off the ground
         }
         this.backTargetPositionInches = -posInches;
     }

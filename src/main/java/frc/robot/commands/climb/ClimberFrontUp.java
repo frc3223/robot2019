@@ -25,18 +25,25 @@ public class ClimberFrontUp extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Raising front stilts");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    this.subsystem.setFrontTargetPosition(0);
     //this.subsystem.liftFront();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if((Math.abs(this.subsystem.leftFrontPosition())) <= 1 && (Math.abs(this.subsystem.rightFrontPosition())) <= 1){
+      System.out.println("Finished raising front stilts");
+      return true;
+    }else{
     return false;
+    }
   }
 
   // Called once after isFinished returns true

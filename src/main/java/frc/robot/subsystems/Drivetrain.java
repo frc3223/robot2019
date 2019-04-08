@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
@@ -24,6 +25,7 @@ public class Drivetrain extends Subsystem {
   WPI_VictorSPX leftBackVictor = null;
   WPI_TalonSRX rightFrontTalon = null;
   WPI_VictorSPX rightBackVictor = null;
+  PowerDistributionPanel pdp;
 
   DifferentialDrive differentialDrive = null;
 
@@ -33,6 +35,7 @@ public class Drivetrain extends Subsystem {
     rightFrontTalon = new WPI_TalonSRX(RobotMap.DRIVETRAIN_RIGHT_FRONT_TALON);
     rightBackVictor = new WPI_VictorSPX(RobotMap.DRIVETRAIN_RIGHT_BACK_VICTOR);
 
+    pdp = new PowerDistributionPanel(0);
     leftFrontTalon.setInverted(false);
     leftBackVictor.setInverted(false);
     rightFrontTalon.setInverted(false);
@@ -69,5 +72,20 @@ public class Drivetrain extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new DriveArcade());
 
+  }
+
+  public void logMotorCurrents(DataLogger logger) {
+      logger.add("Current (Motor rf)", () -> {
+        return this.rightFrontTalon.getOutputCurrent();
+      });
+      logger.add("Current (Motor rr)", () -> {
+        return this.pdp.getCurrent(1);
+      });
+      logger.add("Current (Motor lf)", () -> {
+        return this.leftFrontTalon.getOutputCurrent();
+      });
+      logger.add("Current (Motor lr)", () -> {
+        return this.pdp.getCurrent(14);
+      });
   }
 }

@@ -83,6 +83,8 @@ public class RobotMap {
   public static final int MANIPULATOR_CONTROLLER_HATCH_DEPLOY = 3; //deploying hatches via right trigger
   public static final int MANIPULATOR_CONTROLLER_INTAKE_IN = 6; // Intake in with Left Bumper
   public static final int MANIPULATOR_CONTROLLER_INTAKE_OUT = 5; // Intake out with Right Bumper
+  public static final int MANIPULATOR_CONTROLLER_JOYSTICK_PRESS = 9;//press left joystick
+  public static final int DRIVER_CONTROLLER_AUTO_CLIMB = 4;// y button on driver
 
   public static final int MANIPULATOR_CONTROLLER_ELEVATOR = 1; //left joystick up-down
   public static final int MANIPULATOR_CONTROLLER_DRIVE_MOVE = 5; // Manipulator can move robot! --up down
@@ -115,6 +117,10 @@ public class RobotMap {
   //photoSensor DIO ports
   public static final int FRONT_PHOTO_SENSOR = 9;
   public static final int CASTER_PHOTO_SENSOR = 8;
+  public static final int CARGO_SENSOR = 7;
+  public static final int HATCH_SENSOR = 6;
+  public static final int LEFT_STILT = 5;
+  public static final int RIGHT_STILT = 4;
 
   //Pneumatics modes -- DO NOT CHANGE THIS OR MADDY WILL KILL YOU
   public static final int SOLENOIDS_SLIDE_FORWARD = 3;//same on bravo

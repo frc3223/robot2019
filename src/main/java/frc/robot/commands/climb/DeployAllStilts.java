@@ -8,42 +8,41 @@
 package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
+import frc.robot.Robot;
+import frc.robot.TrapezoidalProfiler;
 import frc.robot.subsystems.Climber;
 
-public class ClimberBackUp extends Command {
+public class DeployAllStilts extends Command {
+  TrapezoidalProfiler profiler;
   Climber subsystem;
-  OI oi;
-  public ClimberBackUp(Climber subsystem, OI oi) {
-    // Use requires() here to declare subsystem dependencies
-    this.subsystem = subsystem;
-    this.oi = oi;
+
+  public DeployAllStilts() {
+    profiler = new TrapezoidalProfiler(10, 30, -20, 0.1, 0);
+    subsystem = new Climber(Robot.m_oi);
     requires(subsystem);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("Raising back stilt");
+    System.out.println("Deploy All Stilts initalized");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.setBackTargetPosition(0);
+    profiler.calculate_new_velocity(profiler.getCurrentPosition(), 0.02);
+    this.subsystem.setTargetPosition(profiler.getCurrentPosition());
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(Math.abs(this.subsystem.backPosition()) <= 1){
-      System.out.println("Back stilt raised");
-      return true;
-    }else{
-      return false;
-    }
-
+    System.out.println("finished deploying stilts");
+    return profiler.isFinished(profiler.getCurrentPosition());
   }
 
   // Called once after isFinished returns true

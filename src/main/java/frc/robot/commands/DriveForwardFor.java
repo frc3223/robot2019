@@ -31,6 +31,7 @@ public class DriveForwardFor extends TimedCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("driving forward");
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -42,6 +43,7 @@ public class DriveForwardFor extends TimedCommand {
   // Called once after timeout
   @Override
   protected void end() {
+    System.out.println("done driving forward");
   }
 
   // Called when another command which requires one or more of the same
