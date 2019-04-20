@@ -23,10 +23,9 @@ import frc.robot.subsystems.Elevator;
 
 
 
-//@RunWith(PowerMockRunner.class)
-//@PrepareForTest({Elevator.class, CANSparkMaxLowLevel.class, CANSparkMax.class, OI.class})
-//@PrepareEverythingForTest
-public class ElevatorTest {/*
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Elevator.class, CANSparkMaxLowLevel.class, CANSparkMax.class, OI.class})
+public class ElevatorTest {
 
     public Elevator elevator;
     public Notifier mockNotifier = PowerMockito.mock(Notifier.class);
@@ -122,4 +121,4 @@ public class ElevatorTest {/*
     public double metersToEncoderPosition(double meters) {
         return (int)((meters * elevator.ticksPerRev) / ((2 * elevator.sprocketRadius) * Math.PI));
     }
-*/}
+}
