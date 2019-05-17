@@ -30,14 +30,14 @@ public class DriveArcade extends Command {
     double moveSpeedManip = Robot.m_oi.getManipulatorDriveMove();
     double rotateSpeedManip = Robot.m_oi.getManipulatorDriveRotate();
 
-    double forwardSpeed = Robot.m_oi.forwardSpeed();
-    double backwardSpeed = Robot.m_oi.backwardSpeed();
+    //double forwardSpeed = Robot.m_oi.forwardSpeed();
+    //double backwardSpeed = Robot.m_oi.backwardSpeed();
 
-    if(Math.abs(forwardSpeed) >= 0.1) {
-      Robot.m_drivetrain.arcadeDrive(forwardSpeed, 0);
-    }else if(Math.abs(backwardSpeed) >= 0.1) {
-      Robot.m_drivetrain.arcadeDrive(backwardSpeed, 0);
-    }else if(Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1){ //Right joystick used
+    //if(Math.abs(forwardSpeed) >= 0.1) {
+      //Robot.m_drivetrain.arcadeDrive(forwardSpeed, 0);
+    //}else if(Math.abs(backwardSpeed) >= 0.1) {
+      //Robot.m_drivetrain.arcadeDrive(backwardSpeed, 0);
+    /*}else*/ if(Math.abs(slowMoveSpeed) >= 0.1 || Math.abs(slowRotateSpeed) >= 0.1){ //Right joystick used
       Robot.m_drivetrain.arcadeDrive(slowMoveSpeed*0.5, slowRotateSpeed*0.8);
     } else if(Math.abs(moveSpeed) >= 0.1 || Math.abs(rotateSpeed) >= 0.1){ //Left joystick used
       Robot.m_drivetrain.arcadeDrive(moveSpeed*1, rotateSpeed*1);

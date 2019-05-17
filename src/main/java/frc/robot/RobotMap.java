@@ -60,8 +60,8 @@ public class RobotMap {
   public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0; //left joystick left right
   public static final int DRIVER_CONTROLLER_RIGHT_MOVE_AXIS = 5; //right joystick up-down
   public static final int DRIVER_CONTROLLER_RIGHT_ROTATE_AXIS = 4; //right joystick L-R
-  public static final int DRIVER_CONTROLLER_STRAIGHT_FORWARD_AXIS = 3; // right trigger drive straight
-  public static final int DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS = 2; // left trigger drive straight
+ // public static final int DRIVER_CONTROLLER_STRAIGHT_FORWARD_AXIS = 3; // right trigger drive straight
+  //public static final int DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS = 2; // left trigger drive straight
 
   public static final int DRIVER_CONTROLLER_LIFT_ALL = 1; //raising all stilts via A button
   public static final int DRIVER_CONTROLLER_LIFT_FRONT = 3; //raising the front stilts via X button

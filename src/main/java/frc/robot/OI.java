@@ -111,13 +111,13 @@ public class OI {
         return this.manipulatorController.getRawAxis(RobotMap.MANIPULATOR_CONTROLLER_DRIVE_ROTATE);
     }
 
-    public double forwardSpeed() {
-        return this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_FORWARD_AXIS);
-    }
+    //public double forwardSpeed() {
+        //return this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_FORWARD_AXIS);
+    //}
 
-    public double backwardSpeed() {
-        return -this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
-    }
+    //public double backwardSpeed() {
+        //return -this.driverController.getRawAxis(RobotMap.DRIVER_CONTROLLER_STRAIGHT_BACKWARD_AXIS);
+    //}
 
     public boolean isFrontTarget(){
         return frontSensor.get();
